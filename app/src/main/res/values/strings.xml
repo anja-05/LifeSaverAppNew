@@ -5,6 +5,12 @@
     <string name="enter_email">Enter Your Email</string>
     <string name="password">Password</string>
     <string name="enter_password">Enter Your Password</string>
+    <string name="repassword">RePassword</string>
+    <string name="repeat_password">Repeat Your Password</string>
     <string name="login">Login</string>
     <string name="create_account">Create Account</string>
+    <string name="create_account_2">Create&#10;Account</string>
+    <string name="name">Name</string>
+    <string name="enter_name">Enter Your Name</string>
+    <string name="signup">Signup</string>
 </resources>
