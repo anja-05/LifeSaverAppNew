@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,17 +32,17 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
     @Override
     public void onBindViewHolder(@NonNull LektionViewHolder holder, int position) {
         Lektion lektion = lektionen.get(position);
-        String nummerUndTitel = (position + 1) + ". " + lektion.getTitel();
-        holder.textViewVolltext.setText(nummerUndTitel);
+
+        // Setze Nummer und Titel separat
+        holder.textViewNummer.setText((position + 1) + ".");
+        holder.textViewTitel.setText(lektion.getTitel());
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, LektionDetailActivity.class);
-
             intent.putExtra("TITEL", lektion.getTitel());
             intent.putExtra("DATEINAME", lektion.getDateiname());
             context.startActivity(intent);
         });
-
     }
 
     @Override
@@ -52,11 +51,13 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
     }
 
     public static class LektionViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewVolltext;
+        TextView textViewNummer;
+        TextView textViewTitel;
 
         public LektionViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewVolltext = itemView.findViewById(R.id.textViewLektionVolltext);
+            textViewNummer = itemView.findViewById(R.id.textViewNummer);
+            textViewTitel = itemView.findViewById(R.id.textViewTitel);
         }
     }
 }

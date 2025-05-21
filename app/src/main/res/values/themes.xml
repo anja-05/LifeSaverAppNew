@@ -1,9 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!-- Basisthema -->
     <style name="Base.Theme.LifeSaver" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Hintergrundfarbe für alle Screens -->
+        <item name="android:windowBackground">@color/warm_white</item>
+
+        <!-- Statusbar-Farbe (oben) -->
+        <item name="android:statusBarColor">@color/warm_white</item>
+
+        <!-- BottomNavigationView: Auswahlhintergrund -->
+        <item name="colorSecondaryContainer">@color/medium_red</item>
     </style>
 
+    <!-- App-Theme -->
     <style name="Theme.LifeSaver" parent="Base.Theme.LifeSaver" />
 </resources>
+

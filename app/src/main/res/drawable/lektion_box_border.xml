@@ -1,6 +1,14 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="#FFFFFF"/>
-    <stroke android:width="2dp" android:color="#000000"/>
-    <corners android:radius="12dp"/>
+
+    <!-- HINTERGRUNDFARBE -->
+    <solid android:color="@color/white" />
+
+    <corners android:radius="12dp" />
+
+    <!-- RAHMENFARBE -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/dark_red" />
 </shape>
+
