@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imageViewLektionenWelle"
         android:layout_width="160dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:src="@drawable/lektionen_welle"
         android:layout_gravity="center"
         android:layout_marginBottom="32dp" />
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Hier findest du verständliche Erklärungen zu den wichtigsten Erste-Hilfe-Themen. Du kannst dein Wissen direkt im Anschluss mit kurzen Quizfragen testen und festigen."
-        android:textSize="14sp"
+        android:textSize="15dp"
         android:textColor="#444444"
         android:layout_marginBottom="24dp" />
 
