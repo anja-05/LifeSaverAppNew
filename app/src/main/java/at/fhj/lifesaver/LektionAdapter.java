@@ -1,6 +1,7 @@
 package at.fhj.lifesaver;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,13 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
         holder.textViewVolltext.setText(nummerUndTitel);
 
         holder.itemView.setOnClickListener(v -> {
-            Toast.makeText(context, "Du hast gewählt: " + nummerUndTitel, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, LektionDetailActivity.class);
+
+            intent.putExtra("TITEL", lektion.getTitel());
+            intent.putExtra("DATEINAME", lektion.getDateiname());
+            context.startActivity(intent);
         });
+
     }
 
     @Override

@@ -26,18 +26,18 @@ public class LernenFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewLektion);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Titel für die Lektionen
+        // Titel und Dateinamen für die Lektionen
         lektionenListe = new ArrayList<>();
-        lektionenListe.add(new Lektion("Bewusstlosigkeit/Reaktionslosigkeit"));
-        lektionenListe.add(new Lektion("Ersticken"));
-        lektionenListe.add(new Lektion("Verbrennungen"));
-        lektionenListe.add(new Lektion("Asthma"));
-        lektionenListe.add(new Lektion("Allergische Reaktion"));
-        lektionenListe.add(new Lektion("Schock"));
-        lektionenListe.add(new Lektion("Krampfanfall"));
-        lektionenListe.add(new Lektion("Starke Blutungen"));
-        lektionenListe.add(new Lektion("Frakturen, Verstauchungen und Zerrungen"));
-        lektionenListe.add(new Lektion("Vergiftungen"));
+        lektionenListe.add(new Lektion("Bewusstlosigkeit/Reaktionslosigkeit", "bewusstlosigkeit.html"));
+        lektionenListe.add(new Lektion("Ersticken", "ersticken.html"));
+        lektionenListe.add(new Lektion("Verbrennungen", "verbrennungen.html"));
+        lektionenListe.add(new Lektion("Asthma", "asthma.htmtl"));
+        lektionenListe.add(new Lektion("Allergische Reaktion","allergischeReaktion.html"));
+        lektionenListe.add(new Lektion("Schock","schock.html"));
+        lektionenListe.add(new Lektion("Krampfanfall","krampfanfall.html"));
+        lektionenListe.add(new Lektion("Starke Blutungen","starkeBlutungen.html"));
+        lektionenListe.add(new Lektion("Frakturen, Verstauchungen und Zerrungen","frakturen.html"));
+        lektionenListe.add(new Lektion("Vergiftungen","vergiftungen.html"));
 
         adapter = new LektionAdapter(lektionenListe, getContext());
         recyclerView.setAdapter(adapter);
