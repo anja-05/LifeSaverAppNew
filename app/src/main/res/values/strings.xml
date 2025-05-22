@@ -1,16 +1,17 @@
 <resources>
     <string name="app_name">LifeSaver</string>
-    <string name="login_greeting">Hi,&#10;Please login</string>
+    <string name="login_greeting">Hi,&#10;Bitte melde dich an</string>
     <string name="email">Email</string>
-    <string name="enter_email">Enter Your Email</string>
-    <string name="password">Password</string>
-    <string name="enter_password">Enter Your Password</string>
-    <string name="repassword">RePassword</string>
-    <string name="repeat_password">Repeat Your Password</string>
-    <string name="login">Login</string>
-    <string name="create_account">Create Account</string>
-    <string name="create_account_2">Create&#10;Account</string>
+    <string name="enter_email">Email eingeben</string>
+    <string name="password">Passwort</string>
+    <string name="enter_password">Passwort eingeben</string>
+    <string name="repassword">Passwort</string>
+    <string name="repeat_password">Passwort wiederholen</string>
+    <string name="login">Anmeldung</string>
+    <string name="create_account">Erstelle einen Account</string>
+    <string name="create_account_2">Erstelle&#10;einen Account</string>
     <string name="name">Name</string>
-    <string name="enter_name">Enter Your Name</string>
-    <string name="signup">Signup</string>
+    <string name="enter_name">Name eingeben</string>
+    <string name="signup">Anmeldung</string>
+    <string name="logout">Abmelden</string>
 </resources>
