@@ -2,8 +2,10 @@ package at.fhj.lifesaver;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +15,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText emailInput, passwordInput;
     Button loginButton;
     TextView createAccountText;
+    ImageView passwordToggle;
+    boolean isPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,21 @@ public class LoginActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.editTextTextPassword);
         loginButton = findViewById(R.id.button);
         createAccountText = findViewById(R.id.textViewCreateAccount);
+        passwordToggle = findViewById(R.id.passwordToggle);
+
+        isPasswordVisible = false;
+        passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        passwordToggle.setOnClickListener(v -> {
+            if (isPasswordVisible) {
+                passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                isPasswordVisible = false;
+            } else {
+                passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                isPasswordVisible = true;
+            }
+            passwordInput.setSelection(passwordInput.getText().length());
+        });
 
         loginButton.setOnClickListener(v -> {
             String email = emailInput.getText().toString().trim();

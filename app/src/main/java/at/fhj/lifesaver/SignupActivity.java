@@ -2,8 +2,10 @@ package at.fhj.lifesaver;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +15,8 @@ public class SignupActivity extends AppCompatActivity {
     EditText nameInput, emailInput, passwordInput, repasswordInput;
     Button signupButton;
     TextView backToLogin;
+    ImageView passwordToggle;
+    boolean isPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,21 @@ public class SignupActivity extends AppCompatActivity {
         repasswordInput = findViewById(R.id.editTextTextPassword);
         signupButton = findViewById(R.id.button);
         backToLogin = findViewById(R.id.textViewCreateAccount);
+        passwordToggle = findViewById(R.id.passwordToggle1);
+
+        isPasswordVisible = false;
+        passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        passwordToggle.setOnClickListener(v -> {
+            if (isPasswordVisible) {
+                passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                isPasswordVisible = false;
+            } else {
+                passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                isPasswordVisible = true;
+            }
+            passwordInput.setSelection(passwordInput.getText().length());
+        });
 
         signupButton.setOnClickListener(v -> {
             String name = nameInput.getText().toString().trim();

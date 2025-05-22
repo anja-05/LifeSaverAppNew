@@ -12,6 +12,6 @@
     <string name="create_account_2">Erstelle&#10;einen Account</string>
     <string name="name">Name</string>
     <string name="enter_name">Name eingeben</string>
-    <string name="signup">Anmeldung</string>
+    <string name="signup">Registrierung</string>
     <string name="logout">Abmelden</string>
 </resources>
