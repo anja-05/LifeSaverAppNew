@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,10 +34,12 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
     public void onBindViewHolder(@NonNull LektionViewHolder holder, int position) {
         Lektion lektion = lektionen.get(position);
 
-        // Setze Nummer und Titel separat
+        // Nummer, Titel und Bild setzen
         holder.textViewNummer.setText((position + 1) + ".");
         holder.textViewTitel.setText(lektion.getTitel());
+        holder.imageViewLektion.setImageResource(lektion.getBildResId());
 
+        // Beim Klicken neue Activity starten
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, LektionDetailActivity.class);
             intent.putExtra("TITEL", lektion.getTitel());
@@ -53,11 +56,13 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
     public static class LektionViewHolder extends RecyclerView.ViewHolder {
         TextView textViewNummer;
         TextView textViewTitel;
+        ImageView imageViewLektion;
 
         public LektionViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNummer = itemView.findViewById(R.id.textViewNummer);
             textViewTitel = itemView.findViewById(R.id.textViewTitel);
+            imageViewLektion = itemView.findViewById(R.id.imageViewLektion);
         }
     }
 }
