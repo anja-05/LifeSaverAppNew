@@ -1,22 +1,18 @@
 package at.fhj.lifesaver;
 
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
-import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.text.HtmlCompat;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class LektionDetailActivity extends AppCompatActivity {
 
-    TextView textViewTitel, textViewTheorie;
-    ImageView imageViewTheorie;
+    TextView textViewTitel;
+    WebView webViewTheorie;
     Button buttonQuiz;
 
     @Override
@@ -24,43 +20,33 @@ public class LektionDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lektion_detail);
 
+        // UI-Elemente zuweisen
         textViewTitel = findViewById(R.id.textViewTitel);
-        textViewTheorie = findViewById(R.id.textViewTheorie);
-        imageViewTheorie = findViewById(R.id.imageViewTheorie);
+        webViewTheorie = findViewById(R.id.webViewTheorie);
         buttonQuiz = findViewById(R.id.buttonQuiz);
 
-        imageViewTheorie.setVisibility(View.GONE); // Placeholder – du kannst später Bilder nutzen
-
-        String dateiname = getIntent().getStringExtra("DATEINAME");
+        // Übergabewerte aus Intent
         String titel = getIntent().getStringExtra("TITEL");
+        String dateiname = getIntent().getStringExtra("DATEINAME");
 
+        // Titel setzen
         textViewTitel.setText(titel);
 
-        try {
-            InputStream is = getAssets().open(dateiname);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
+        // WebView konfigurieren
+        webViewTheorie.setWebViewClient(new WebViewClient());
+        webViewTheorie.getSettings().setJavaScriptEnabled(true); // falls du später JS brauchst
 
-            String htmlText = new String(buffer, "UTF-8");
-            textViewTheorie.setText(HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_LEGACY));
-            textViewTheorie.setMovementMethod(LinkMovementMethod.getInstance()); // Für klickbare Links
-        } catch (IOException e) {
-            textViewTheorie.setText("Fehler beim Laden des Theorietextes.");
+        // HTML-Datei aus assets laden
+        if (dateiname != null && !dateiname.isEmpty()) {
+            webViewTheorie.loadUrl("file:///android_asset/" + dateiname);
+        } else {
+            String fallbackHTML = "<html><body><h2>Fehler</h2><p>Die Lektion konnte nicht geladen werden.</p></body></html>";
+            webViewTheorie.loadData(fallbackHTML, "text/html", "UTF-8");
         }
 
+        // Quiz-Button (noch leer, vorbereiten)
         buttonQuiz.setOnClickListener(v -> {
-            // Hier später QuizActivity starten
+            // TODO: QuizActivity starten
         });
-    }
-
-    private String titelZuDateiname(String titel) {
-        return titel.toLowerCase()
-                .replace("ä", "ae")
-                .replace("ö", "oe")
-                .replace("ü", "ue")
-                .replace("ß", "ss")
-                .replaceAll("[^a-z0-9]", "") + ".html";
     }
 }

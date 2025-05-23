@@ -1,52 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <LinearLayout
+    <!-- Titel -->
+    <TextView
+        android:id="@+id/textViewTitel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="Lektionstitel"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#8B0000"
+        android:paddingBottom="16dp" />
 
-        <!-- Titel der Lektion -->
-        <TextView
-            android:id="@+id/textViewTitel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lektionstitel"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="#8B0000"
-            android:paddingBottom="16dp" />
+    <!-- WebView nimmt den ganzen verbleibenden Platz ein -->
+    <WebView
+        android:id="@+id/webViewTheorie"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="16dp" />
 
-        <!-- Optionales Bild -->
-        <ImageView
-            android:id="@+id/imageViewTheorie"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="16dp"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
-
-        <!-- Theorietext -->
-        <TextView
-            android:id="@+id/textViewTheorie"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:lineSpacingExtra="6dp" />
-
-        <!-- Quiz-Button -->
-        <Button
-            android:id="@+id/buttonQuiz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Quiz starten"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="#8B0000"
-            android:textColor="@android:color/white" />
-
-    </LinearLayout>
-</ScrollView>
-
+    <!-- Button unten -->
+    <Button
+        android:id="@+id/buttonQuiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quiz starten"
+        android:backgroundTint="#8B0000"
+        android:textColor="@android:color/white" />
+</LinearLayout>
