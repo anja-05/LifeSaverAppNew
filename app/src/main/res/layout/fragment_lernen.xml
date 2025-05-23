@@ -7,24 +7,25 @@
 
     <!-- Bild statt Text als Überschrift -->
     <ImageView
-        android:id="@+id/imageViewLektionenWelle"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:src="@drawable/lektionen_welle"
+        android:id="@+id/imageViewLektionenUeberschrift"
+        android:layout_width="176dp"
+        android:layout_height="57dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginBottom="18dp"
+        android:src="@drawable/lektionen_ueberschrift" />
 
     <!-- Einführungstext -->
+
+    <!-- RecyclerView für die Lektionen -->
     <TextView
         android:id="@+id/textViewEinleitung"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:text="Hier findest du verständliche Erklärungen zu den wichtigsten Erste-Hilfe-Themen. Du kannst dein Wissen direkt im Anschluss mit kurzen Quizfragen testen und festigen."
-        android:textSize="15dp"
         android:textColor="#444444"
-        android:layout_marginBottom="24dp" />
+        android:textSize="15.5dp" />
 
-    <!-- RecyclerView für die Lektionen -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewLektion"
         android:layout_width="match_parent"
