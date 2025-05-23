@@ -31,18 +31,19 @@ public class SignupActivity extends AppCompatActivity {
         backToLogin = findViewById(R.id.textViewCreateAccount);
         passwordToggle = findViewById(R.id.passwordToggle1);
 
+        passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        repasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         isPasswordVisible = false;
-        passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         passwordToggle.setOnClickListener(v -> {
             if (isPasswordVisible) {
-                passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                repasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 isPasswordVisible = false;
             } else {
-                passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                repasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 isPasswordVisible = true;
             }
-            passwordInput.setSelection(passwordInput.getText().length());
+            repasswordInput.setSelection(repasswordInput.getText().length());
         });
 
         signupButton.setOnClickListener(v -> {

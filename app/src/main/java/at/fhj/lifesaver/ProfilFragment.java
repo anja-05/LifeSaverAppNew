@@ -36,6 +36,15 @@ public class ProfilFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         progressText = view.findViewById(R.id.progressText);
         logoutButton = view.findViewById(R.id.button);
+        TextView nameText = view.findViewById(R.id.profile_name);
+        TextView emailText = view.findViewById(R.id.profile_email);
+
+        SharedPreferences userPrefs = requireContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        String name = userPrefs.getString("user_name", "Unbekannt");
+        String email = userPrefs.getString("user_email", "Nicht eingeloggt");
+
+        nameText.setText(name);
+        emailText.setText(email);
 
         // Fortschritt laden
         SharedPreferences prefs = requireContext().getSharedPreferences("progress", Context.MODE_PRIVATE);
@@ -44,12 +53,13 @@ public class ProfilFragment extends Fragment {
         updateProgress(completedLessons);
 
         logoutButton.setOnClickListener(v -> {
+            userPrefs.edit().clear().apply();
+
             Intent intent = new Intent(requireActivity(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
     }
-
     private void updateProgress(int completedLessons) {
         int progress = (int) ((completedLessons / (float) TOTAL_LESSONS) * 100);
         progressBar.setProgress(progress);
