@@ -1,6 +1,7 @@
 package at.fhj.lifesaver;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.Button;
@@ -20,6 +21,15 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
+        boolean isLoggedIn = prefs.getBoolean("is_logged_in", false);
+
+        if (isLoggedIn) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -55,6 +65,12 @@ public class LoginActivity extends AppCompatActivity {
             UserDatabase db = UserDatabase.getInstance(this);
             User user = db.userDao().login(email, password);
             if (user != null) {
+                prefs.edit()
+                        .putString("user_name", user.name)
+                        .putString("user_email", user.email)
+                        .putBoolean("is_logged_in", true)
+                        .apply();
+
                 Toast.makeText(this, "Willkommen " + user.name, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
