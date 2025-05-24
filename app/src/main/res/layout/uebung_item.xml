@@ -7,14 +7,12 @@
     android:padding="16dp"
     android:layout_marginBottom="12dp">
 
-    <!-- Zeile: Nummer + Titel nebeneinander -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
-        <!-- Nummer -->
         <TextView
             android:id="@+id/textViewNummer"
             android:layout_width="wrap_content"
@@ -25,23 +23,21 @@
             android:textStyle="bold"
             android:layout_marginEnd="8dp"/>
 
-        <!-- Titel -->
         <TextView
             android:id="@+id/textViewTitel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bewusstlosigkeit"
+            android:text="Herzdruckmassage"
             android:textColor="#000000"
             android:textSize="17sp" />
     </LinearLayout>
 
-    <!-- Bild unter dem Titel -->
     <ImageView
-        android:id="@+id/imageViewLektion"
+        android:id="@+id/imageViewUebung"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="12dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_bewusstlos"
-        android:contentDescription="Lektionsbild" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_herzdruckmassage"
+        android:contentDescription="Übungsbild" />
 </LinearLayout>

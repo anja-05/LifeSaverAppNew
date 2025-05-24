@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UebungFragment">
+    android:padding="16dp">
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ImageView
+        android:id="@+id/imageViewUebungUeberschrift"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="18dp"/>
+       <!-- android:src="@drawable/uebungen_ueberschrift" />-->
+
+    <TextView
+        android:id="@+id/textViewEinleitungUebung"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Übung"
-        android:textSize="24sp" />
+        android:layout_height="wrap_content"
+        android:text="Hier kannst du dein Erste-Hilfe-Wissen durch interaktive Übungen festigen."
+        android:textColor="#444444"
+        android:textSize="15.5sp"
+        android:layout_marginBottom="24dp" />
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewUebung"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>
