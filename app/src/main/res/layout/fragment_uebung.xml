@@ -8,11 +8,13 @@
 
     <ImageView
         android:id="@+id/imageViewUebungUeberschrift"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="70dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="18dp"/>
-       <!-- android:src="@drawable/uebungen_ueberschrift" />-->
+        android:layout_marginBottom="18dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:src="@drawable/uebungen_ueberschrift" />
 
     <TextView
         android:id="@+id/textViewEinleitungUebung"
