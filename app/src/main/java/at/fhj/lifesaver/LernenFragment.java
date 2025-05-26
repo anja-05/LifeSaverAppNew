@@ -36,6 +36,9 @@ public class LernenFragment extends Fragment {
         lektionenListe.add(new Lektion("Starke Blutungen", "starkeBlutungen.html", R.drawable.ic_blutung));
         lektionenListe.add(new Lektion("Frakturen, Verstauchungen und Zerrungen", "frakturen.html", R.drawable.ic_fraktur));
         lektionenListe.add(new Lektion("Vergiftungen", "vergiftungen.html", R.drawable.ic_vergiftung));
+        lektionenListe.add(new Lektion("Schlaganfall", "schlaganfall.html", R.drawable.ic_schlaganfall));
+        lektionenListe.add(new Lektion("Herzinfarkt", "herzinfarkt.html", R.drawable.ic_herzinfarkt));
+        lektionenListe.add(new Lektion("Verkehrsunfall", "verkehrsunfall.html", R.drawable.ic_verkehrsunfall));
 
         adapter = new LektionAdapter(lektionenListe, getContext());
         recyclerView.setAdapter(adapter);
