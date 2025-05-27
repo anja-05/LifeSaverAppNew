@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Was ist eine allergische Reaktion?",
+    "options": [
+      "Eine bakterielle Infektion",
+      "Eine Reaktion auf Medikamente",
+      "Eine Überreaktion des Immunsystems auf bestimmte Substanzen",
+      "Eine Folge von schlechter Hygiene"
+    ],
+    "correctIndex": 2,
+    "explanation": "Eine allergische Reaktion ist eine Überempfindlichkeitsreaktion des Immunsystems auf bestimmte Substanzen (Allergene)."
+  },
+  {
+    "question": "Was ist die wichtigste Maßnahme bei einer schweren allergischen Reaktion (Anaphylaxie)?",
+    "options": [
+      "Kochsalzlösung verabreichen",
+      "Ruhe bewahren",
+      "Die betroffene Person bewegen",
+      "Sofort den Notruf absetzen"
+    ],
+    "correctIndex": 3,
+    "explanation": "Bei Anaphylaxie zählt jede Minute – der Notruf muss sofort abgesetzt werden."
+  },
+  {
+    "question": "Was ist bei der Verabreichung eines Epinephrin-Autoinjektors zu beachten?",
+    "options": [
+      "Er wird in die Brust injiziert",
+      "Er wird oral eingenommen",
+      "Er wird in den Oberschenkel injiziert – auch durch Kleidung hindurch",
+      "Er wird in die Hand gespritzt"
+    ],
+    "correctIndex": 2,
+    "explanation": "Der Autoinjektor wird an der Außenseite des Oberschenkels eingesetzt – auch durch Kleidung hindurch (nicht zu dick), wenn nötig."
+  },
+  {
+    "question": "Welche der folgenden Symptome gehören zu den Nebenwirkungen von Epinephrin?",
+    "options": [
+      "Fieber und Husten",
+      "Schwindel, Zittern und schneller Puls",
+      "Hautausschlag",
+      "Verlust des Geruchssinns"
+    ],
+    "correctIndex": 1,
+    "explanation": "Typische Nebenwirkungen sind schneller oder unregelmäßiger Herzschlag, Schwindel, Zittern und Schwitzen."
+  },
+  {
+    "question": "Was sollte bei einer leichten allergischen Reaktion getan werden?",
+    "options": [
+      "Die Person sofort ins Krankenhaus bringen",
+      "Antihistaminika oder Kortikosteroide anbieten (wenn geschult und erlaubt)",
+      "Epinephrin verabreichen",
+      "Die Person an einen warmen Ort bringen"
+    ],
+    "correctIndex": 1,
+    "explanation": "Bei leichten Reaktionen kann man – sofern geschult und erlaubt – Antihistaminika oder Kortikosteroide anbieten."
+  }
+]

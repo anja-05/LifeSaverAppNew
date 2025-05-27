@@ -1,5 +1,6 @@
 package at.fhj.lifesaver;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -46,7 +47,8 @@ public class LektionDetailActivity extends AppCompatActivity {
 
         // Quiz-Button (noch leer, vorbereiten)
         buttonQuiz.setOnClickListener(v -> {
-            // TODO: QuizActivity starten
+            Intent intent = new Intent(this, QuizActivity.class);
+            startActivity(intent);
         });
     }
 }
