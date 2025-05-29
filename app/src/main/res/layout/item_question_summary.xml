@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/bg_summary_item">
+
+    <TextView
+        android:id="@+id/tv_question_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Frage 1: ✓"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/green_800" />
+
+    <TextView
+        android:id="@+id/tv_question_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Was ist eine Variable in der Programmierung?"
+        android:textColor="@color/text_primary"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/tv_answer_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Richtige Antwort: Ein Speicherplatz für Daten, dessen Wert sich ändern kann"
+        android:textColor="@color/green_700"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

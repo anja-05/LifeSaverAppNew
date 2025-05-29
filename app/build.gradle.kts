@@ -52,4 +52,6 @@ dependencies {
     annotationProcessor ("androidx.room:room-compiler:$room_version")
 
     implementation ("com.google.code.gson:gson:2.10.1")
+
+    implementation ("com.google.android.material:material:1.11.0")
 }

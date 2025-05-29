@@ -45,7 +45,6 @@ public class LektionDetailActivity extends AppCompatActivity {
             webViewTheorie.loadData(fallbackHTML, "text/html", "UTF-8");
         }
 
-        // Quiz-Button (noch leer, vorbereiten)
         buttonQuiz.setOnClickListener(v -> {
             Intent intent = new Intent(this, QuizActivity.class);
             startActivity(intent);
