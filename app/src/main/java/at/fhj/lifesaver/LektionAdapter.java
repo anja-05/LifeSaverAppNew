@@ -46,6 +46,7 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
             intent.putExtra("DATEINAME", lektion.getDateiname());
             context.startActivity(intent);
         });
+
     }
 
     @Override

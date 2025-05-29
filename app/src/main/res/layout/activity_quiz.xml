@@ -19,7 +19,7 @@
             android:id="@+id/tv_topic_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quiz: Grundlagen der Programmierung"
+            android:text="Quiz: allergische Raktion"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/primary"
@@ -90,7 +90,7 @@
                     android:id="@+id/tv_question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Was ist eine Variable in der Programmierung?"
+                    android:text="Was ist eine allergische Reaktion?"
                     android:textSize="18sp"
                     android:textColor="@color/text_primary"
                     android:textStyle="bold"
@@ -112,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:text="Ein festgelegter Wert, der nicht geändert werden kann"
+                        android:text="Eine bakterielle Infektion"
                         android:textColor="@color/text_primary" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -131,7 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:text="Ein Speicherplatz für Daten, dessen Wert sich ändern kann"
+                        android:text="Eine Reaktion auf Medikamente"
                         android:textColor="@color/text_primary" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -150,7 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:text="Eine mathematische Gleichung"
+                        android:text="Eine Überreaktion des Immunsystems auf bestimmte Substanzen"
                         android:textColor="@color/text_primary" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -169,7 +169,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:text="Ein Programmfehler"
+                        android:text="Eine Folge von schlechter Hygiene"
                         android:textColor="@color/text_primary" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -195,7 +195,7 @@
                         android:id="@+id/tv_explanation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Eine Variable ist ein Speicherplatz für Daten in einem Programm. Der Wert einer Variable kann während der Programmausführung geändert werden, was sie zu einem grundlegenden Konzept in der Programmierung macht."
+                        android:text="Eine allergische Reaktion ist eine Überempfindlichkeitsreaktion des Immunsystems auf bestimmte Substanzen (Allergene)."
                         android:textColor="@color/text_secondary" />
                 </LinearLayout>
             </LinearLayout>

@@ -8,12 +8,20 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.List;
 import android.content.Intent;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.ArrayList;
 import com.google.android.material.card.MaterialCardView;
+import com.google.gson.Gson;
 
 
 public class QuizActivity extends AppCompatActivity {
@@ -36,6 +44,7 @@ public class QuizActivity extends AppCompatActivity {
         private int[] userAnswers;
         private boolean questionAnswered = false;
         private String topicTitle;
+        private String dateiname;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +53,7 @@ public class QuizActivity extends AppCompatActivity {
 
             Intent intent = getIntent();
             topicTitle = intent.getStringExtra("TOPIC_TITLE");
+            dateiname = intent.getStringExtra("DATEINAME");
             if (topicTitle == null) {
                 topicTitle = "Quiz";
             }
@@ -96,78 +106,41 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         private void initializeQuizData() {
-            // Create quiz questions
             quizQuestions = new ArrayList<>();
 
-            // Add sample questions - in a real app, you might load these from a database or API
-            quizQuestions.add(new QuizFrage(
-                    "Was ist eine Variable in der Programmierung?",
-                    new String[]{
-                            "Ein festgelegter Wert, der nicht geändert werden kann",
-                            "Ein Speicherplatz für Daten, dessen Wert sich ändern kann",
-                            "Eine mathematische Gleichung",
-                            "Ein Programmfehler"
-                    },
-                    1,
-                    "Eine Variable ist ein Speicherplatz für Daten in einem Programm. Der Wert einer Variable kann während der Programmausführung geändert werden, was sie zu einem grundlegenden Konzept in der Programmierung macht."
-            ));
+            try {
+                // Lade JSON-Datei basierend auf dem Thema
+                String fileName = "quiz/" + topicTitle.replaceAll(" ", "") + ".json";
+                InputStream is = getAssets().open(fileName);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                Gson gson = new Gson();
 
-            quizQuestions.add(new QuizFrage(
-                    "Was ist eine Schleife in der Programmierung?",
-                    new String[]{
-                            "Ein Fehler im Code",
-                            "Eine Methode zur Datenspeicherung",
-                            "Ein Codeblock, der wiederholt ausgeführt wird",
-                            "Eine Art von Variable"
-                    },
-                    2,
-                    "Eine Schleife ist ein Kontrollstruktur, die es ermöglicht, einen Codeblock mehrmals auszuführen, solange eine bestimmte Bedingung erfüllt ist oder für eine festgelegte Anzahl von Durchläufen."
-            ));
+                QuizFrage[] frageArray = gson.fromJson(reader, QuizFrage[].class);
+                quizQuestions = Arrays.asList(frageArray);
 
-            quizQuestions.add(new QuizFrage(
-                    "Was ist eine Bedingung (if-Statement) in der Programmierung?",
-                    new String[]{
-                            "Eine Anweisung, die Code nur ausführt, wenn eine bestimmte Bedingung erfüllt ist",
-                            "Eine Methode zum Speichern von Daten",
-                            "Ein Fehler im Programm",
-                            "Eine Art von Schleife"
-                    },
-                    0,
-                    "Eine Bedingung oder if-Statement ist eine Kontrollstruktur, die es ermöglicht, Code nur dann auszuführen, wenn eine bestimmte Bedingung als wahr ausgewertet wird. Dies ist grundlegend für die Entscheidungsfindung in Programmen."
-            ));
+            } catch (IOException e) {
+                Toast.makeText(this, "Fehler beim Laden des Quiz für: " + topicTitle, Toast.LENGTH_LONG).show();
+                finish(); // Brich ab, falls Datei fehlt
+                return;
+            }
 
-            quizQuestions.add(new QuizFrage(
-                    "Was ist eine Funktion in der Programmierung?",
-                    new String[]{
-                            "Ein mathematischer Ausdruck",
-                            "Ein Datentyp",
-                            "Ein wiederverwendbarer Codeblock, der eine bestimmte Aufgabe erfüllt",
-                            "Eine Art von Variable"
-                    },
-                    2,
-                    "Eine Funktion ist ein benannter, wiederverwendbarer Codeblock, der eine bestimmte Aufgabe erfüllt. Funktionen helfen, Code zu organisieren, zu strukturieren und Wiederholungen zu vermeiden."
-            ));
-
-            quizQuestions.add(new QuizFrage(
-                    "Was ist ein Array in der Programmierung?",
-                    new String[]{
-                            "Ein Fehler im Code",
-                            "Eine Sammlung von Elementen desselben Datentyps",
-                            "Eine Art von Schleife",
-                            "Eine Bedingung"
-                    },
-                    1,
-                    "Ein Array ist eine Datenstruktur, die eine Sammlung von Elementen desselben Datentyps speichert. Arrays ermöglichen es, auf mehrere Werte über einen einzigen Variablennamen und einen Index zuzugreifen."
-            ));
+            if (quizQuestions.isEmpty()) {
+                Toast.makeText(this, "Keine Fragen vorhanden für: " + topicTitle, Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
 
             answeredQuestions = new boolean[quizQuestions.size()];
             userAnswers = new int[quizQuestions.size()];
             for (int i = 0; i < userAnswers.length; i++) {
-                userAnswers[i] = -1; // -1 means not answered
+                userAnswers[i] = -1;
             }
 
             tvQuestionCounter.setText("Frage 1 von " + quizQuestions.size());
             tvScore.setText("Punkte: 0/" + quizQuestions.size());
+
+            // Nur hier aufrufen, wenn sichergestellt ist, dass Fragen existieren
+            loadQuestion(0);
         }
 
         private void setupListeners() {
@@ -187,6 +160,12 @@ public class QuizActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (currentQuestionIndex > 0) {
                         loadQuestion(currentQuestionIndex - 1);
+                    } else {
+                        Intent backIntent = new Intent(QuizActivity.this, LektionDetailActivity.class);
+                        backIntent.putExtra("TITEL", topicTitle);
+                        backIntent.putExtra("DATEINAME", dateiname);
+                        startActivity(backIntent);
+                        finish();
                     }
                 }
             });
@@ -194,6 +173,11 @@ public class QuizActivity extends AppCompatActivity {
             btnNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (!answeredQuestions[currentQuestionIndex]) {
+                        Toast.makeText(QuizActivity.this, "Bitte wähle eine Antwort aus!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     if (currentQuestionIndex < quizQuestions.size() - 1) {
                         loadQuestion(currentQuestionIndex + 1);
                     } else {
