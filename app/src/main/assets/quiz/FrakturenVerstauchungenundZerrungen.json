@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Was unterscheidet eine Fraktur eindeutig von einer Verstauchung oder Zerrung?",
+    "options": [
+      "Eine Fraktur betrifft den Knochen, nicht Bänder, Sehnen oder Muskeln",
+      "Frakturen entstehen nur durch Überlastung beim Sport",
+      "Bei Frakturen treten nie Schmerzen auf",
+      "Frakturen betreffen ausschließlich die Wirbelsäule"
+    ],
+    "correctIndex": 0,
+    "explanation": "Frakturen sind Knochenbrüche oder -risse, während Verstauchungen und Zerrungen Bänder, Sehnen oder Muskeln betreffen."
+  },
+  {
+    "question": "Welche Maßnahme hat bei einem offenen Bruch oberste Priorität?",
+    "options": [
+      "Die betroffene Gliedmaße kühlen",
+      "Die Gliedmaße sofort bewegen, um sie zu richten",
+      "Die Blutung stoppen, bevor stabilisiert wird",
+      "Die Person zum Aufstehen auffordern"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bei offenen Brüchen muss zuerst die Blutung gestoppt werden – z. B. mit einem sauberen Druckverband –, bevor die Gliedmaße ruhiggestellt wird."
+  },
+  {
+    "question": "Wann sollte eine verletzte Gliedmaße hochgelagert werden?",
+    "options": [
+      "Grundsätzlich immer, um Schmerzen zu lindern",
+      "Nur wenn die betroffene Person bewusstlos ist",
+      "Wenn es keine zusätzlichen Schmerzen verursacht, um Schwellungen zu reduzieren",
+      "Nie, da das die Durchblutung stören kann"
+    ],
+    "correctIndex": 2,
+    "explanation": "Hochlagern kann helfen, Schwellungen zu mindern – jedoch nur, wenn dies ohne zusätzliche Schmerzen möglich ist."
+  },
+  {
+    "question": "Welche Aussage zum Kühlen bei Knochenverletzungen ist korrekt?",
+    "options": [
+      "Direktes Auflegen von Eis lindert Schmerzen am besten",
+      "Kühlen sollte maximal 5 Minuten dauern",
+      "Kühlen kann bis zu 20 Minuten erfolgen – aber nie direkt auf die Haut",
+      "Kühlen ist nur bei Verstauchungen, nicht bei Brüchen sinnvoll"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kühlen reduziert Schwellung und Schmerzen, sollte aber maximal 20 Minuten dauern und nie direkt mit Eis auf der Haut erfolgen."
+  },
+  {
+    "question": "Wann sollte bei einer Fraktur unbedingt der Rettungsdienst verständigt werden?",
+    "options": [
+      "Wenn die betroffene Person sehr aufgeregt ist",
+      "Nur bei Bewusstlosigkeit",
+      "Wenn starke Schmerzen, eine unnatürliche Stellung oder ein offener Bruch vorliegen",
+      "Immer bei Verletzungen an Fingern oder Zehen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Ein Notruf ist nötig bei starken Schmerzen, unnatürlicher Gliedmaßenstellung oder offenen Brüchen – das kann auf schwere Verletzungen oder Schock hinweisen."
+  }
+]

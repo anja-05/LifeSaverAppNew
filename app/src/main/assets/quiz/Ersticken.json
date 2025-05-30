@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Welche der folgenden Beobachtungen weist am eindeutigsten auf einen schweren Erstickungsanfall hin?",
+    "options": [
+      "Die Person hustet stark und zeigt Würgereiz",
+      "Die Person ringt nach Luft, kann aber noch leise sprechen",
+      "Die Person ist stumm, greift sich an den Hals und wirkt panisch",
+      "Die Person atmet schwer, aber regelmäßig"
+    ],
+    "correctIndex": 2,
+    "explanation": "Ein schwerer Erstickungsanfall liegt vor, wenn die betroffene Person weder sprechen noch husten oder atmen kann. Das panische Greifen an den Hals ist ein klassisches Warnzeichen."
+  },
+  {
+    "question": "Was ist bei der Durchführung von Rückenschlägen bei Erwachsenen mit schwerem Erstickungsanfall zu beachten?",
+    "options": [
+      "Die Person sollte gerade stehen bleiben, um das Gleichgewicht nicht zu verlieren",
+      "Der Oberkörper der Person sollte nach vorne geneigt und der Brustkorb gestützt werden",
+      "Die Rückenschläge sollten immer zusammen mit Atemspenden erfolgen",
+      "Man schlägt mit beiden Händen gleichzeitig auf den Rücken"
+    ],
+    "correctIndex": 1,
+    "explanation": "Die betroffene Person wird nach vorne gebeugt, während der Brustkorb gestützt wird. So können die Schläge zwischen die Schulterblätter effektiver wirken und der Fremdkörper besser gelöst werden."
+  },
+  {
+    "question": "Wann ist der Einsatz von Bauchstößen (Heimlich-Griff) bei einer erwachsenen Person angebracht?",
+    "options": [
+      "Wenn die Person stark hustet, aber noch stehen kann",
+      "Sobald die Person Atemnot zeigt, auch wenn sie noch sprechen kann",
+      "Nur, wenn die Person keine Luft bekommt, nicht sprechen oder husten kann und Rückenschläge erfolglos bleiben",
+      "Wenn Rückenschläge gegeben wurden, unabhängig vom Zustand der Person"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bauchstöße dürfen nur durchgeführt werden, wenn die Person offensichtlich einen schweren Erstickungsanfall erleidet – also keine Luft bekommt, nicht sprechen oder husten kann – und Rückenschläge keine Wirkung zeigen."
+  },
+  {
+    "question": "Warum wird bei Babys unter einem Jahr kein Heimlich-Griff angewendet?",
+    "options": [
+      "Weil er bei Babys zu wenig Druck erzeugt",
+      "Weil Rückenschläge allein ausreichen",
+      "Weil der Griff zu inneren Verletzungen führen kann",
+      "Weil Babys keine Erstickungsanfälle bekommen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Der Heimlich-Griff kann bei Babys schwere innere Verletzungen verursachen. Deshalb werden stattdessen Rückenschläge und Bruststöße im Wechsel durchgeführt."
+  },
+  {
+    "question": "Wie verhält man sich richtig, wenn ein bewusstloser Mensch vermutlich an einem Fremdkörper erstickt ist?",
+    "options": [
+      "Den Mund mit den Fingern durchsuchen, um den Fremdkörper zu finden",
+      "Nur dann mit HLW beginnen, wenn der Fremdkörper entfernt wurde",
+      "Sofort HLW beginnen und nur deutlich sichtbare Fremdkörper vorsichtig entfernen",
+      "Den Heimlich-Griff fortsetzen, auch wenn keine Reaktion mehr erfolgt"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bei Bewusstlosigkeit wird sofort mit der Herz-Lungen-Wiederbelebung begonnen. Sichtbare Fremdkörper dürfen entfernt werden – aber blindes Greifen in den Mund kann die Situation verschlimmern."
+  }
+]

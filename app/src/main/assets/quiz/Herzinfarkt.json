@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Was passiert beim Herzinfarkt im Körper?",
+    "options": [
+      "Ein Blutgefäß im Gehirn wird verschlossen und verursacht Sprachstörungen",
+      "Ein Blutgefäß im Herz wird verschlossen, wodurch Herzmuskelgewebe nicht mehr ausreichend mit Sauerstoff versorgt wird",
+      "Die Lunge füllt sich mit Blut und führt zu Atemnot",
+      "Ein Nerv im Brustbereich wird eingeklemmt"
+    ],
+    "correctIndex": 1,
+    "explanation": "Ein Herzinfarkt entsteht meist durch ein Blutgerinnsel, das ein Herzkranzgefäß verschließt. Der betroffene Herzmuskel bekommt keinen Sauerstoff mehr – es droht Gewebeuntergang."
+  },
+  {
+    "question": "Wie äußert sich ein Herzinfarkt typischerweise?",
+    "options": [
+      "Plötzliche Rückenschmerzen, Übelkeit und Fieber",
+      "Stechender Kopfschmerz und Sehverlust",
+      "Starke Brustschmerzen, eventuell ausstrahlend in Arm, Rücken oder Kiefer, oft begleitet von Atemnot, Übelkeit oder kaltem Schweiß",
+      "Kurzzeitige Ohnmacht mit Zuckungen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Typisch sind Schmerzen oder Druckgefühl im Brustbereich, oft mit Ausstrahlung. Auch Atemnot, Schweiß, Übelkeit oder atypische Beschwerden – besonders bei Frauen – können auftreten."
+  },
+  {
+    "question": "Was ist bei der Lagerung einer wachen Person mit Verdacht auf Herzinfarkt zu beachten?",
+    "options": [
+      "Rückenlage mit hochgelagerten Beinen",
+      "Seitenlage mit angezogenen Beinen",
+      "Halb sitzende Haltung mit abgestützten Knien (Herzbettlagerung)",
+      "Bauchlage zur Entlastung des Herzens"
+    ],
+    "correctIndex": 2,
+    "explanation": "Die Herzbettlagerung entlastet das Herz und erleichtert die Atmung – wichtig bei Schmerzen, Unruhe oder Atemnot."
+  },
+  {
+    "question": "Welche Aussage ist korrekt im Umgang mit Nahrung und Getränken bei Herzinfarkt-Verdacht?",
+    "options": [
+      "Viel Wasser geben, um den Kreislauf zu unterstützen",
+      "Kohlenhydrate anbieten, um Unterzuckerung zu verhindern",
+      "Nichts geben, auch wenn Betroffene danach fragen – Erstickungsgefahr bei Bewusstlosigkeit",
+      "Koffein verabreichen, um den Kreislauf zu stabilisieren"
+    ],
+    "correctIndex": 2,
+    "explanation": "Aufgrund möglicher Bewusstlosigkeit und Schluckstörungen besteht Erstickungsgefahr – daher keine Nahrung oder Flüssigkeit verabreichen."
+  },
+  {
+    "question": "Wann sollte mit einer Herz-Lungen-Wiederbelebung begonnen werden?",
+    "options": [
+      "Wenn die betroffene Person Brustschmerzen hat, aber noch spricht",
+      "Wenn die betroffene Person schläft und sich nicht wecken lässt",
+      "Wenn keine normale Atmung mehr vorhanden ist – direkt mit 30:2 HLW starten",
+      "Nur nach Rücksprache mit dem Rettungsdienst"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bei fehlender oder abnormer Atmung nach Bewusstlosigkeit muss sofort mit der HLW begonnen werden – 30 Herzdruckmassagen, 2 Atemspenden im Wechsel."
+  }
+]

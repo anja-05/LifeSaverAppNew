@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Was ist die wichtigste Maßnahme direkt nach Eintreffen an einem Verkehrsunfallort?",
+    "options": [
+      "Die Verletzten sofort aus den Fahrzeugen holen",
+      "Fotos vom Unfall machen",
+      "Die Unfallstelle sichern – z. B. Warnweste anziehen, Warndreieck aufstellen",
+      "Sich sofort dem schwersten Verletzten zuwenden"
+    ],
+    "correctIndex": 2,
+    "explanation": "Die Sicherung der Unfallstelle hat oberste Priorität, um Folgeunfälle zu vermeiden. Erst dann folgen Notruf und Erste Hilfe."
+  },
+  {
+    "question": "Wann darf eine verletzte Person aus dem Fahrzeug gerettet werden?",
+    "options": [
+      "Wenn sie Schmerzen hat und das Auto blockiert",
+      "Nur bei Verdacht auf Wirbelsäulenverletzung",
+      "Wenn akute Lebensgefahr besteht oder sie bewusstlos ist",
+      "Wenn sie darum bittet"
+    ],
+    "correctIndex": 2,
+    "explanation": "Eine Rettung ist nur bei akuter Gefahr (z. B. Feuer, Bewusstlosigkeit, fehlende Atmung) gerechtfertigt – sonst lieber im Fahrzeug stabilisieren."
+  },
+  {
+    "question": "Welche Maßnahme gehört zur Ersten Hilfe bei einer bewusstlosen Person mit normaler Atmung?",
+    "options": [
+      "Sofortige Herzdruckmassage beginnen",
+      "Stabile Seitenlage einleiten und regelmäßig Atmung kontrollieren",
+      "Die Beine hochlagern, um den Kreislauf zu stabilisieren",
+      "Wasser geben, um die Person zu wecken"
+    ],
+    "correctIndex": 1,
+    "explanation": "Ist die Atmung vorhanden, wird die Person in die stabile Seitenlage gebracht, um die Atemwege freizuhalten und Erstickung zu verhindern."
+  },
+  {
+    "question": "Wann darf der Helm einer verunfallten bewusstlosen Motorradfahrerin abgenommen werden?",
+    "options": [
+      "Niemals – das machen nur Profis",
+      "Nur wenn sie sich bewegt",
+      "Wenn die Person bewusstlos ist oder nicht normal atmet – idealerweise zu zweit",
+      "Wenn sie nicht sprechen kann"
+    ],
+    "correctIndex": 2,
+    "explanation": "Der Helm darf nur bei Bewusstlosigkeit oder fehlender Atmung abgenommen werden – optimal mit zwei Personen, um den Kopf zu stabilisieren."
+  },
+  {
+    "question": "Warum dürfen verletzten Personen bei einem Verkehrsunfall keine Getränke gegeben werden?",
+    "options": [
+      "Weil sie unterkühlt sind",
+      "Weil es die Wundheilung verzögert",
+      "Weil sie operiert werden könnten oder sich übergeben müssen",
+      "Weil sie dadurch panisch werden könnten"
+    ],
+    "correctIndex": 2,
+    "explanation": "Getränke sind bei bewusstlosen oder schwer verletzten Personen gefährlich – wegen Erstickungsgefahr oder möglicher Notfalloperationen."
+  }
+]

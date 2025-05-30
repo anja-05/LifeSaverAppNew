@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Was ist die häufigste Ursache eines Schlaganfalls?",
+    "options": [
+      "Ein gebrochener Halswirbel",
+      "Ein zu hoher Puls",
+      "Ein Blutgerinnsel, das ein Gefäß im Gehirn verschließt",
+      "Ein verspannter Nackenmuskel"
+    ],
+    "correctIndex": 2,
+    "explanation": "In den meisten Fällen entsteht ein Schlaganfall durch ein Gerinnsel, das den Blutfluss im Gehirn blockiert – seltener durch eine Hirnblutung."
+  },
+  {
+    "question": "Wie funktioniert die FAST-Methode zur Schlaganfall-Erkennung?",
+    "options": [
+      "Sie prüft Atemfrequenz, Sprache, Temperatur und Orientierung",
+      "Sie misst Herzfrequenz, Augenbewegung und Körpertemperatur",
+      "Sie fragt Gesicht, Arme, Sprache ab – und betont, dass bei Auffälligkeiten sofort der Notruf zu wählen ist",
+      "Sie beschreibt Maßnahmen zur Medikamentengabe in Notfällen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Die FAST-Methode erkennt typische Schlaganfall-Symptome: F (Face) – Gesichtslähmung, A (Arms) – Lähmung eines Arms, S (Speech) – Sprachstörung, T (Time) – Notruf 112 wählen."
+  },
+  {
+    "question": "Warum darf eine betroffene Person beim Verdacht auf Schlaganfall nichts essen oder trinken?",
+    "options": [
+      "Weil der Magen entleert werden muss",
+      "Weil Getränke die Blutgerinnung beeinflussen",
+      "Weil Schluckstörungen bestehen können und Erstickungsgefahr droht",
+      "Weil Flüssigkeit die Symptome verschlimmern kann"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bei einem Schlaganfall ist das Schlucken oft gestört. Nahrung oder Flüssigkeit können zur Aspiration (Einatmen in die Lunge) führen – mit akuter Erstickungsgefahr."
+  },
+  {
+    "question": "Welche Lagerung ist bei einer wachen Person mit Verdacht auf Schlaganfall empfehlenswert?",
+    "options": [
+      "Flach auf den Rücken legen",
+      "Mit leicht erhöhtem Oberkörper – z. B. halb sitzend",
+      "Beine hochlagern, Kopf tief lagern",
+      "In Bauchlage bringen"
+    ],
+    "correctIndex": 1,
+    "explanation": "Eine leicht erhöhte Oberkörperlagerung kann die Atmung erleichtern und ist bei Bewusstsein der Person sinnvoll. Bei Bewusstlosigkeit: stabile Seitenlage oder Wiederbelebung."
+  },
+  {
+    "question": "Was ist bei einem sogenannten 'Mini-Schlaganfall' (TIA) zu tun?",
+    "options": [
+      "Ruhe bewahren und abwarten, ob sich die Symptome bessern",
+      "Aspirin verabreichen und beobachten",
+      "Sofort Notruf absetzen – auch wenn die Symptome nur kurz auftraten",
+      "Nur bei Schmerzen den Rettungsdienst rufen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Auch vorübergehende Schlaganfallsymptome (TIA) können auf einen bevorstehenden schweren Infarkt hindeuten. Es gilt: immer sofort Notruf – auch ohne Schmerzen."
+  }
+]

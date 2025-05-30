@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Warum ist schnelles Handeln bei starken Blutungen so entscheidend?",
+    "options": [
+      "Weil starke Blutungen zu Fieber und Krämpfen führen können",
+      "Weil der Körper durch Blutverlust lebenswichtige Organe nicht mehr mit Sauerstoff versorgt",
+      "Weil Infektionen innerhalb von Minuten entstehen",
+      "Weil Wunden immer sofort chirurgisch versorgt werden müssen"
+    ],
+    "correctIndex": 1,
+    "explanation": "Starker Blutverlust kann das Kreislaufsystem überlasten und zu Sauerstoffmangel in lebenswichtigen Organen führen – im schlimmsten Fall zu Schock oder Tod."
+  },
+  {
+    "question": "Welche Maßnahme steht bei starker äußerer Blutung an erster Stelle – auch zum Selbstschutz?",
+    "options": [
+      "Die Wunde sofort mit bloßen Händen abdecken",
+      "Schnell einen Notruf absetzen und dann zurücktreten",
+      "Die betroffene Person hinlegen und zum Selbst-Druck auffordern",
+      "Den Fremdkörper entfernen, um besser verbinden zu können"
+    ],
+    "correctIndex": 2,
+    "explanation": "Die Person sollte sich hinlegen und – wenn möglich – selbst Druck auf die Wunde ausüben. Das schützt sie und reduziert das Infektionsrisiko für Helfende."
+  },
+  {
+    "question": "Wie ist mit einer stark blutenden Wunde umzugehen, wenn ein Fremdkörper wie z. B. ein Messer darin steckt?",
+    "options": [
+      "Den Fremdkörper sofort vorsichtig entfernen und dann verbinden",
+      "Den Gegenstand mit Verbandmaterial stabilisieren und Druck ausüben",
+      "Die Wunde offenlassen, um Luft an die Stelle zu lassen",
+      "Nur kühlen, aber nicht berühren"
+    ],
+    "correctIndex": 1,
+    "explanation": "Ein Fremdkörper darf niemals entfernt werden. Stattdessen wird er fixiert und die Blutung vorsichtig durch Druck um die Wunde herum kontrolliert."
+  },
+  {
+    "question": "Wann darf eine Aderpresse (Tourniquet) eingesetzt werden?",
+    "options": [
+      "Nur bei leichten Blutungen an Fingern oder Zehen",
+      "Immer, wenn eine Wunde stark blutet – unabhängig von der Schulung",
+      "Wenn starker Blutfluss an Arm oder Bein nicht anders gestoppt werden kann und man dafür geschult ist",
+      "Wenn kein anderes Verbandsmaterial zur Verfügung steht"
+    ],
+    "correctIndex": 2,
+    "explanation": "Eine Aderpresse darf nur bei lebensbedrohlicher Blutung an Extremitäten eingesetzt werden – und nur von Personen mit entsprechender Schulung."
+  },
+  {
+    "question": "Wie ist zu verfahren, wenn der erste Druckverband durchblutet wird?",
+    "options": [
+      "Den Verband sofort abnehmen und die Wunde neu reinigen",
+      "Den alten Verband entfernen und durch einen kühlen Umschlag ersetzen",
+      "Einen weiteren Verband direkt über dem ersten anbringen und den Druck aufrechterhalten",
+      "Die Blutung ignorieren, solange sie langsamer wird"
+    ],
+    "correctIndex": 2,
+    "explanation": "Ein durchbluteter Verband wird nicht entfernt – stattdessen wird ein zweiter darübergelegt, um die Blutung weiter zu kontrollieren."
+  }
+]

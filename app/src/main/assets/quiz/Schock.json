@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Was passiert im Körper bei einem Schockzustand?",
+    "options": [
+      "Die Muskeln werden verstärkt durchblutet, um schneller fliehen zu können",
+      "Das Herz schlägt langsamer, um Energie zu sparen",
+      "Das Kreislaufsystem versagt, Organe erhalten zu wenig Blut und Sauerstoff",
+      "Die Atmung wird angeregt, um die Temperatur zu regulieren"
+    ],
+    "correctIndex": 2,
+    "explanation": "Beim Schock bricht die Kreislaufregulation zusammen, was zu einer unzureichenden Versorgung lebenswichtiger Organe mit Sauerstoff führt – ein medizinischer Notfall."
+  },
+  {
+    "question": "Welche Maßnahme ist bei Verdacht auf Schock als erstes sinnvoll – sofern keine schweren Verletzungen vorliegen?",
+    "options": [
+      "Die Person aufsetzen, um die Lunge zu entlasten",
+      "Die Beine flach ausstrecken, um Spannung zu vermeiden",
+      "Die Person flach lagern und die Beine hochlagern",
+      "Kalt duschen, um den Kreislauf anzuregen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Durch flaches Lagern und vorsichtiges Hochlagern der Beine kann der Rückfluss von Blut zum Herzen gefördert und die Organversorgung kurzfristig verbessert werden."
+  },
+  {
+    "question": "Was ist bei der Wärmeerhaltung einer schockbetroffenen Person besonders zu beachten?",
+    "options": [
+      "Sie sollte aktiv bewegt werden, um sich aufzuwärmen",
+      "Nur die Beine dürfen zugedeckt werden, um Hitzestau zu vermeiden",
+      "Sie sollte warm zugedeckt und vom Boden isoliert werden",
+      "Wärmezufuhr ist nur bei bewusstlosen Personen nötig"
+    ],
+    "correctIndex": 2,
+    "explanation": "Wärmeerhalt ist zentral, um eine weitere Auskühlung zu verhindern. Die Person sollte zugedeckt und vom kalten Boden isoliert werden – z. B. durch Kleidung oder Decken."
+  },
+  {
+    "question": "Wann ist die stabile Seitenlage bei einem Schock angezeigt?",
+    "options": [
+      "Bei jeder Form von Schock unabhängig vom Bewusstseinszustand",
+      "Nur bei Herzstillstand",
+      "Nur wenn die Person bewusstlos ist, aber noch normal atmet",
+      "Wenn die Person bei Bewusstsein ist und Schmerzen angibt"
+    ],
+    "correctIndex": 2,
+    "explanation": "Die stabile Seitenlage dient dem Schutz der Atemwege und wird nur bei bewusstlosen Personen mit erhaltener Atmung angewendet."
+  },
+  {
+    "question": "Was gehört zur richtigen Betreuung einer Person im Schockzustand zusätzlich zur Lagerung und Wärmeerhaltung?",
+    "options": [
+      "Sofortige Gabe von Flüssigkeit und Zucker",
+      "Ruhig ansprechen, Atmung und Bewusstsein regelmäßig kontrollieren, Notruf absetzen",
+      "Isolation der Person, damit sie sich beruhigt",
+      "Permanentes Umlagern zur besseren Durchblutung"
+    ],
+    "correctIndex": 1,
+    "explanation": "Die betroffene Person sollte kontinuierlich überwacht und ruhig angesprochen werden. Ein Notruf ist immer erforderlich – auch bei scheinbarer Stabilisierung."
+  }
+]

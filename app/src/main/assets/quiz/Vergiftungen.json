@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Was ist die wichtigste erste Maßnahme bei einer vermuteten Vergiftung?",
+    "options": [
+      "Die Person sofort zum Erbrechen bringen",
+      "Die betroffene Person mit Wasser ausspülen",
+      "Den Kontakt zur Substanz sofort beenden – z. B. Frischluft, Hautkontakt stoppen",
+      "Die betroffene Person zudecken und warten"
+    ],
+    "correctIndex": 2,
+    "explanation": "Die wichtigste Sofortmaßnahme ist das Beenden des Kontakts mit dem Giftstoff – z. B. durch Entfernen aus dem Raum oder Abspülen der Substanz, ohne sich selbst zu gefährden."
+  },
+  {
+    "question": "Warum sollte man vergiftete Personen nicht zum Erbrechen bringen?",
+    "options": [
+      "Weil es sehr unangenehm ist",
+      "Weil dadurch die Giftmenge im Körper steigt",
+      "Weil dies die Speiseröhre verletzen oder zum Einatmen des Erbrochenen führen kann",
+      "Weil das Erbrechen zu viel Kraft kostet"
+    ],
+    "correctIndex": 2,
+    "explanation": "Erbrechen kann ätzende Stoffe erneut durch die Speiseröhre führen oder in die Lunge geraten – das kann lebensbedrohlich sein."
+  },
+  {
+    "question": "Was sollte man tun, wenn die betroffene Person nach einer Vergiftung bewusstlos wird?",
+    "options": [
+      "Die Person auf den Rücken legen und zudecken",
+      "Warten, bis Hilfe eintrifft",
+      "Sofort Atmung prüfen und ggf. mit Wiederbelebung beginnen",
+      "Den Magen mit Wasser spülen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bei Bewusstlosigkeit muss sofort die Atmung kontrolliert werden. Bei fehlender oder abnormer Atmung beginnt man sofort mit Wiederbelebungsmaßnahmen."
+  },
+  {
+    "question": "Was ist bei der Lagerung einer wachen vergifteten Person zu beachten?",
+    "options": [
+      "Sie sollte aufrecht sitzen, um besser zu atmen",
+      "Sie sollte auf der rechten Seite liegen, damit die Leber geschont wird",
+      "Sie sollte möglichst auf der linken Seite liegen, um Komplikationen zu vermeiden",
+      "Sie sollte mit hochgelagerten Beinen gelagert werden"
+    ],
+    "correctIndex": 2,
+    "explanation": "Die Linksseitenlagerung kann helfen, den Mageninhalt zurückzuhalten und das Risiko einer Aspiration zu reduzieren."
+  },
+  {
+    "question": "Welche Informationen sind beim Anruf beim Giftnotruf besonders wichtig?",
+    "options": [
+      "Name und Geburtsdatum der betroffenen Person",
+      "Welche Substanz, in welcher Menge und wann aufgenommen wurde",
+      "Wie oft die Person erbrochen hat",
+      "Ob die Person allergisch ist"
+    ],
+    "correctIndex": 1,
+    "explanation": "Die Giftnotrufzentrale braucht vor allem Angaben zur Substanz, zur Dosis und zum Zeitpunkt – nur so kann sie gezielt beraten."
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Welche Maßnahme ist entscheidend bei einer bewusstlosen Person mit normaler Atmung?",
+    "options": [
+      "Die Beine hochlagern, um den Kreislauf zu stabilisieren",
+      "Den Kopf überstrecken und das Kinn anheben",
+      "Die Person mit Wasser bespritzen, um sie zu wecken",
+      "Einen Druckverband anlegen, um den Blutfluss zu regulieren"
+    ],
+    "correctIndex": 1,
+    "explanation": "Das Überstrecken des Kopfes und Anheben des Kinns ist wichtig, um die Atemwege freizuhalten. Ohne diese Maßnahme kann die erschlaffte Zunge zurückfallen und die Atemwege blockieren – was zu Erstickung führen kann."
+  },
+  {
+    "question": "Wie überprüft man korrekt, ob eine bewusstlose Person noch atmet?",
+    "options": [
+      "Man achtet auf Hautfarbe und Körperwärme",
+      "Man zählt die Brustkorbbewegungen für mindestens 30 Sekunden",
+      "Man sieht, hört und fühlt maximal 10 Sekunden lang nach Anzeichen für Atmung",
+      "Man klopft leicht gegen den Brustkorb, um Reaktionen zu provozieren"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zur Atemkontrolle gehört: Sehen (Brust- oder Bauchbewegung), Hören (Atemgeräusche) und Fühlen (Luftstrom) – für maximal 10 Sekunden."
+  },
+  {
+    "question": "Was ist der nächste empfohlene Schritt, wenn eine bewusstlose Person noch normal atmet?",
+    "options": [
+      "Herzdruckmassage beginnen, um den Kreislauf zu sichern",
+      "Person in Rückenlage belassen und beruhigen",
+      "In stabile Seitenlage bringen und anschließend den Notruf absetzen",
+      "Den Kopf mit Kissen stabilisieren und auf Reaktionen warten"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bei vorhandener Atmung ist die stabile Seitenlage entscheidend, um die Atmung zu sichern. Danach wird der Notruf abgesetzt."
+  },
+  {
+    "question": "Was ist bei einem bewusstlosen Baby unter einem Jahr bei der Atemkontrolle zu beachten?",
+    "options": [
+      "Der Kopf wird leicht überstreckt wie bei Erwachsenen",
+      "Der Kopf wird in neutraler Position gehalten – nicht überstreckt",
+      "Das Baby wird vorsichtig auf den Bauch gedreht",
+      "Man wartet mindestens 20 Sekunden auf erste Atemzeichen"
+    ],
+    "correctIndex": 1,
+    "explanation": "Der Kopf eines Babys muss zur Atemkontrolle in einer neutralen Position bleiben. Ein Überstrecken kann die Atemwege verschließen."
+  },
+  {
+    "question": "Welche Maßnahme beschreibt die korrekte Durchführung einer Herzdruckmassage bei einem Jugendlichen oder Erwachsenen?",
+    "options": [
+      "Mit zwei Fingern in der Mitte des Brustkorbs leicht drücken",
+      "Mit beiden Händen 5–6 cm tief, 100–120 Mal pro Minute drücken",
+      "Nur bei vorhandener Atmung in Seitenlage bringen",
+      "Den Brustkorb alle 10 Sekunden leicht klopfen"
+    ],
+    "correctIndex": 1,
+    "explanation": "Die Herzdruckmassage erfolgt mit gestreckten Armen, Handballen auf der Brustmitte, etwa 5–6 cm tief, 100–120 Mal pro Minute."
+  }
+]

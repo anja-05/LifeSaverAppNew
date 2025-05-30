@@ -110,7 +110,7 @@ public class QuizActivity extends AppCompatActivity {
 
             try {
                 // Lade JSON-Datei basierend auf dem Thema
-                String fileName = "quiz/" + topicTitle.replaceAll(" ", "") + ".json";
+                String fileName = "quiz/" + topicTitle.replaceAll("[^a-zA-Z0-9]", "") + ".json";
                 InputStream is = getAssets().open(fileName);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
                 Gson gson = new Gson();

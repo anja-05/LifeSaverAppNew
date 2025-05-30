@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Was passiert während eines Asthmaanfalls in der Lunge?",
+    "options": [
+      "Die Atemwege erweitern sich und es entsteht ein trockener Reizhusten",
+      "Die Lungenbläschen platzen und Blut sammelt sich in der Lunge",
+      "Die Atemwege schwellen an, verengen sich und produzieren Schleim",
+      "Der Herzschlag verlangsamt sich und der Blutdruck sinkt rapide"
+    ],
+    "correctIndex": 2,
+    "explanation": "Ein Asthmaanfall führt dazu, dass sich die Atemwege entzünden, anschwellen, verengen und zusätzlich Schleim produzieren – was das Atmen massiv erschwert."
+  },
+  {
+    "question": "Welche Maßnahme hat bei einem akuten Asthmaanfall oberste Priorität?",
+    "options": [
+      "Die betroffene Person hinlegen und zudecken",
+      "Sofort Notruf wählen, ohne etwas anderes zu tun",
+      "Die Person beruhigen, aufrecht lagern und beim Inhalieren unterstützen",
+      "Den Brustkorb massieren, um die Atmung anzuregen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zuerst wird die Person aufrecht gelagert, beruhigt und beim Inhalieren unterstützt. Das erleichtert das Atmen und ermöglicht dem Medikament zu wirken. Erst bei fehlender Besserung oder starken Symptomen folgt der Notruf."
+  },
+  {
+    "question": "Wann sollte bei einem Asthmaanfall unbedingt der Notruf abgesetzt werden?",
+    "options": [
+      "Wenn die betroffene Person mehrmals niesen muss",
+      "Wenn kein Inhalator vorhanden ist oder das Medikament nicht wirkt",
+      "Sobald der Inhalator benutzt wurde – zur Sicherheit",
+      "Wenn die Person über trockene Haut klagt"
+    ],
+    "correctIndex": 1,
+    "explanation": "Ein Notruf ist nötig, wenn kein Inhalator verfügbar ist, das Medikament nicht wirkt oder sich ernsthafte Symptome wie Atemnot, Blaufärbung oder Bewusstlosigkeit zeigen."
+  },
+  {
+    "question": "Warum ist die Verwendung eines Spacers (Vorschaltkammer) beim Inhalieren hilfreich?",
+    "options": [
+      "Weil er die Lufttemperatur anpasst und beruhigt",
+      "Weil dadurch mehr Medikament effizient in die Lunge gelangt",
+      "Weil er die Atemfrequenz senkt",
+      "Weil damit gleichzeitig Sauerstoff eingeatmet werden kann"
+    ],
+    "correctIndex": 1,
+    "explanation": "Ein Spacer hilft besonders Kindern oder in Paniksituationen, weil das Medikament besser in die Lunge gelangt und nicht bereits im Rachenraum hängen bleibt."
+  },
+  {
+    "question": "Welche Beobachtung ist bei einem Asthmaanfall ein ernstes Warnzeichen für eine lebensbedrohliche Verschlechterung?",
+    "options": [
+      "Wenn die Person aufrecht sitzen möchte",
+      "Wenn die Atmung lauter wird",
+      "Wenn Lippen oder Finger sich bläulich verfärben und die Person schläfrig wird",
+      "Wenn die Person ruhig wirkt und kaum noch hustet"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bläuliche Hautverfärbungen und Bewusstseinstrübung deuten auf einen gefährlichen Sauerstoffmangel hin – jetzt ist sofortiger Notruf und medizinische Hilfe notwendig."
+  }
+]

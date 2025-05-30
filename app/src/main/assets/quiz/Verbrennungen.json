@@ -1,0 +1,58 @@
+[
+  {
+    "question": "Warum sollte eine Verbrennung sofort mit Wasser gekühlt werden – und worauf muss dabei geachtet werden?",
+    "options": [
+      "Um die Schmerzen zu betäuben – am besten mit Eis oder sehr kaltem Wasser",
+      "Weil das Kühlen die Blasenbildung beschleunigt",
+      "Um die Ausbreitung der Verbrennung zu verlangsamen – aber nicht mit eiskaltem Wasser oder Eis",
+      "Das Kühlen ist nur bei chemischen Verbrennungen sinnvoll"
+    ],
+    "correctIndex": 2,
+    "explanation": "Durch das Kühlen mit sauberem, fließendem Wasser wird der Verbrennungsprozess verlangsamt und Gewebeschäden reduziert. Eiskaltes Wasser oder Eis dürfen nicht verwendet werden, da sie die Haut zusätzlich schädigen können."
+  }
+,
+  {
+    "question": "Welche Maßnahme sollte man bei Brandblasen unter keinen Umständen durchführen?",
+    "options": [
+      "Die Blase abdecken",
+      "Die Blase kühlen",
+      "Die Blase punktieren oder aufstechen",
+      "Die Blase beobachten"
+    ],
+    "correctIndex": 2,
+    "explanation": "Blasen dürfen nicht geöffnet werden, da sie einen natürlichen Schutz darstellen und das Infektionsrisiko verringern."
+  },
+  {
+    "question": "Wann sollte bei einer Verbrennung in jedem Fall der Notruf gewählt werden?",
+    "options": [
+      "Nur wenn die Verbrennung durch heiße Flüssigkeiten entstanden ist",
+      "Sobald die Haut gerötet ist oder es sich unangenehm anfühlt",
+      "Bei Verbrennungen durch Strom, Chemikalien oder im Gesicht, Hals, Genitalbereich – sowie bei Babys, Kleinkindern oder älteren Menschen",
+      "Wenn die Blase größer als eine Handfläche ist, aber keine Schmerzen verursacht"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bei betroffenen Körperregionen mit hohem Risiko (Gesicht, Hals, Genitalien) oder bei Strom-, Flammen- oder Chemikalienunfällen sowie bei besonders gefährdeten Personen sollte sofort der Notruf abgesetzt werden."
+  },
+  {
+    "question": "Was ist bei einer chemischen Verätzung des Auges die wichtigste Sofortmaßnahme?",
+    "options": [
+      "Das Auge fest schließen und eine Augensalbe auftragen",
+      "Die Augen verbinden und auf ärztliche Hilfe warten",
+      "Kontaktlinsen entfernen und das Auge mit viel Wasser ausspülen – ohne das andere Auge zu gefährden",
+      "Beide Augen gleichzeitig mit Wasser spülen, um Symmetrie zu bewahren"
+    ],
+    "correctIndex": 2,
+    "explanation": "Das betroffene Auge muss sofort mit viel Wasser ausgespült werden. Kontaktlinsen sollten entfernt werden. Dabei darf die verdünnte Chemikalie nicht mit der gesunden Seite in Kontakt kommen."
+  },
+  {
+    "question": "Warum besteht bei großflächigen Verbrennungen die Gefahr eines Schocks – und wie sollte reagiert werden?",
+    "options": [
+      "Weil der Kreislauf durch Schmerzen überlastet ist – man sollte sofort Schmerzmittel geben",
+      "Weil Hitze den Blutdruck steigert – kalte Umschläge helfen sofort",
+      "Weil Flüssigkeit verloren geht – die Person sollte liegen, warm gehalten und beobachtet werden",
+      "Weil der Blutverlust zu hoch ist – man sollte die Wunde nicht berühren"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bei großflächigen Verbrennungen kann es durch Flüssigkeitsverlust und Kreislaufbelastung zu einem Schock kommen. Die betroffene Person sollte flach liegen, warm gehalten und engmaschig überwacht werden."
+  }
+]

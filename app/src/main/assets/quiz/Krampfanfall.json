@@ -1,0 +1,57 @@
+[
+  {
+    "question": "Was ist das vorrangige Ziel bei einem akuten Krampfanfall?",
+    "options": [
+      "Die betroffene Person ruhig halten und festhalten",
+      "Die Zunge fixieren, damit sie nicht verschluckt wird",
+      "Die Person schützen, ohne einzugreifen, z. B. durch Entfernen gefährlicher Gegenstände",
+      "Sofort Flüssigkeit oder Medikamente verabreichen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Während eines Krampfanfalls geht es darum, Verletzungen zu verhindern – z. B. durch Entfernen gefährlicher Gegenstände. Festhalten oder Eingreifen kann schaden."
+  },
+  {
+    "question": "Welche Maßnahme ist bei einem Krampfanfall ausdrücklich zu vermeiden?",
+    "options": [
+      "Brille abnehmen und Kleidung am Hals lockern",
+      "Etwas Weiches unter den Kopf legen",
+      "Die Person auf die Seite drehen",
+      "Etwas in den Mund schieben, um die Zunge zu schützen"
+    ],
+    "correctIndex": 3,
+    "explanation": "Man darf niemals etwas in den Mund der betroffenen Person schieben – das kann zu schweren Verletzungen führen oder die Atemwege blockieren."
+  },
+  {
+    "question": "Wann sollte bei einem Krampfanfall unbedingt der Notruf gewählt werden?",
+    "options": [
+      "Wenn die betroffene Person erschöpft wirkt",
+      "Wenn der Anfall nach wenigen Minuten endet",
+      "Wenn es der erste Anfall ist oder länger als 5 Minuten dauert",
+      "Nur wenn die Person bewusstlos ist"
+    ],
+    "correctIndex": 2,
+    "explanation": "Ein Notruf ist notwendig, wenn es sich um den ersten Anfall handelt, dieser ungewöhnlich verläuft, länger als 5 Minuten dauert oder mehrere Anfälle nacheinander auftreten."
+  },
+  {
+    "question": "Was ist bei einem Krampfanfall bei Babys und Kleinkindern besonders zu beachten?",
+    "options": [
+      "Das Kind mit kaltem Wasser abkühlen",
+      "Sofort fiebersenkende Medikamente verabreichen",
+      "Enge Kleidung entfernen, Atmung prüfen und gegebenenfalls Erste Hilfe einleiten",
+      "Die Beine des Kindes hochlagern"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bei Babys und Kleinkindern sind Krampfanfälle oft fieberbedingt. Kleidung wird entfernt, die Atmung kontrolliert und bei Bedarf Erste Hilfe eingeleitet."
+  },
+  {
+    "question": "Wie sollten Ersthelfer:innen nach dem Ende eines Krampfanfalls reagieren?",
+    "options": [
+      "Die Person sofort in Ruhe lassen, um sie nicht zu überfordern",
+      "Das Kopfpolster liegen lassen und die Person zudecken",
+      "Die Atmung kontrollieren, beruhigend sprechen und bei der Person bleiben",
+      "Die Person wachrütteln und zum Aufstehen auffordern"
+    ],
+    "correctIndex": 2,
+    "explanation": "Nach dem Anfall sollte die Atmung regelmäßig kontrolliert werden. Die betroffene Person braucht Ruhe, Sicherheit und – wenn möglich – ein ruhiges Gespräch."
+  }
+]
