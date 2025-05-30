@@ -61,7 +61,7 @@ public class ProfilFragment extends Fragment {
         SharedPreferences prefs = requireContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         String name = prefs.getString("user_name", "Unbekannt");
         String email = prefs.getString("user_email", "Nicht eingeloggt");
-        String avatarName = prefs.getString("avatar", "frau");
+        String avatarName = prefs.getString("avatar_" + email, "lockige frau");
 
         nameText.setText(name);
         emailText.setText(email);
@@ -106,7 +106,11 @@ public class ProfilFragment extends Fragment {
 
 
         logoutButton.setOnClickListener(v -> {
-            prefs.edit().clear().apply();
+            prefs.edit()
+                    .remove("user_name")
+                    .remove("user_email")
+                    .putBoolean("is_logged_in", false)
+                    .apply();
             Intent intent = new Intent(requireActivity(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -159,7 +163,8 @@ public class ProfilFragment extends Fragment {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             avatarImage.setImageResource(avatarResIds[position]);
             SharedPreferences prefs = requireContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
-            prefs.edit().putString("avatar", avatarNames[position]).apply();
+            String email = prefs.getString("user_email", "default");
+            prefs.edit().putString("avatar_" + email, avatarNames[position]).apply();
             dialog.dismiss();
         });
     }
