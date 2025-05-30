@@ -158,17 +158,19 @@ public class QuizActivity extends AppCompatActivity {
             btnPrev.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (currentQuestionIndex > 0) {
-                        loadQuestion(currentQuestionIndex - 1);
-                    } else {
+                    if (currentQuestionIndex == 0) {
+                        // Bei Frage 1 zurück zur Theorieansicht (LektionDetailActivity)
                         Intent backIntent = new Intent(QuizActivity.this, LektionDetailActivity.class);
                         backIntent.putExtra("TITEL", topicTitle);
                         backIntent.putExtra("DATEINAME", dateiname);
-                        startActivity(backIntent);
                         finish();
+                    } else {
+                        // Bei allen anderen Fragen zurück zur vorherigen
+                        loadQuestion(currentQuestionIndex - 1);
                     }
                 }
             });
+
 
             btnNext.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -294,7 +296,8 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         private void updateButtonStates() {
-            btnPrev.setEnabled(currentQuestionIndex > 0);
+            btnPrev.setEnabled(true);
+
 
             if (currentQuestionIndex == quizQuestions.size() - 1) {
                 btnNext.setText("Ergebnis anzeigen");

@@ -48,7 +48,9 @@ public class LektionDetailActivity extends AppCompatActivity {
         buttonQuiz.setOnClickListener(v -> {
             Intent intent = new Intent(this, QuizActivity.class);
             intent.putExtra("TOPIC_TITLE", titel);
+            intent.putExtra("DATEINAME", dateiname);
             startActivity(intent);
         });
+
     }
 }
