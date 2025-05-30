@@ -1,36 +1,48 @@
 package at.fhj.lifesaver;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class UebungFragment extends Fragment {
-    private RecyclerView recyclerView;
-    private UebungAdapter adapter;
-    private List<Uebung> uebungenListe;
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_uebung, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerViewUebung);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        ViewPager2 viewPager = view.findViewById(R.id.viewPagerUebung);
 
-        uebungenListe = new ArrayList<>();
-        uebungenListe.add(new Uebung("Herzdruckmassage", R.drawable.ic_herzdruckmassage));
+        // Liste der Übungen mit Bild, Titel und Beschreibung
+        List<Uebung> uebungList = new ArrayList<>();
+        uebungList.add(new Uebung(
+                R.drawable.uebung_herzdruckmassage,
+                "Herzdruckmassage",
+                "Lerne, wie du bei einem Herzstillstand richtig reagierst"
+        ));
+        uebungList.add(new Uebung(
+                R.drawable.uebung_stabileseitenlage,
+                "Stabile Seitenlage",
+                "Lerne, wie du bewusstlose Personen sicher lagerst"
+        ));
+        uebungList.add(new Uebung(
+                R.drawable.uebung_herzdruckmassage,
+                "Rautekgriff",
+                "Lerne, wie du Verletzte schnell aus der Gefahrenzone bringst"
+        ));
 
-        adapter = new UebungAdapter(uebungenListe, getContext());
-        recyclerView.setAdapter(adapter);
+        UebungAdapter adapter = new UebungAdapter(uebungList);
+        viewPager.setAdapter(adapter);
 
         return view;
     }

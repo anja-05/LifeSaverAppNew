@@ -1,11 +1,25 @@
 package at.fhj.lifesaver;
 
 public class Uebung {
-    public String titel;
-    public int bildResId;
+    private int bildResId;
+    private String titel;
+    private String beschreibung;
 
-    public Uebung(String titel, int bildResId) {
-        this.titel = titel;
+    public Uebung(int bildResId, String titel, String beschreibung) {
         this.bildResId = bildResId;
+        this.titel = titel;
+        this.beschreibung = beschreibung;
+    }
+
+    public int getBildResId() {
+        return bildResId;
+    }
+
+    public String getTitel() {
+        return titel;
+    }
+
+    public String getBeschreibung() {
+        return beschreibung;
     }
 }

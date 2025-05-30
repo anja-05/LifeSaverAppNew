@@ -26,19 +26,19 @@ public class LernenFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         lektionenListe = new ArrayList<>();
-        lektionenListe.add(new Lektion("Bewusstlosigkeit/Reaktionslosigkeit", "bewusstlosigkeit.html", R.drawable.ic_bewusstlos));
-        lektionenListe.add(new Lektion("Ersticken", "ersticken.html", R.drawable.ic_ersticken));
-        lektionenListe.add(new Lektion("Verbrennungen", "verbrennungen.html", R.drawable.ic_verbrennung));
-        lektionenListe.add(new Lektion("Asthma", "asthma.html", R.drawable.ic_asthma));
-        lektionenListe.add(new Lektion("Allergische Reaktion", "allergischeReaktion.html", R.drawable.ic_allergie));
-        lektionenListe.add(new Lektion("Schock", "schock.html", R.drawable.ic_schock));
-        lektionenListe.add(new Lektion("Krampfanfall", "krampfanfall.html", R.drawable.ic_krampf));
-        lektionenListe.add(new Lektion("Starke Blutungen", "starkeBlutungen.html", R.drawable.ic_blutung));
-        lektionenListe.add(new Lektion("Frakturen, Verstauchungen und Zerrungen", "frakturen.html", R.drawable.ic_fraktur));
-        lektionenListe.add(new Lektion("Vergiftungen", "vergiftungen.html", R.drawable.ic_vergiftung));
-        lektionenListe.add(new Lektion("Schlaganfall", "schlaganfall.html", R.drawable.ic_schlaganfall));
-        lektionenListe.add(new Lektion("Herzinfarkt", "herzinfarkt.html", R.drawable.ic_herzinfarkt));
-        lektionenListe.add(new Lektion("Verkehrsunfall", "verkehrsunfall.html", R.drawable.ic_verkehrsunfall));
+        lektionenListe.add(new Lektion("Bewusstlosigkeit/Reaktionslosigkeit", "html/bewusstlosigkeit.html", R.drawable.ic_bewusstlos));
+        lektionenListe.add(new Lektion("Ersticken", "html/ersticken.html", R.drawable.ic_ersticken));
+        lektionenListe.add(new Lektion("Verbrennungen", "html/verbrennungen.html", R.drawable.ic_verbrennung));
+        lektionenListe.add(new Lektion("Asthma", "html/asthma.html", R.drawable.ic_asthma));
+        lektionenListe.add(new Lektion("Allergische Reaktion", "html/allergischeReaktion.html", R.drawable.ic_allergie));
+        lektionenListe.add(new Lektion("Schock", "html/schock.html", R.drawable.ic_schock));
+        lektionenListe.add(new Lektion("Krampfanfall", "html/krampfanfall.html", R.drawable.ic_krampf));
+        lektionenListe.add(new Lektion("Starke Blutungen", "html/starkeBlutungen.html", R.drawable.ic_blutung));
+        lektionenListe.add(new Lektion("Frakturen, Verstauchungen und Zerrungen", "html/frakturen.html", R.drawable.ic_fraktur));
+        lektionenListe.add(new Lektion("Vergiftungen", "html/vergiftungen.html", R.drawable.ic_vergiftung));
+        lektionenListe.add(new Lektion("Schlaganfall", "html/schlaganfall.html", R.drawable.ic_schlaganfall));
+        lektionenListe.add(new Lektion("Herzinfarkt", "html/herzinfarkt.html", R.drawable.ic_herzinfarkt));
+        lektionenListe.add(new Lektion("Verkehrsunfall", "html/verkehrsunfall.html", R.drawable.ic_verkehrsunfall));
 
         adapter = new LektionAdapter(lektionenListe, getContext());
         recyclerView.setAdapter(adapter);

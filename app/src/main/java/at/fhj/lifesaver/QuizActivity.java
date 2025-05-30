@@ -20,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+
 import java.util.ArrayList;
 import com.google.android.material.card.MaterialCardView;
 import com.google.gson.Gson;
@@ -223,10 +225,11 @@ public class QuizActivity extends AppCompatActivity {
 
             MaterialCardView[] optionCards = {option1, option2, option3, option4};
             for (MaterialCardView card : optionCards) {
-                card.setCardBackgroundColor(getResources().getColor(R.color.white));
-                card.setStrokeColor(getResources().getColor(R.color.gray_300));
+                card.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                card.setStrokeColor(ContextCompat.getColor(this, R.color.gray_300));
                 card.setEnabled(true);
             }
+
 
             explanationContainer.setVisibility(View.GONE);
 

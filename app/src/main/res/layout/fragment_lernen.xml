@@ -5,18 +5,18 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Bild statt Text als Überschrift -->
-    <ImageView
-        android:id="@+id/imageViewLektionenUeberschrift"
-        android:layout_width="176dp"
-        android:layout_height="57dp"
+    <TextView
+        android:id="@+id/textViewUebungUeberschrift"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lektionen"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/dark_red"
         android:layout_gravity="center"
-        android:layout_marginBottom="18dp"
-        android:src="@drawable/lektionen_ueberschrift" />
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="24dp" />
 
-    <!-- Einführungstext -->
-
-    <!-- RecyclerView für die Lektionen -->
     <TextView
         android:id="@+id/textViewEinleitung"
         android:layout_width="match_parent"
