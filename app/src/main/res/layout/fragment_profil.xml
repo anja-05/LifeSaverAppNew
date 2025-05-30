@@ -89,7 +89,7 @@
                     android:layout_height="20dp"
                     android:max="100"
                     android:progress="0"
-                    android:progressTint="@color/design_default_color_primary"
+                    android:progressTint="@color/strong_red"
                     app:layout_constraintTop_toBottomOf="@id/profile_email"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -108,6 +108,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="8dp" />
+
+                <Button
+                    android:id="@+id/btnResetProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="Zurücksetzen"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#999999"
+                    app:layout_constraintTop_toBottomOf="@id/progressText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button"

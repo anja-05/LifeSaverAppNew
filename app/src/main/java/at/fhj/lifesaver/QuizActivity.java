@@ -1,5 +1,6 @@
 package at.fhj.lifesaver;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -311,6 +312,20 @@ public class QuizActivity extends AppCompatActivity {
             resultsContainer.setVisibility(View.VISIBLE);
 
             tvFinalScore.setText(score + "/" + quizQuestions.size());
+
+            // Fortschritt speichern, wenn alle Fragen richtig beantwortet wurden
+            if (score == quizQuestions.size()) {
+                // Benutzer-E-Mail aus user_data abrufen
+                SharedPreferences userPrefs = getSharedPreferences("user_data", MODE_PRIVATE);
+                String userEmail = userPrefs.getString("user_email", "default");
+
+                // Fortschritt benutzerspezifisch speichern
+                SharedPreferences progressPrefs = getSharedPreferences("progress_" + userEmail, MODE_PRIVATE);
+                SharedPreferences.Editor editor = progressPrefs.edit();
+                editor.putBoolean("lesson_" + topicTitle, true);
+                editor.apply();
+            }
+
 
             float percentage = (float) score / quizQuestions.size() * 100;
             if (percentage == 100) {

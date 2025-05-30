@@ -19,6 +19,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProfilFragment extends Fragment {
     private ProgressBar progressBar;
@@ -26,7 +27,7 @@ public class ProfilFragment extends Fragment {
     private Button logoutButton;
     private ImageView avatarImage;
 
-    private static final int TOTAL_LESSONS = 10;
+    private static final int TOTAL_LESSONS = 13;
 
     private final int[] avatarResIds = {
             R.drawable.lockige_frau,
@@ -68,11 +69,41 @@ public class ProfilFragment extends Fragment {
 
         avatarImage.setOnClickListener(v -> showAvatarDialog());
 
-        int completedLessons = requireContext()
-                .getSharedPreferences("progress", Context.MODE_PRIVATE)
-                .getInt("completedLessons", 0);
+        SharedPreferences prefsUser = requireContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        String userEmail = prefsUser.getString("user_email", "default");
+        SharedPreferences prefsProgress = requireContext().getSharedPreferences("progress_" + userEmail, Context.MODE_PRIVATE);
 
+        int completedLessons = 0;
+        String[] lessonTitles = {
+                "Bewusstlosigkeit/Reaktionslosigkeit", "Ersticken", "Verbrennungen", "Asthma",
+                "Allergische Reaktion", "Schock", "Krampfanfall", "Starke Blutungen",
+                "Frakturen, Verstauchungen und Zerrungen", "Vergiftungen", "Schlaganfall",
+                "Herzinfarkt", "Verkehrsunfall"
+        };
+        for (String title : lessonTitles) {
+            if (prefsProgress.getBoolean("lesson_" + title, false)) {
+                completedLessons++;
+            }
+        }
         updateProgress(completedLessons);
+
+        Button btnReset = view.findViewById(R.id.btnResetProgress);
+        btnReset.setOnClickListener(v -> {
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Fortschritt zurücksetzen?")
+                    .setMessage("Willst du wirklich deinen Fortschritt für alle Lektionen löschen?")
+                    .setPositiveButton("Ja", (dialog, which) -> {
+                        SharedPreferences.Editor editor = prefsProgress.edit();
+                        editor.clear();
+                        editor.apply();
+
+                        updateProgress(0);
+                        Toast.makeText(requireContext(), "Fortschritt wurde zurückgesetzt", Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("Abbrechen", null)
+                    .show();
+        });
+
 
         logoutButton.setOnClickListener(v -> {
             prefs.edit().clear().apply();

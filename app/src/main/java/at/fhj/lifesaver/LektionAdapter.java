@@ -2,6 +2,7 @@ package at.fhj.lifesaver;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,19 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
         holder.textViewTitel.setText(lektion.getTitel());
         holder.imageViewLektion.setImageResource(lektion.getBildResId());
 
+        // Fortschritt prüfen und Haken anzeigen
+        SharedPreferences prefsUser = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        String userEmail = prefsUser.getString("user_email", "default");
+        SharedPreferences prefsProgress = context.getSharedPreferences("progress_" + userEmail, Context.MODE_PRIVATE);
+        boolean isDone = prefsProgress.getBoolean("lesson_" + lektion.getTitel(), false);
+
+        if (isDone) {
+            holder.imageViewCheckmark.setVisibility(View.VISIBLE);
+        } else {
+            holder.imageViewCheckmark.setVisibility(View.GONE);
+        }
+
+
         // Beim Klicken neue Activity starten
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, LektionDetailActivity.class);
@@ -58,12 +72,15 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
         TextView textViewNummer;
         TextView textViewTitel;
         ImageView imageViewLektion;
+        ImageView imageViewCheckmark;
 
         public LektionViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNummer = itemView.findViewById(R.id.textViewNummer);
             textViewTitel = itemView.findViewById(R.id.textViewTitel);
             imageViewLektion = itemView.findViewById(R.id.imageViewLektion);
+            imageViewCheckmark = itemView.findViewById(R.id.imageViewCheckmark);
+
         }
     }
 }
