@@ -17,7 +17,6 @@
         android:padding="16dp"
         android:gravity="center_horizontal">
 
-        <!-- Überschrift dynamisch -->
         <TextView
             android:id="@+id/textViewTitel"
             android:layout_width="wrap_content"

@@ -23,7 +23,6 @@ public class UebungFragment extends Fragment {
 
         ViewPager2 viewPager = view.findViewById(R.id.viewPagerUebung);
 
-        // Liste der Übungen mit Bild, Titel und Beschreibung
         List<Uebung> uebungList = new ArrayList<>();
         uebungList.add(new Uebung(
                 R.drawable.uebung_herzdruckmassage,

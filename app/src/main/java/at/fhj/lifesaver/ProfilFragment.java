@@ -21,13 +21,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Die Klasse ProfilFragment zeigt das Benutzerprofil mit Avatar, Fortschritt und Logout-Funktion.
+ * Es ermöglicht die Anzeige und Änderung des gewählten Avatars, die Anzeige des Lernfortschritts
+ * sowie das Zurücksetzen des Fortschritts und das Abmelden des Benutzers.
+ * Es werden SharedPreferences zur Speicherung von Benutzerdaten und Fortschritt verwendet.
+ */
 public class ProfilFragment extends Fragment {
+    private static final int TOTAL_LESSONS = 13;
+    private static final String PREF_USER_DATA = "user_data";
+    private static final String PREF_KEY_EMAIL = "user_email";
     private ProgressBar progressBar;
     private TextView progressText;
     private Button logoutButton;
     private ImageView avatarImage;
-
-    private static final int TOTAL_LESSONS = 13;
 
     private final int[] avatarResIds = {
             R.drawable.lockige_frau,
@@ -47,6 +54,12 @@ public class ProfilFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_profil, container, false);
     }
 
+    /**
+     * Initialisiert UI-Komponenten und zeigt Benutzerdaten sowie Fortschritt an.
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -60,13 +73,12 @@ public class ProfilFragment extends Fragment {
 
         SharedPreferences prefs = requireContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         String name = prefs.getString("user_name", "Unbekannt");
-        String email = prefs.getString("user_email", "Nicht eingeloggt");
+        String email = prefs.getString(PREF_KEY_EMAIL, "Nicht eingeloggt");
         String avatarName = prefs.getString("avatar_" + email, "lockige frau");
 
         nameText.setText(name);
         emailText.setText(email);
         avatarImage.setImageResource(getAvatarResIdByName(avatarName));
-
         avatarImage.setOnClickListener(v -> showAvatarDialog());
 
         SharedPreferences prefsUser = requireContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
@@ -104,7 +116,6 @@ public class ProfilFragment extends Fragment {
                     .show();
         });
 
-
         logoutButton.setOnClickListener(v -> {
             prefs.edit()
                     .remove("user_name")
@@ -117,12 +128,19 @@ public class ProfilFragment extends Fragment {
         });
     }
 
+    /**
+     * Aktualisiert den Fortschrittsbalken und Textanzeige.
+     * @param completedLessons Anzahl der abgeschlossenen Lektionen
+     */
     private void updateProgress(int completedLessons) {
         int progress = (int) ((completedLessons / (float) TOTAL_LESSONS) * 100);
         progressBar.setProgress(progress);
         progressText.setText(progress + " % abgeschlossen");
     }
 
+    /**
+     * Zeigt den Dialog zur Avatar-Auswahl an.
+     */
     private void showAvatarDialog() {
         View dialogView = LayoutInflater.from(requireContext())
                 .inflate(R.layout.dialog_avatar_selection, null);
@@ -169,6 +187,11 @@ public class ProfilFragment extends Fragment {
         });
     }
 
+    /**
+     * Gibt die Ressourcen-ID eines Avatars basierend auf dessen Namen zurück.
+     * @param name Avatarname (z.B. "lockige frau")
+     * @return Ressourcen-ID des Bildes
+     */
     private int getAvatarResIdByName(String name) {
         switch (name) {
             case "braunhaariger mann":

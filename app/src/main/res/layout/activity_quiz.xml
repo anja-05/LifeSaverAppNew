@@ -7,14 +7,12 @@
     android:background="@color/background"
     tools:context=".QuizActivity">
 
-    <!-- Quiz Container -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/quiz_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <!-- Topic Title -->
         <TextView
             android:id="@+id/tv_topic_title"
             android:layout_width="match_parent"
@@ -29,7 +27,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Progress Section -->
         <LinearLayout
             android:id="@+id/progress_section"
             android:layout_width="match_parent"
@@ -71,7 +68,6 @@
                 android:progressTint="@color/primary" />
         </LinearLayout>
 
-        <!-- Question Section -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -85,7 +81,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Question Text -->
                 <TextView
                     android:id="@+id/tv_question"
                     android:layout_width="match_parent"
@@ -96,7 +91,6 @@
                     android:textStyle="bold"
                     android:layout_marginBottom="24dp" />
 
-                <!-- Options -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_option_1"
                     android:layout_width="match_parent"
@@ -173,7 +167,6 @@
                         android:textColor="@color/text_primary" />
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Explanation -->
                 <LinearLayout
                     android:id="@+id/explanation_container"
                     android:layout_width="match_parent"
@@ -201,7 +194,6 @@
             </LinearLayout>
         </ScrollView>
 
-        <!-- Navigation Buttons -->
         <LinearLayout
             android:id="@+id/navigation_buttons"
             android:layout_width="match_parent"
@@ -235,7 +227,6 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Results Container -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/results_container"
         android:layout_width="match_parent"

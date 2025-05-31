@@ -27,6 +27,15 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.gson.Gson;
 
 
+/**
+ * Die Klasse QuizActivity stellt ein interaktives Multiple-Choice-Quiz basierend auf einer JSON-Datei bereit.
+ * Die Fragen werden aus den assets unter quiz Verzeichnis geladen, der Fortschritt gespeichert und
+ * das Feedback visuell sowie textlich dargestellt.
+ * Die Fragen werden dynamisch geladen (aus JSON-Datei je Thema, der Punktestand berechnet und visuell angezeigt,
+ * die Benutzerauswahl visuell hervorgehoben und begründet, die Zusammenfassung am Ende mit richtiger/falscher Antwort gezeigt und
+ * der Fortschritt gespeichert, falls alle Fragen korrekt beantwortet wurden.
+ * Das Quiz verwendet als Datenmodell  "QuizFrage" mit Frage, Optionen, Erklärung. Der Dateiname wird dynamisch aus dem Thema gebildet.
+ */
 public class QuizActivity extends AppCompatActivity {
 
         private TextView tvTopicTitle, tvQuestionCounter, tvScore, tvQuestion, tvExplanation;
@@ -49,7 +58,14 @@ public class QuizActivity extends AppCompatActivity {
         private String topicTitle;
         private String dateiname;
 
-        @Override
+    /**
+     * Wird beim Start der Aktivität aufgerufen.
+     * Liest das Thema und den Dateinamen aus dem Intent, initialisiert die UI-Komponenten,
+     * lädt die Quizdaten aus der passenden JSON-Datei und richtet Listener ein.
+     * @param savedInstanceState Zustand der Aktivität bei Rekonstruktion
+     *
+     */
+    @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_quiz);
@@ -70,8 +86,11 @@ public class QuizActivity extends AppCompatActivity {
             loadQuestion(0);
         }
 
-        private void initializeViews() {
-            // Find all views by ID
+    /**
+     * Initialisiert alle View-Elemente der Aktivität inklusive Buttons, TextViews und Layoutcontainer.
+     * Außerdem wird der Titel entsprechend dem übergebenen Thema gesetzt.
+     */
+    private void initializeViews() {
             tvTopicTitle = findViewById(R.id.tv_topic_title);
             tvQuestionCounter = findViewById(R.id.tv_question_counter);
             tvScore = findViewById(R.id.tv_score);
@@ -108,11 +127,15 @@ public class QuizActivity extends AppCompatActivity {
             tvTopicTitle.setText("Quiz: " + topicTitle);
         }
 
-        private void initializeQuizData() {
+    /**
+     * Lädt die Quizfragen aus einer JSON-Datei im assets-Ordner anhand des aktuellen Themas.
+     * Bei Fehlern (z.B. Datei nicht vorhanden oder leer) wird die Aktivität beendet.
+     * Initialisiert auch Arrays zur Fortschrittsverfolgung.
+     */
+    private void initializeQuizData() {
             quizQuestions = new ArrayList<>();
 
             try {
-                // Lade JSON-Datei basierend auf dem Thema
                 String fileName = "quiz/" + topicTitle.replaceAll("[^a-zA-Z0-9]", "") + ".json";
                 InputStream is = getAssets().open(fileName);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -123,7 +146,7 @@ public class QuizActivity extends AppCompatActivity {
 
             } catch (IOException e) {
                 Toast.makeText(this, "Fehler beim Laden des Quiz für: " + topicTitle, Toast.LENGTH_LONG).show();
-                finish(); // Brich ab, falls Datei fehlt
+                finish();
                 return;
             }
 
@@ -142,11 +165,13 @@ public class QuizActivity extends AppCompatActivity {
             tvQuestionCounter.setText("Frage 1 von " + quizQuestions.size());
             tvScore.setText("Punkte: 0/" + quizQuestions.size());
 
-            // Nur hier aufrufen, wenn sichergestellt ist, dass Fragen existieren
             loadQuestion(0);
         }
 
-        private void setupListeners() {
+    /**
+     * Richtet alle ClickListener ein: Antwortmöglichkeiten, Navigation: Zurück, Weiter,Quiz zurücksetzen, Quiz verlassen
+     */
+    private void setupListeners() {
             MaterialCardView[] optionCards = {option1, option2, option3, option4};
             for (int i = 0; i < optionCards.length; i++) {
                 final int optionIndex = i;
@@ -162,13 +187,11 @@ public class QuizActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (currentQuestionIndex == 0) {
-                        // Bei Frage 1 zurück zur Theorieansicht (LektionDetailActivity)
                         Intent backIntent = new Intent(QuizActivity.this, LektionDetailActivity.class);
                         backIntent.putExtra("TITEL", topicTitle);
                         backIntent.putExtra("DATEINAME", dateiname);
                         finish();
                     } else {
-                        // Bei allen anderen Fragen zurück zur vorherigen
                         loadQuestion(currentQuestionIndex - 1);
                     }
                 }
@@ -206,7 +229,11 @@ public class QuizActivity extends AppCompatActivity {
             });
         }
 
-        private void loadQuestion(int index) {
+    /**
+     * Lädt eine Quizfrage anhand des Index, zeigt Optionen, Fortschritt und ggf. Feedback an.
+     * @param index Index der Frage in der Liste
+     */
+    private void loadQuestion(int index) {
             currentQuestionIndex = index;
 
             tvQuestionCounter.setText("Frage " + (index + 1) + " von " + quizQuestions.size());
@@ -260,7 +287,11 @@ public class QuizActivity extends AppCompatActivity {
             updateButtonStates();
         }
 
-        private void handleOptionClick(int optionIndex) {
+    /**
+     * Verarbeitet die Benutzerantwort: Markiert die gewählte Option, vergleicht mit der korrekten Antwort, aktualisiert den Punktestand, zeigt Erklärung an.
+     * @param optionIndex Index der angeklickten Antwortoption
+     */
+    private void handleOptionClick(int optionIndex) {
             if (questionAnswered) return;
 
             questionAnswered = true;
@@ -299,7 +330,10 @@ public class QuizActivity extends AppCompatActivity {
             updateButtonStates();
         }
 
-        private void updateButtonStates() {
+    /**
+     * Passt den Text und Status der Buttons (Weiter/Ergebnis anzeigen) abhängig vom aktuellen Fortschritt an.
+     */
+    private void updateButtonStates() {
             btnPrev.setEnabled(true);
 
 
@@ -310,19 +344,19 @@ public class QuizActivity extends AppCompatActivity {
             }
         }
 
-        private void showResults() {
+    /**
+     * Zeigt das Ergebnis nach Beendigung des Quiz: Gesamtpunktzahl, individuelle Rückmeldung, Fragenzusammenfassung mit korrekter und gewählter Antwort, speichert Fortschritt bei 100 % richtigen Antworten.
+     */
+    private void showResults() {
             quizContainer.setVisibility(View.GONE);
             resultsContainer.setVisibility(View.VISIBLE);
 
             tvFinalScore.setText(score + "/" + quizQuestions.size());
 
-            // Fortschritt speichern, wenn alle Fragen richtig beantwortet wurden
             if (score == quizQuestions.size()) {
-                // Benutzer-E-Mail aus user_data abrufen
                 SharedPreferences userPrefs = getSharedPreferences("user_data", MODE_PRIVATE);
                 String userEmail = userPrefs.getString("user_email", "default");
 
-                // Fortschritt benutzerspezifisch speichern
                 SharedPreferences progressPrefs = getSharedPreferences("progress_" + userEmail, MODE_PRIVATE);
                 SharedPreferences.Editor editor = progressPrefs.edit();
                 editor.putBoolean("lesson_" + topicTitle, true);
@@ -374,7 +408,11 @@ public class QuizActivity extends AppCompatActivity {
             }
         }
 
-        private void restartQuiz() {
+    /**
+     * Setzt das Quiz vollständig zurück: Punktestand, Antwortstatus, Benutzerauswahl.
+     * Startet mit der ersten Frage neu.
+     */
+    private void restartQuiz() {
             currentQuestionIndex = 0;
             score = 0;
             questionAnswered = false;

@@ -14,16 +14,41 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * Die Klasse "LektionAdapter" ist für die Darstellung einer Liste von den Lektionen in einer RecyclerView zuständig.
+ * Es wird der Titel, die Nummer, ein Bild und eine Fortschrittsanzeige (Haken bei erfolgreichem Lektionsabschluss) für jede Lektion gezeigt.
+ * Beim Klicken auf die Lektion wird die genauer Datailansicht der jeweiligen Lektion geöffnet.
+ */
 public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionViewHolder> {
 
     private List<Lektion> lektionen;
     private Context context;
 
+    /**
+     * Konsrukor für den LektionAdapter
+     * @param lektionen Liste der darzustellenden Lektionen
+     * @param context Kontext, z.B. Activity oder Fragment
+     * @throws IllegalArgumentException falls die Parameter null sind
+     */
     public LektionAdapter(List<Lektion> lektionen, Context context) {
+        if (lektionen == null) {
+            throw new IllegalArgumentException("Lektionliste darf nicht null sein.");
+        }
+        if (context == null) {
+            throw new IllegalArgumentException("Context darf nicht null sein.");
+        }
+
         this.lektionen = lektionen;
         this.context = context;
     }
 
+    /**
+     * Erzeugt ein neues LektionViewHolder-Objekt und verbindet es mit dem Layout.
+     * @param parent  Elternansicht (RecyclerView)
+     * @param viewType The view type of the new View.(Nicht verwendet)
+     *
+     * @return ein initialisierter LektionViewHolder
+     */
     @NonNull
     @Override
     public LektionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,18 +56,22 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
         return new LektionViewHolder(view);
     }
 
+    /**
+     * Bindet Daten an den übergebenen ViewHolder für die entsprechende Position.
+     * @param holder ViewHolder mit UI-Elementen
+     * @param position Position in der Liste
+     */
     @Override
     public void onBindViewHolder(@NonNull LektionViewHolder holder, int position) {
         Lektion lektion = lektionen.get(position);
 
-        // Nummer, Titel und Bild setzen
         holder.textViewNummer.setText((position + 1) + ".");
         holder.textViewTitel.setText(lektion.getTitel());
         holder.imageViewLektion.setImageResource(lektion.getBildResId());
 
-        // Fortschritt prüfen und Haken anzeigen
         SharedPreferences prefsUser = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
         String userEmail = prefsUser.getString("user_email", "default");
+
         SharedPreferences prefsProgress = context.getSharedPreferences("progress_" + userEmail, Context.MODE_PRIVATE);
         boolean isDone = prefsProgress.getBoolean("lesson_" + lektion.getTitel(), false);
 
@@ -52,8 +81,6 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
             holder.imageViewCheckmark.setVisibility(View.GONE);
         }
 
-
-        // Beim Klicken neue Activity starten
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, LektionDetailActivity.class);
             intent.putExtra("TITEL", lektion.getTitel());
@@ -63,17 +90,28 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
 
     }
 
+    /**
+     * Gibt die Anzahl der Elemente (Lektionseinträge) zurück.
+     * @return Anzahl der Lektionen
+     */
     @Override
     public int getItemCount() {
         return lektionen.size();
     }
 
+    /**
+     * ViewHolder-Klasse für eine einzelne Lektion.
+     */
     public static class LektionViewHolder extends RecyclerView.ViewHolder {
         TextView textViewNummer;
         TextView textViewTitel;
         ImageView imageViewLektion;
         ImageView imageViewCheckmark;
 
+        /**
+         * Konstruktor für den ViewHolder, initialisiert alle UI-Komponenten.
+         * @param itemView Einzelnes Item-Layout
+         */
         public LektionViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNummer = itemView.findViewById(R.id.textViewNummer);

@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <!-- Titel -->
     <TextView
         android:id="@+id/textViewTitel"
         android:layout_width="match_parent"
@@ -15,7 +14,6 @@
         android:textColor="#8B0000"
         android:paddingBottom="16dp" />
 
-    <!-- WebView nimmt den ganzen verbleibenden Platz ein -->
     <WebView
         android:id="@+id/webViewTheorie"
         android:layout_width="match_parent"
@@ -23,7 +21,6 @@
         android:layout_weight="1"
         android:layout_marginBottom="16dp" />
 
-    <!-- Button unten -->
     <Button
         android:id="@+id/buttonQuiz"
         android:layout_width="match_parent"

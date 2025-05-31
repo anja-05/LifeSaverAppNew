@@ -32,5 +32,4 @@
         app:itemIconTint="@drawable/nav_item_color"
         app:itemTextColor="@drawable/nav_item_color"
         app:itemBackground="@drawable/nav_item_background"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -51,5 +51,4 @@
         android:src="@drawable/check_circle"
         android:contentDescription="Abgeschlossen"
         android:visibility="gone" />
-
 </LinearLayout>

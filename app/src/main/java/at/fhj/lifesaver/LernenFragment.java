@@ -1,10 +1,12 @@
 package at.fhj.lifesaver;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,27 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Die Klasse LernenFragment zeigt eine Liste von Erste-Hilfe-Lektionen in einer RecyclerView an.
+ * Die Inhalte der Lektionen (Titel, HTML-Datei, Bild) werden direkt im Code initialisiert.
+ * Der LektionAdapter stellt die Daten in einer vertikalen Liste dar.
+ * Die Daten werden im Fragment direkt statisch initialisiert.
+ */
 public class LernenFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private LektionAdapter adapter;
     private List<Lektion> lektionenListe;
 
+    /**
+     * Wird beim Erstellen der View aufgerufen.
+     * Initialisiert das RecyclerView, füllt die Liste der Lektionen mit statischen Daten
+     * und setzt den LektionAdapter, sofern der Kontext verfügbar ist.
+     * @param inflater LayoutInflater zum Erzeugen der View
+     * @param container  Eltern-View-Gruppe
+     * @param savedInstanceState Wiederherzustellender Zustand (nicht verwendet)
+     * @return Die fertig aufgebaute View des Fragments
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lernen, container, false);
@@ -26,6 +43,28 @@ public class LernenFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         lektionenListe = new ArrayList<>();
+        initLektionListe();
+
+        Context context = getContext();
+        if (context != null){
+            adapter = new LektionAdapter(lektionenListe, context);
+            recyclerView.setAdapter(adapter);
+        } else {
+            Log.e("LernenFragment", "Context ist null - Adapter konnte nicht gesetzt werden.");
+        }
+
+        adapter = new LektionAdapter(lektionenListe, getContext());
+        recyclerView.setAdapter(adapter);
+
+        return view;
+    }
+
+    /**
+     * Initialisiert die Liste der verfügbaren Erste-Hilfe-Lektionen.
+     * Jede Lektion enthält einen Titel, den Namen der HTML-Datei im assets-Ordner und eine Bildressource.
+     * Diese Methode wird einmal beim Start des Fragments aufgerufen.
+     */
+    private void initLektionListe() {
         lektionenListe.add(new Lektion("Bewusstlosigkeit/Reaktionslosigkeit", "html/bewusstlosigkeit.html", R.drawable.ic_bewusstlos));
         lektionenListe.add(new Lektion("Ersticken", "html/ersticken.html", R.drawable.ic_ersticken));
         lektionenListe.add(new Lektion("Verbrennungen", "html/verbrennungen.html", R.drawable.ic_verbrennung));
@@ -40,11 +79,12 @@ public class LernenFragment extends Fragment {
         lektionenListe.add(new Lektion("Herzinfarkt", "html/herzinfarkt.html", R.drawable.ic_herzinfarkt));
         lektionenListe.add(new Lektion("Verkehrsunfall", "html/verkehrsunfall.html", R.drawable.ic_verkehrsunfall));
 
-        adapter = new LektionAdapter(lektionenListe, getContext());
-        recyclerView.setAdapter(adapter);
-
-        return view;
     }
+
+    /**
+     * Wird aufgerufen, wenn das Fragment wieder sichtbar wird.
+     * Aktualisiert den Adapter, um eventuell geänderten Fortschritt anzuzeigen.
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -52,5 +92,4 @@ public class LernenFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
     }
-
 }
