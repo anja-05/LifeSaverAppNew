@@ -35,7 +35,7 @@ public class UebungFragment extends Fragment {
                 "Lerne, wie du bewusstlose Personen sicher lagerst"
         ));
         uebungList.add(new Uebung(
-                R.drawable.uebung_herzdruckmassage,
+                R.drawable.uebung_rautekgriff,
                 "Rautekgriff",
                 "Lerne, wie du Verletzte schnell aus der Gefahrenzone bringst"
         ));
