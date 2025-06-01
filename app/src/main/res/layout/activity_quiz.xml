@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/warm_white"
     tools:context=".QuizActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -189,7 +189,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Eine allergische Reaktion ist eine Überempfindlichkeitsreaktion des Immunsystems auf bestimmte Substanzen (Allergene)."
-                        android:textColor="@color/text_secondary" />
+                        android:textColor="@color/text_secondary"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -312,7 +312,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Zurück zu Lektionen"
+                android:text="Zurück zur Lektion"
                 android:layout_marginStart="8dp"
                 android:backgroundTint="@color/gray_300"
                 android:textColor="@color/text_primary" />

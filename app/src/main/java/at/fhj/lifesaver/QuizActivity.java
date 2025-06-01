@@ -366,15 +366,15 @@ public class QuizActivity extends AppCompatActivity {
 
             float percentage = (float) score / quizQuestions.size() * 100;
             if (percentage == 100) {
-                tvFeedback.setText("Perfekt! Du hast alle Fragen richtig beantwortet!");
+                tvFeedback.setText("Perfekt! Du hast alle Fragen richtig beantwortet und diese Lektion damit abgeschlossen.");
             } else if (percentage >= 80) {
-                tvFeedback.setText("Sehr gut! Du hast die meisten Fragen richtig beantwortet!");
+                tvFeedback.setText("Sehr gut! Du hast die meisten Fragen richtig beantwortet! Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.");
             } else if (percentage >= 60) {
-                tvFeedback.setText("Gut gemacht! Du hast mehr als die Hälfte der Fragen richtig beantwortet.");
+                tvFeedback.setText("Gut gemacht! Du hast mehr als die Hälfte der Fragen richtig beantwortet. Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.");
             } else if (percentage >= 40) {
-                tvFeedback.setText("Du hast einige Fragen richtig beantwortet. Mit etwas Übung wirst du besser!");
+                tvFeedback.setText("Du hast einige Fragen richtig beantwortet. Mit etwas Übung wirst du besser! Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.");
             } else {
-                tvFeedback.setText("Du hast noch Verbesserungspotential. Versuche es noch einmal!");
+                tvFeedback.setText("Du hast noch Verbesserungspotential. Versuche es noch einmal! Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.");
             }
 
             questionsSummaryContainer.removeAllViews();
