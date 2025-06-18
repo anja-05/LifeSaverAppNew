@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -76,13 +77,18 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
     private boolean isTrainingActive;
 
     // Feedback-Intervall
-    private static final long FEEDBACK_INTERVAL = 10000; // 10 Sekunden
+    private static final long FEEDBACK_INTERVAL = 10000;
     private long lastFeedbackTime;
 
     // Sensor-Schwellenwerte
-    private static final float COMPRESSION_THRESHOLD = 12.0f; // Schwellenwert für Kompression
+    private static final float COMPRESSION_THRESHOLD = 12.0f;
     private boolean isCompressing = false;
     private float lastAcceleration = 0;
+
+    private long lastCompressionTime = 0;
+    private ArrayList<Long> compressionTimestamps = new ArrayList<>();
+    private float maxAcceleration = 0;
+    private float minAcceleration = Float.MAX_VALUE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -417,19 +423,12 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
 
     private void provideFeedback() {
         String feedback;
-
-        if (currentBPM < 100) {
-            feedback = "Drücke etwas schneller.";
-        } else if (currentBPM > 120) {
-            feedback = "Etwas langsamer drücken.";
-        } else if (currentDepth < 60) {
-            feedback = "Drücke etwas tiefer.";
-        } else if (currentQuality < 70) {
-            feedback = "Achte auf gleichmäßige Kompressionen.";
-        } else {
-            feedback = "Sehr gut – halte das Tempo!";
-        }
-
+        if (currentBPM < 100) feedback = "Drücke schneller.";
+        else if (currentBPM > 120) feedback = "Drücke langsamer.";
+        else if (currentDepth < 60) feedback = "Drücke tiefer.";
+        else if (currentDepth > 85) feedback = "Du drückst zu tief.";
+        else if (currentQuality < 70) feedback = "Achte auf gleichmäßige Kompressionen.";
+        else feedback = "Sehr gut – halte das Tempo!";
         speak(feedback);
     }
 
@@ -455,19 +454,38 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         if (!isCompressing && acceleration > COMPRESSION_THRESHOLD) {
             isCompressing = true;
             compressionCount++;
+            long currentTime = System.currentTimeMillis();
 
-            // Simuliere Sensordaten
-            simulateSensorData();
+            if (lastCompressionTime != 0) {
+                long interval = currentTime - lastCompressionTime;
+                compressionTimestamps.add(interval);
+                if (compressionTimestamps.size() > 5) compressionTimestamps.remove(0);
+                long avgInterval = 0;
+                for (Long i : compressionTimestamps) avgInterval += i;
+                avgInterval /= compressionTimestamps.size();
+                currentBPM = (int) (60000 / avgInterval);
+            }
+            lastCompressionTime = currentTime;
 
-            // Aktualisiere Anzeige
+            float depth = maxAcceleration - minAcceleration;
+            currentDepth = Math.min(100, Math.max(0, (int) (depth * 10)));
+            maxAcceleration = 0;
+            minAcceleration = Float.MAX_VALUE;
+
+            int bpmQuality = 100 - Math.abs(currentBPM - 110) * 2;
+            int depthQuality = 100 - Math.abs(currentDepth - 70);
+            currentQuality = (bpmQuality + depthQuality) / 2;
+
             updateTrainingDisplay();
         } else if (isCompressing && acceleration < COMPRESSION_THRESHOLD - 2) {
             isCompressing = false;
         }
 
+        maxAcceleration = Math.max(maxAcceleration, acceleration);
+        minAcceleration = Math.min(minAcceleration, acceleration);
         lastAcceleration = acceleration;
     }
-
+/*
     private void simulateSensorData() {
         // Simuliere BPM zwischen 100-120
         Random random = new Random();
@@ -480,7 +498,7 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         int bpmQuality = 100 - Math.abs(currentBPM - 110) * 2;
         int depthQuality = 100 - Math.abs(currentDepth - 75) * 2;
         currentQuality = (bpmQuality + depthQuality) / 2;
-    }
+    }*/
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
