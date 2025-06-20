@@ -6,6 +6,9 @@
     <item android:title="Übung"
         android:icon="@drawable/baseline_health_and_safety_24"
         android:id="@+id/uebung"/>
+    <item android:title="Location"
+        android:icon="@drawable/baseline_location_on_24"
+        android:id="@+id/buddy"/>
     <item android:title="Profil"
         android:icon="@drawable/baseline_account_circle_24"
         android:id="@+id/profil"/>

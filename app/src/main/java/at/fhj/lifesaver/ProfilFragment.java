@@ -117,14 +117,24 @@ public class ProfilFragment extends Fragment {
         });
 
         logoutButton.setOnClickListener(v -> {
-            prefs.edit()
-                    .remove("user_name")
-                    .remove("user_email")
-                    .putBoolean("is_logged_in", false)
-                    .apply();
-            Intent intent = new Intent(requireActivity(), LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            new Thread(() -> {
+                // Aktuellen User aus der DB abmelden
+                UserDatabase db = UserDatabase.getInstance(requireContext());
+                db.userDao().clearCurrentUserFlag();
+
+                // SharedPreferences leeren (im UI-Thread)
+                requireActivity().runOnUiThread(() -> {
+                    prefs.edit()
+                            .remove("user_name")
+                            .remove("user_email")
+                            .putBoolean("is_logged_in", false)
+                            .apply();
+
+                    Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                });
+            }).start();
         });
     }
 
