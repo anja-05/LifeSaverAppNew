@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="3dp"
+    app:strokeColor="@color/dark_red"
+    android:backgroundTint="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/stepTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Titel"
+            android:textColor="@color/dark_red"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <ImageView
+            android:id="@+id/stepImage"
+            android:layout_width="match_parent"
+            android:layout_height="219dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/stabile_seitenlage_schritt1" />
+
+        <TextView
+            android:id="@+id/stepDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beschreibung"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -41,6 +41,10 @@
             android:exported="true"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".StabileSeitenlageActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

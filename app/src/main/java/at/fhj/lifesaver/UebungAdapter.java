@@ -47,17 +47,19 @@ public class UebungAdapter extends RecyclerView.Adapter<UebungAdapter.UebungView
         holder.beschreibungView.setText(uebung.getBeschreibung());
 
         holder.itemView.setOnClickListener(v -> {
-            // Überprüfen, ob der Titel der Übung "Herzdruckmassage" ist
-            if (uebung.getTitel().equals("Herzdruckmassage")) {
-                // Starte die Herzdruckmassage Activity
+            String titel = uebung.getTitel();
+
+            if (titel.equalsIgnoreCase("Herzdruckmassage")) {
                 Intent intent = new Intent(v.getContext(), Herzdruckmassage.class);
                 v.getContext().startActivity(intent);
+            } else if (titel.equalsIgnoreCase("Stabile Seitenlage")) {
+                Intent intent = new Intent(v.getContext(), StabileSeitenlageActivity.class);
+                v.getContext().startActivity(intent);
             } else {
-                // Hier kannst du ähnliche Aktionen für andere Übungen hinzufügen
-                Toast.makeText(v.getContext(), "Übung " + uebung.getTitel() + " ausgewählt!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Übung " + titel + " ausgewählt!", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+        }
 
     @Override
     public int getItemCount() {
