@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean isLoggedIn = prefs.getBoolean(KEY_IS_LOGGED_IN, false);
 
@@ -45,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         initViews();
@@ -101,8 +101,13 @@ public class LoginActivity extends AppCompatActivity {
                 UserDatabase db = UserDatabase.getInstance(this);
                 User user = db.userDao().login(email, password);
 
+                if (user != null) {
+                    // neuer aktiver Benutzer
+                    db.userDao().clearCurrentUserFlag(); // andere abmelden
+                    user.setCurrentUser(true);
+                    db.userDao().updateUser(user);
+
                 runOnUiThread(() -> {
-                    if (user != null) {
                         prefs.edit()
                                 .putString("user_name", user.name)
                                 .putString("user_email", user.email)
@@ -112,10 +117,12 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(this, "Willkommen " + user.name, Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(this, MainActivity.class));
                         finish();
-                    } else {
-                        Toast.makeText(this, "Login fehlgeschlagen – falsche Daten", Toast.LENGTH_SHORT).show();
-                    }
                 });
+                    } else {
+                        runOnUiThread(() ->
+                        Toast.makeText(this, "Login fehlgeschlagen – falsche Daten", Toast.LENGTH_SHORT).show()
+                         );
+                    }
             }).start();
         });
     }

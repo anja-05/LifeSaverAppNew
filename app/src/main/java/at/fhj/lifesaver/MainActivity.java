@@ -1,15 +1,18 @@
 package at.fhj.lifesaver;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import androidx.core.content.ContextCompat;
+import android.Manifest;
+import android.content.pm.PackageManager;
 
 import at.fhj.lifesaver.databinding.ActivityMainBinding;
 
@@ -36,6 +39,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        UserDatabase db = UserDatabase.getInstance(this);
+        User currentUser = db.userDao().getCurrentUser();
+
+        // Standort holen und speichern
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            FusedLocationProviderClient locationClient = LocationServices.getFusedLocationProviderClient(this);
+            locationClient.getLastLocation().addOnSuccessListener(location -> {
+                if (location != null && currentUser != null) {
+                    currentUser.setLatitude(location.getLatitude());
+                    currentUser.setLongitude(location.getLongitude());
+                    db.userDao().updateUser(currentUser);
+                }
+            });
+        }
+
         replaceFragment(new LernenFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -46,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.uebung:
                     replaceFragment(new UebungFragment());
                     break;
+                case R.id.buddy:
+                    startActivity(new Intent(this, BuddyFunction.class));
+                    return true;
                 case R.id.profil:
                     replaceFragment(new ProfilFragment());
                     break;
