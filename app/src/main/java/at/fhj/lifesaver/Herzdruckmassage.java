@@ -217,7 +217,7 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
 
     private long calculateMetronomeInterval() {
         // 110 BPM = 60000ms / 110 = 545ms zwischen den Beats
-        return 60000 / 110;
+        return 60000 / 125;
     }
 
     private void setButtonListeners() {
@@ -267,8 +267,12 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         layoutSummary.setVisibility(View.GONE);
 
         textViewTitle.setText("CPR Training - Anleitung");
-        textViewInstructions.setText("Platziere dein Smartphone auf deinem Handrücken oder am Handgelenk – mit dem Display nach oben. " +
-                "So kann das Gerät deine Bewegungen beim Drücken optimal erfassen.");
+        textViewInstructions.setText("Lege dein Smartphone mit dem Display nach oben auf deinen Handrücken oder schnalle es an dein Handgelenk.\n\n" +
+                "Stelle dir vor, du führst die Herzdruckmassage an einer bewusstlosen Person durch:\n" +
+                "• Platziere den Ballen deiner einen Hand auf die Mitte des Brustkorbs – genau auf das untere Drittel des Brustbeins (Sternum).\n" +
+                "• Setze die andere Hand oben drauf und verschränke die Finger.\n" +
+                "• Halte die Arme gestreckt und bringe dein Körpergewicht senkrecht über die Brust der Person.\n\n" +
+                "Drücke kräftig und schnell: 5–6 cm tief mit einer Frequenz von 100–120 pro Minute.");
     }
 
     private void showTrainingScreen() {
@@ -422,15 +426,27 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
     }
 
     private void provideFeedback() {
-        String feedback;
-        if (currentBPM < 100) feedback = "Drücke schneller.";
-        else if (currentBPM > 120) feedback = "Drücke langsamer.";
-        else if (currentDepth < 60) feedback = "Drücke tiefer.";
-        else if (currentDepth > 85) feedback = "Du drückst zu tief.";
-        else if (currentQuality < 70) feedback = "Achte auf gleichmäßige Kompressionen.";
-        else feedback = "Sehr gut – halte das Tempo!";
-        speak(feedback);
+        String feedbackTempo;
+        if (currentBPM < 100) {
+            feedbackTempo = "Drücke schneller.";
+        } else if (currentBPM > 120) {
+            feedbackTempo = "Drücke langsamer.";
+        } else {
+            feedbackTempo = "Tempo ist gut.";
+        }
+
+        String feedbackTiefe;
+        if (currentDepth < 60) {
+            feedbackTiefe = "Drücke tiefer.";
+        } else if (currentDepth > 85) {
+            feedbackTiefe = "Du drückst zu tief.";
+        } else {
+            feedbackTiefe = "Tiefe ist gut.";
+        }
+
+        speak(feedbackTempo + " " + feedbackTiefe);
     }
+
 
     private void speak(String text) {
         if (textToSpeech != null && isTrainingActive) {
@@ -459,14 +475,19 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
             if (lastCompressionTime != 0) {
                 long interval = currentTime - lastCompressionTime;
                 compressionTimestamps.add(interval);
-                if (compressionTimestamps.size() > 5) compressionTimestamps.remove(0);
-                long avgInterval = 0;
-                for (Long i : compressionTimestamps) avgInterval += i;
-                avgInterval /= compressionTimestamps.size();
-                currentBPM = (int) (60000 / avgInterval);
-            }
-            lastCompressionTime = currentTime;
 
+                long totalInterval = 0;
+                for (Long i : compressionTimestamps) {
+                    totalInterval += i;
+                }
+
+                if (compressionTimestamps.size() > 0) {
+                    long avgInterval = totalInterval / compressionTimestamps.size();
+                    currentBPM = (int) (60000 / avgInterval);
+                }
+            }
+
+            lastCompressionTime = currentTime;
             float depth = maxAcceleration - minAcceleration;
             currentDepth = Math.min(100, Math.max(0, (int) (depth * 10)));
             maxAcceleration = 0;
