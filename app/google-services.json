@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "557754244505",
+    "project_id": "lifesaver-f1cd9",
+    "storage_bucket": "lifesaver-f1cd9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557754244505:android:9b46f335a55d3ad2420708",
+        "android_client_info": {
+          "package_name": "at.fhj.lifesaver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZj8_OHjsWbo2ygTn2mLbTomaUmBoJjvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
