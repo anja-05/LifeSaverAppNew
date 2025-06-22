@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -64,4 +65,6 @@ dependencies {
 
     implementation ("com.google.android.gms:play-services-maps:18.0.0")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
+    implementation("com.google.firebase:firebase-database:20.3.0")
 }
+apply(plugin = "com.google.gms.google-services")

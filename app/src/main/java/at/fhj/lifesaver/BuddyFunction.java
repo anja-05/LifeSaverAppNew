@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,6 +31,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.location.Priority;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,16 +60,28 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
         database = UserDatabase.getInstance(this);
         userDao = database.userDao();
 
+        FirebaseApp.initializeApp(this);
+
         // Hole den aktuellen Benutzer (normalerweise würde dies nach dem Login geschehen)
-        currentUser = userDao.getCurrentUser();
+        /*currentUser = userDao.getCurrentUser();
         if (currentUser == null) {
             // Für Demo-Zwecke erstellen wir einen Benutzer, wenn keiner existiert
             currentUser = new User("Du", "demo@emial.com", "pass", 52.520008, 13.404954);
             currentUser.setCurrentUser(true);
             userDao.insert(currentUser);
+        }*/
+        currentUser = userDao.getCurrentUser();
+
+        if (currentUser == null) {
+            Toast.makeText(this, "Kein eingeloggter Benutzer gefunden", Toast.LENGTH_LONG).show();
+            // App z. B. zur LoginActivity umleiten
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish(); // beende BuddyFunction
+            return;
         }
 
-        addDemoUsers();
+        //addDemoUsers();
 
         // Initialisiere die Karte
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -92,7 +109,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
         });
     }
 
-   private void addDemoUsers() {
+  /* private void addDemoUsers() {
         // Demo-Benutzer für Testzwecke
        insertIfNotExists("Anna", 52.520908, 13.406954);
        insertIfNotExists("Max", 52.519108, 13.403954);
@@ -106,7 +123,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
             User user = new User(name, lat, lon);
             userDao.insert(user);
         }
-    }
+    }*/
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -115,10 +132,10 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
 
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
-
+/*
         if (userDao.getAllUsers().size() <= 1) {
             addDemoUsers();
-        }
+        }*/
 
         // Überprüfe Standortberechtigungen
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -156,6 +173,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                                 currentUser.setLatitude(location.getLatitude());
                                 currentUser.setLongitude(location.getLongitude());
                                 userDao.updateUser(currentUser);
+                                FirebaseSyncHelper.updateUserInFirebase(currentUser);
 
                                 // Kamera auf aktuellen Standort zentrieren
                                 if (firstLocationUpdate) {
@@ -188,6 +206,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                         currentUser.setLatitude(lat);
                         currentUser.setLongitude(lon);
                         userDao.updateUser(currentUser);
+                        FirebaseSyncHelper.updateUserInFirebase(currentUser);
 
                         //LatLng updatedLocation = new LatLng(lat, lon);
 
@@ -205,9 +224,63 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
     private void displayAllUsers() {
         mMap.clear();
         nearbyUsers.clear();
+
+        List<User> localUsers = userDao.getAllUsers();
+        Log.d("BuddyFunction", "Anzahl gespeicherter Nutzer: " + localUsers.size());
+        for (User user : localUsers) {
+            if (user.isCurrentUser()) {
+                LatLng pos = new LatLng(user.getLatitude(), user.getLongitude());
+                mMap.addMarker(new MarkerOptions()
+                        .position(pos)
+                        .title(user.getName())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            }
+        }
+
+        // 📡 2. Andere Nutzer aus Firebase
+        FirebaseSyncHelper.getAllUsers(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot userSnap : snapshot.getChildren()) {
+                    try {
+                        String name = userSnap.child("name").getValue(String.class);
+                        Double lat = userSnap.child("latitude").getValue(Double.class);
+                        Double lon = userSnap.child("longitude").getValue(Double.class);
+                        int id = Integer.parseInt(userSnap.getKey());
+
+                        if (currentUser.getId() == id) {
+                            // 🔁 Firebase → Room (eigener Standort wird aktualisiert)
+                            if (lat != null && lon != null) {
+                                currentUser.setLatitude(lat);
+                                currentUser.setLongitude(lon);
+                                userDao.updateUser(currentUser);
+                                Log.d("Map", "Aktueller Nutzerstandort aus Firebase übernommen");
+                            }
+                            continue;
+                        }
+
+                        LatLng pos = new LatLng(lat, lon);
+                        mMap.addMarker(new MarkerOptions()
+                                .position(pos)
+                                .title(name)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    } catch (Exception e) {
+                        Log.e("Map", "Fehler beim Parsen: " + e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Map", "Firebase-Fehler: " + error.getMessage());
+            }
+        });
+        /*
         List<User> allUsers = userDao.getAllUsers();
+        Log.d("BuddyFunction", "Anzahl gespeicherter Nutzer: " + allUsers.size());
 
         for (User user : allUsers) {
+            Log.d("MapUser", "User " + user.getName() + " @ " + user.getLatitude() + ", " + user.getLongitude());
             LatLng position = new LatLng(user.getLatitude(), user.getLongitude());
 
             MarkerOptions markerOptions = new MarkerOptions()
@@ -225,7 +298,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
             if (marker != null) {
                 marker.setTag(user.getId());
             }
-        }
+        }*/
     }
 
     @Override

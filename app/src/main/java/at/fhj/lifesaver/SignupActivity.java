@@ -1,15 +1,23 @@
 package at.fhj.lifesaver;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 /**
  * Die Klasse SignupActivity ermöglicht neuen Benutzern die Registrierung in der Lifesaver-App.
@@ -88,26 +96,54 @@ public class SignupActivity extends AppCompatActivity {
                 return;
             }
 
-            new Thread(() -> {
-                UserDatabase db = UserDatabase.getInstance(this);
-                if (db.userDao().findByEmail(email) != null) {
-                    runOnUiThread(() -> Toast.makeText(this, "E-Mail ist bereits registriert", Toast.LENGTH_SHORT).show());
-                    return;
-                }
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1001);
+                return;
+            }
 
-                User user = new User();
-                user.name = name;
-                user.email = email;
-                user.password = password;
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-                db.userDao().insert(user);
+            fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
 
-                runOnUiThread(() -> {
-                    Toast.makeText(this, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(this, LoginActivity.class));
-                    finish();
-                });
-            }).start();
+                new Thread(() -> {
+                    UserDatabase db = UserDatabase.getInstance(this);
+                    UserDAO dao = db.userDao();
+
+                    if (dao.findByEmail(email) != null) {
+                        runOnUiThread(() -> Toast.makeText(this, "E-Mail ist bereits registriert", Toast.LENGTH_SHORT).show());
+                        return;
+                    }
+
+                    User user = new User();
+                    user.name = name;
+                    user.email = email;
+                    user.password = password;
+
+                    // 📍 Standort setzen (entweder vom Gerät oder Dummy)
+                    if (location != null) {
+                        user.latitude = location.getLatitude();
+                        user.longitude = location.getLongitude();
+                    } else {
+                        user.latitude = 0.0;
+                        user.longitude = 0.0;
+                    }
+
+                    dao.insert(user);
+
+                    // Nutzer mit generierter ID holen
+                    User savedUser = dao.findByEmail(email);
+                    if (savedUser != null) {
+                        Log.d("FIREBASE", "→ Sende User an Firebase: " + savedUser.getName() + " ID: " + savedUser.getId());
+                        FirebaseSyncHelper.updateUserInFirebase(savedUser);
+                    }
+
+                    runOnUiThread(() -> {
+                        Toast.makeText(this, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(this, LoginActivity.class));
+                        finish();
+                    });
+                }).start();
+            });
         });
     }
 
@@ -119,5 +155,18 @@ public class SignupActivity extends AppCompatActivity {
             startActivity(new Intent(SignupActivity.this, LoginActivity.class));
             finish();
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1001) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Standortberechtigung erteilt. Bitte nochmal auf Registrieren klicken.", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Standortberechtigung wird benötigt", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
