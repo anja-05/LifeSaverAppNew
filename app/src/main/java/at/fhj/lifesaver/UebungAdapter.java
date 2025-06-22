@@ -55,8 +55,9 @@ public class UebungAdapter extends RecyclerView.Adapter<UebungAdapter.UebungView
             } else if (titel.equalsIgnoreCase("Stabile Seitenlage")) {
                 Intent intent = new Intent(v.getContext(), StabileSeitenlageActivity.class);
                 v.getContext().startActivity(intent);
-            } else {
-                Toast.makeText(v.getContext(), "Übung " + titel + " ausgewählt!", Toast.LENGTH_SHORT).show();
+            } else if (titel.equalsIgnoreCase("Rautekgriff")) {
+                Intent intent = new Intent(v.getContext(), RautekgriffActivity.class);
+                v.getContext().startActivity(intent);
             }
         });
         }
