@@ -12,8 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#8B0000"
         android:padding="16dp"
-        android:layout_marginBottom="15dp"
-        android:text="Stabile Seitenlage - Schritt für Schritt"
+        android:text="Rautekgriff – Schritt für Schritt"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20sp"
@@ -33,20 +32,17 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wenn jemand plötzlich bewusstlos wird, ist schnelles und überlegtes Handeln gefragt. Bevor du mit der stabilen Seitenlage beginnst, musst du unbedingt prüfen, ob die Person noch selbstständig atmet. Nur wenn eine normale Atmung vorhanden ist, darf die stabile Seitenlage durchgeführt werden – sie dient dann dazu, die Atemwege freizuhalten und Erstickungsgefahr zu vermeiden. Folge diesen 5 Schritten, um sicher Erste Hilfe zu leisten."
-                android:textAlignment="viewStart"
+                android:text="In einer Notsituation kann es lebenswichtig sein, eine bewusstlose Person schnell aus einer Gefahrenzone zu bringen – etwa aus einem verrauchten Raum oder von einer befahrenen Straße. Der Rautekgriff ist eine effektive Rettungstechnik, mit der du eine Person sicher und mit möglichst geringem Kraftaufwand in Sicherheit bringen kannst. Der Rautekgriff darf nur angewendet werden, wenn akute Gefahr besteht und immer mit Vorsicht, um zusätzliche Verletzungen zu vermeiden. In den folgenden Schritten lernst du, wie du den Rautekgriff korrekt und sicher anwendest."
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:layout_marginBottom="24dp" />
 
-            <!-- HIER WERDEN DIE SCHRITT-CARDS DYNAMISCH EINGEFÜGT -->
+            <!-- Dynamische Schritt-Cards -->
 
             <TextView
-                android:id="@+id/finalNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Auch nach dem Lagern in der stabilen Seitenlage musst du die Person weiter beobachten: Kontrolliere regelmäßig Atmung, Bewusstsein und Lebenszeichen. Achte darauf, dass der Kopf überstreckt und der Mund leicht geöffnet bleibt – so bleiben die Atemwege frei. Halte die Person warm und sprich beruhigend mit ihr, bis der Notarzt eintrifft.\n\nWichtig: Atmet die Person plötzlich nicht mehr, beginne sofort mit der Herzdruckmassage!"
-                android:textAlignment="viewStart"
+                android:text="Sobald du die Person aus der Gefahrenzone gebracht hast, prüfe erneut die Atmung und sichere sie ggf. in der stabilen Seitenlage. Bei Atemstillstand Reanimation beginnen."
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:layout_marginTop="24dp"

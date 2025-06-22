@@ -44,13 +44,13 @@ public class StabileSeitenlageActivity extends AppCompatActivity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
         for (Step step : steps) {
-            View card = inflater.inflate(R.layout.stabile_seitenlage_steps, container, false);
+            View card = inflater.inflate(R.layout.uebungen_steps, container, false);
 
             ((TextView) card.findViewById(R.id.stepTitle)).setText(step.title);
             ((TextView) card.findViewById(R.id.stepDescription)).setText(step.description);
             ((ImageView) card.findViewById(R.id.stepImage)).setImageResource(step.imageRes);
 
-            container.addView(card, container.getChildCount() - 1); // vor Abschlusstext
+            container.addView(card, container.getChildCount() - 1);
         }
     }
 }

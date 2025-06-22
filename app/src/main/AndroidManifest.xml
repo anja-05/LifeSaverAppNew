@@ -54,6 +54,10 @@
             android:name=".StabileSeitenlageActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".RautekgriffActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
