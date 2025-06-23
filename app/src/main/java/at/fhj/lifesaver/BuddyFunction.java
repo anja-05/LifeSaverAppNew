@@ -62,14 +62,6 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
 
         FirebaseApp.initializeApp(this);
 
-        // Hole den aktuellen Benutzer (normalerweise würde dies nach dem Login geschehen)
-        /*currentUser = userDao.getCurrentUser();
-        if (currentUser == null) {
-            // Für Demo-Zwecke erstellen wir einen Benutzer, wenn keiner existiert
-            currentUser = new User("Du", "demo@emial.com", "pass", 52.520008, 13.404954);
-            currentUser.setCurrentUser(true);
-            userDao.insert(currentUser);
-        }*/
         currentUser = userDao.getCurrentUser();
 
         if (currentUser == null) {
@@ -80,8 +72,6 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
             finish(); // beende BuddyFunction
             return;
         }
-
-        //addDemoUsers();
 
         // Initialisiere die Karte
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -98,6 +88,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Wenn lastClickedUser gesetzt ist, gehe zum Chat
                 if (lastClickedUser != null) {
                     Intent intent = new Intent(BuddyFunction.this, ChatActivity.class);
                     intent.putExtra("USER_ID", lastClickedUser.getId());
@@ -108,23 +99,6 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
             }
         });
     }
-
-  /* private void addDemoUsers() {
-        // Demo-Benutzer für Testzwecke
-       insertIfNotExists("Anna", 52.520908, 13.406954);
-       insertIfNotExists("Max", 52.519108, 13.403954);
-       insertIfNotExists("Sophie", 52.521008, 13.402954);
-       insertIfNotExists("Leon", 52.518008, 13.405954);
-    }
-
-    private void insertIfNotExists(String name, double lat, double lon) {
-        String email = name.toLowerCase() + "@example.com";
-        if (userDao.findByEmail(email) == null) {
-            User user = new User(name, lat, lon);
-            userDao.insert(user);
-        }
-    }*/
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -132,10 +106,6 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
 
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
-/*
-        if (userDao.getAllUsers().size() <= 1) {
-            addDemoUsers();
-        }*/
 
         // Überprüfe Standortberechtigungen
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -169,16 +139,16 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                         @Override
                         public void onSuccess(Location location) {
                             if (location != null) {
-                                // Benutzerstandort in DB aktualisieren
+                                // Den Standort des aktuellen Benutzers aktualisieren
                                 currentUser.setLatitude(location.getLatitude());
                                 currentUser.setLongitude(location.getLongitude());
-                                userDao.updateUser(currentUser);
-                                FirebaseSyncHelper.updateUserInFirebase(currentUser);
+                                userDao.updateUser(currentUser);  // Stelle sicher, dass der Benutzer in der lokalen Room-Datenbank gespeichert wird
+                                FirebaseSyncHelper.updateUserInFirebase(currentUser);  // Firebase wird auch aktualisiert
 
-                                // Kamera auf aktuellen Standort zentrieren
+                                // Kamera auf den aktuellen Standort zentrieren
                                 if (firstLocationUpdate) {
                                     LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));  // 15 ist der Zoom-Level
                                     firstLocationUpdate = false;
                                 }
 
@@ -208,64 +178,72 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                         userDao.updateUser(currentUser);
                         FirebaseSyncHelper.updateUserInFirebase(currentUser);
 
-                        //LatLng updatedLocation = new LatLng(lat, lon);
-
                         // Marker aktualisieren
                         displayAllUsers();
                     }
                 }
             };
-
             // Starte das Live-Tracking
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
         }
     }
 
     private void displayAllUsers() {
-        mMap.clear();
-        nearbyUsers.clear();
+        mMap.clear(); // Löscht alle alten Marker
+        nearbyUsers.clear(); // Löscht die Liste der nahen Benutzer
 
+        // 1. Lokale Benutzer aus der Room-Datenbank anzeigen
         List<User> localUsers = userDao.getAllUsers();
         Log.d("BuddyFunction", "Anzahl gespeicherter Nutzer: " + localUsers.size());
         for (User user : localUsers) {
+            LatLng pos = new LatLng(user.getLatitude(), user.getLongitude());
+
+            // Zeigt nur den grünen Marker für den aktuellen Benutzer an
             if (user.isCurrentUser()) {
-                LatLng pos = new LatLng(user.getLatitude(), user.getLongitude());
-                mMap.addMarker(new MarkerOptions()
+                Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(pos)
                         .title(user.getName())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))); // Grüner Marker für den aktuellen Benutzer
+                if (marker != null) {
+                    marker.setTag(user.getId()); // Setze den User-ID als Tag des Markers
+                }
+            } else {
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(pos)
+                        .title(user.getName())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))); // Blauer Marker für andere Benutzer
+                if (marker != null) {
+                    marker.setTag(user.getId()); // Setze den User-ID als Tag des Markers
+                }
             }
         }
 
-        // 📡 2. Andere Nutzer aus Firebase
+        // 2. Andere Benutzer aus Firebase abrufen
         FirebaseSyncHelper.getAllUsers(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot userSnap : snapshot.getChildren()) {
                     try {
+                        // Hole Benutzerdaten aus Firebase
                         String name = userSnap.child("name").getValue(String.class);
                         Double lat = userSnap.child("latitude").getValue(Double.class);
                         Double lon = userSnap.child("longitude").getValue(Double.class);
-                        int id = Integer.parseInt(userSnap.getKey());
 
-                        if (currentUser.getId() == id) {
-                            // 🔁 Firebase → Room (eigener Standort wird aktualisiert)
-                            if (lat != null && lon != null) {
-                                currentUser.setLatitude(lat);
-                                currentUser.setLongitude(lon);
-                                userDao.updateUser(currentUser);
-                                Log.d("Map", "Aktueller Nutzerstandort aus Firebase übernommen");
+                        // Überprüfe, ob die Koordinaten existieren und gültig sind
+                        if (lat != null && lon != null) {
+                            LatLng pos = new LatLng(lat, lon);
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(pos)
+                                    .title(name)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+                            if (marker != null) {
+                                // Setze den Tag für den Marker aus Firebase
+                                marker.setTag(userSnap.getKey()); // Verwende die Firebase ID als Tag
                             }
-                            continue;
                         }
-
-                        LatLng pos = new LatLng(lat, lon);
-                        mMap.addMarker(new MarkerOptions()
-                                .position(pos)
-                                .title(name)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     } catch (Exception e) {
-                        Log.e("Map", "Fehler beim Parsen: " + e.getMessage());
+                        Log.e("Map", "Fehler beim Parsen der Firebase-Daten: " + e.getMessage());
                     }
                 }
             }
@@ -275,30 +253,6 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                 Log.e("Map", "Firebase-Fehler: " + error.getMessage());
             }
         });
-        /*
-        List<User> allUsers = userDao.getAllUsers();
-        Log.d("BuddyFunction", "Anzahl gespeicherter Nutzer: " + allUsers.size());
-
-        for (User user : allUsers) {
-            Log.d("MapUser", "User " + user.getName() + " @ " + user.getLatitude() + ", " + user.getLongitude());
-            LatLng position = new LatLng(user.getLatitude(), user.getLongitude());
-
-            MarkerOptions markerOptions = new MarkerOptions()
-                    .position(position)
-                    .title(user.getName());
-
-            if (user.isCurrentUser()) {
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-            } else {
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-                nearbyUsers.add(user);
-            }
-
-            Marker marker = mMap.addMarker(markerOptions);
-            if (marker != null) {
-                marker.setTag(user.getId());
-            }
-        }*/
     }
 
     @Override
@@ -308,11 +262,21 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
         if (tag != null && tag instanceof Integer) {
             int clickedUserId = (int) tag;
 
+            // Log für Debugging hinzufügen, um sicherzustellen, dass die ID korrekt ist
+            Log.d("BuddyFunction", "Clicked User ID: " + clickedUserId);
+
+            // Stelle sicher, dass der angeklickte Benutzer nicht der aktuelle Benutzer ist
             if (clickedUserId != currentUser.getId()) {
-                // Zeige nur den Namen in einem Dialog oder Toast
                 lastClickedUser = userDao.getUserById(clickedUserId);
+
+                // Logge den Benutzer, der aus der Datenbank geladen wurde
+                Log.d("BuddyFunction", "Loaded User: " + (lastClickedUser != null ? lastClickedUser.getName() : "null"));
+
+                // Wenn der Benutzer gefunden wurde, zeige den Namen im Toast an
                 if (lastClickedUser != null) {
                     Toast.makeText(this, "Name: " + lastClickedUser.getName(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Kein Benutzer mit der ID " + clickedUserId + " gefunden.", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }

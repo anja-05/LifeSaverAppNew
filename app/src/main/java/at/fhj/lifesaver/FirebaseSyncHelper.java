@@ -17,6 +17,7 @@ public class FirebaseSyncHelper {
             Log.e("FIREBASE", "⚠️ User ist null!");
             return;
         }
+        String validEmailKey = user.getEmail().replace(".", "_").replace("@", "_at_");
 
         Map<String, Object> data = new HashMap<>();
         data.put("name", user.getName());
@@ -24,7 +25,7 @@ public class FirebaseSyncHelper {
         data.put("longitude", user.getLongitude());
 
         Log.d("FIREBASE", "Firebase-ID: " + user.getId());
-        usersRef.child(user.getEmail().replace(".", "_")).setValue(data)
+        usersRef.child(validEmailKey).setValue(data)
                 .addOnSuccessListener(aVoid -> Log.d("FIREBASE", "✅ Standort erfolgreich gespeichert"))
                 .addOnFailureListener(e -> Log.e("FIREBASE", "❌ Fehler: " + e.getMessage()));
 
