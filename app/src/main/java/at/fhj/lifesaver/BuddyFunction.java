@@ -189,8 +189,8 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
     }
 
     private void displayAllUsers() {
-        mMap.clear(); // Löscht alle alten Marker
-        nearbyUsers.clear(); // Löscht die Liste der nahen Benutzer
+        mMap.clear();
+        nearbyUsers.clear();
 
         // 1. Lokale Benutzer aus der Room-Datenbank anzeigen
         List<User> localUsers = userDao.getAllUsers();
@@ -205,7 +205,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                         .title(user.getName())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))); // Grüner Marker für den aktuellen Benutzer
                 if (marker != null) {
-                    marker.setTag(user.getId()); // Setze den User-ID als Tag des Markers
+                    marker.setTag(user);
                 }
             } else {
                 Marker marker = mMap.addMarker(new MarkerOptions()
@@ -213,7 +213,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                         .title(user.getName())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))); // Blauer Marker für andere Benutzer
                 if (marker != null) {
-                    marker.setTag(user.getId()); // Setze den User-ID als Tag des Markers
+                    marker.setTag(user);
                 }
             }
         }
@@ -224,13 +224,24 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot userSnap : snapshot.getChildren()) {
                     try {
-                        // Hole Benutzerdaten aus Firebase
                         String name = userSnap.child("name").getValue(String.class);
                         Double lat = userSnap.child("latitude").getValue(Double.class);
                         Double lon = userSnap.child("longitude").getValue(Double.class);
 
-                        // Überprüfe, ob die Koordinaten existieren und gültig sind
-                        if (lat != null && lon != null) {
+                        // 🔁 E-Mail aus Firebase-Key wiederherstellen
+                        String emailKey = userSnap.getKey(); // z. B. anja_at_gmx_at
+                        String email = emailKey.replace("_at_", "@").replace("_", ".");
+
+                        if (name != null && lat != null && lon != null && email != null) {
+                            // ✅ Erstelle temporären User (für Marker)
+                            User user = new User();
+                            user.setName(name);
+                            user.setEmail(email);
+                            user.setPassword("demo"); // Dummy, da Room Pflicht
+                            user.setLatitude(lat);
+                            user.setLongitude(lon);
+                            user.setCurrentUser(false);
+
                             LatLng pos = new LatLng(lat, lon);
                             Marker marker = mMap.addMarker(new MarkerOptions()
                                     .position(pos)
@@ -238,8 +249,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
                             if (marker != null) {
-                                // Setze den Tag für den Marker aus Firebase
-                                marker.setTag(userSnap.getKey()); // Verwende die Firebase ID als Tag
+                                marker.setTag(user); // ✔ Tag: vollständiges User-Objekt
                             }
                         }
                     } catch (Exception e) {
@@ -259,28 +269,25 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
     public boolean onMarkerClick(Marker marker) {
         Object tag = marker.getTag();
 
-        if (tag != null && tag instanceof Integer) {
-            int clickedUserId = (int) tag;
+        if (tag instanceof User) {
+            User clickedUser = (User) tag;
 
-            // Log für Debugging hinzufügen, um sicherzustellen, dass die ID korrekt ist
-            Log.d("BuddyFunction", "Clicked User ID: " + clickedUserId);
+            if (!clickedUser.isCurrentUser()) {
+                // 🔍 Versuche, den User lokal zu finden (anhand E-Mail)
+                User localUser = userDao.findByEmail(clickedUser.getEmail());
 
-            // Stelle sicher, dass der angeklickte Benutzer nicht der aktuelle Benutzer ist
-            if (clickedUserId != currentUser.getId()) {
-                lastClickedUser = userDao.getUserById(clickedUserId);
-
-                // Logge den Benutzer, der aus der Datenbank geladen wurde
-                Log.d("BuddyFunction", "Loaded User: " + (lastClickedUser != null ? lastClickedUser.getName() : "null"));
-
-                // Wenn der Benutzer gefunden wurde, zeige den Namen im Toast an
-                if (lastClickedUser != null) {
-                    Toast.makeText(this, "Name: " + lastClickedUser.getName(), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Kein Benutzer mit der ID " + clickedUserId + " gefunden.", Toast.LENGTH_SHORT).show();
+                if (localUser == null) {
+                    // ⬇️ User existiert noch nicht in Room → speichern
+                    userDao.insert(clickedUser);
+                    localUser = userDao.findByEmail(clickedUser.getEmail()); // ID holen
                 }
-                return true;
+
+                lastClickedUser = localUser;
+                Toast.makeText(this, "Ausgewählt: " + localUser.getName(), Toast.LENGTH_SHORT).show();
             }
+            return true;
         }
+
         return false;
     }
 

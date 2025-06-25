@@ -27,6 +27,8 @@ public class User {
 
     public boolean isCurrentUser;
 
+    private String firebaseId;
+
     public User(){
 
     }
@@ -106,5 +108,13 @@ public class User {
 
     public void setCurrentUser(boolean currentUser) {
         isCurrentUser = currentUser;
+    }
+
+    public String getFirebaseId() {
+        return firebaseId;
+    }
+
+    public void setFirebaseId(String firebaseId) {
+        this.firebaseId = firebaseId;
     }
 }
