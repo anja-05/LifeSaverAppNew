@@ -21,11 +21,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private List<Message> messages = new ArrayList<>();
-    private int currentUserId;
+    private String currentUserEmail;
 
-    public ChatAdapter(Context context, int currentUserId) {
+    public ChatAdapter(Context context, String currentUserEmail) {
         this.context = context;
-        this.currentUserId = currentUserId;
+        this.currentUserEmail = currentUserEmail;
     }
 
     public void setMessages(List<Message> messages) {
@@ -36,7 +36,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         Message message = messages.get(position);
-        if (message.getSenderId() == currentUserId) {
+        if (message.getSenderEmail().equals(currentUserEmail)) {
             return VIEW_TYPE_SENT;
         } else {
             return VIEW_TYPE_RECEIVED;

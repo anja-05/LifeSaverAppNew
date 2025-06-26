@@ -8,15 +8,15 @@ public class Message {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private int senderId;
-    private int receiverId;
+    private String senderEmail;
+    private String receiverEmail;
     private String text;
     private long timestamp;
 
     // Konstruktor
-    public Message(int senderId, int receiverId, String text) {
-        this.senderId = senderId;
-        this.receiverId = receiverId;
+    public Message(String senderEmail, String receiverEmail, String text) {
+        this.senderEmail = senderEmail;
+        this.receiverEmail = receiverEmail;
         this.text = text;
         this.timestamp = System.currentTimeMillis();
     }
@@ -25,14 +25,24 @@ public class Message {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public int getSenderId() { return senderId; }
-    public void setSenderId(int senderId) { this.senderId = senderId; }
-
-    public int getReceiverId() { return receiverId; }
-    public void setReceiverId(int receiverId) { this.receiverId = receiverId; }
-
     public String getText() { return text; }
     public void setText(String text) { this.text = text; }
+
+    public String getSenderEmail() {
+        return senderEmail;
+    }
+
+    public void setSenderEmail(String senderEmail) {
+        this.senderEmail = senderEmail;
+    }
+
+    public String getReceiverEmail() {
+        return receiverEmail;
+    }
+
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail;
+    }
 
     public long getTimestamp() { return timestamp; }
     public void setTimestamp(long timestamp) { this.timestamp = timestamp; }

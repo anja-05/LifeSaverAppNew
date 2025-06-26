@@ -94,7 +94,7 @@ public class ChatActivity extends AppCompatActivity {
             return;
         }
         // Initialisiere den RecyclerView
-        chatAdapter = new ChatAdapter(this, currentUser.getId());
+        chatAdapter = new ChatAdapter(this, currentUser.getEmail());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(chatAdapter);
 
@@ -121,7 +121,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void loadMessages() {
-        List<Message> messages = messageDao.getMessagesBetweenUsers(currentUser.getId(), chatPartner.getId());
+        List<Message> messages = messageDao.getMessagesBetweenUsers(currentUser.getEmail(), chatPartner.getEmail());
         chatAdapter.setMessages(messages);
         recyclerView.scrollToPosition(chatAdapter.getItemCount() - 1);
     }
@@ -129,14 +129,9 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage() {
         String messageText = messageInput.getText().toString().trim();
         if (!messageText.isEmpty()) {
-            // Erstelle und speichere die Nachricht
-            Message message = new Message(currentUser.getId(), chatPartner.getId(), messageText);
+            Message message = new Message(currentUser.getEmail(), chatPartner.getEmail(), messageText);
             messageDao.insertMessage(message);
-
-            // Leere das Eingabefeld
             messageInput.setText("");
-
-            // Aktualisiere die Nachrichtenliste
             loadMessages();
 
             DatabaseReference messageRef = FirebaseDatabase.getInstance().getReference("messages");
@@ -147,8 +142,8 @@ public class ChatActivity extends AppCompatActivity {
                 Map<String, Object> data = new HashMap<>();
                 data.put("text", messageText);
                 data.put("timestamp", message.getTimestamp());
-                data.put("senderId", currentUser.getId());
-                data.put("receiverId", chatPartner.getId());
+                data.put("senderEmail", currentUser.getEmail());
+                data.put("receiverEmail", chatPartner.getEmail());
                 messageRef.child(conversationId).child(key).setValue(data);
             }
         }
@@ -156,8 +151,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void listenForMessages() {
         String conversationId = getConversationId(currentUser.getEmail(), chatPartner.getEmail());
-        DatabaseReference messageRef = FirebaseDatabase.getInstance()
-                .getReference("messages").child(conversationId);
+        DatabaseReference messageRef = FirebaseDatabase.getInstance().getReference("messages").child(conversationId);
 
         messageRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -166,16 +160,20 @@ public class ChatActivity extends AppCompatActivity {
                     try {
                         String text = child.child("text").getValue(String.class);
                         Long timestamp = child.child("timestamp").getValue(Long.class);
-                        Integer senderId = child.child("senderId").getValue(Integer.class);
-                        Integer receiverId = child.child("receiverId").getValue(Integer.class);
+                        String sender = child.child("senderEmail").getValue(String.class);
+                        String receiver = child.child("receiverEmail").getValue(String.class);
 
-                        if (text != null && senderId != null && receiverId != null && timestamp != null) {
-                            // ✅ Doppelten Eintrag vermeiden
-                            Message existing = messageDao.findDuplicate(senderId, receiverId, timestamp);
-                            if (existing == null) {
-                                Message msg = new Message(senderId, receiverId, text);
-                                msg.setTimestamp(timestamp);
-                                messageDao.insertMessage(msg);
+                        if (text != null && sender != null && receiver != null && timestamp != null) {
+                            // Nur diese Konversation
+                            if ((sender.equals(currentUser.getEmail()) && receiver.equals(chatPartner.getEmail())) ||
+                                    (sender.equals(chatPartner.getEmail()) && receiver.equals(currentUser.getEmail()))) {
+
+                                Message existing = messageDao.findDuplicate(sender, receiver, timestamp);
+                                if (existing == null) {
+                                    Message msg = new Message(sender, receiver, text);
+                                    msg.setTimestamp(timestamp);
+                                    messageDao.insertMessage(msg);
+                                }
                             }
                         }
                     } catch (Exception e) {

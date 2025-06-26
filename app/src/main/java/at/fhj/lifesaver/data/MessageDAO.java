@@ -8,12 +8,12 @@ import java.util.List;
 
 @Dao
 public interface MessageDAO {
-    @Query("SELECT * FROM messages WHERE (senderId = :userId1 AND receiverId = :userId2) OR (senderId = :userId2 AND receiverId = :userId1) ORDER BY timestamp ASC")
-    List<Message> getMessagesBetweenUsers(int userId1, int userId2);
+    @Query("SELECT * FROM messages WHERE (senderEmail = :email1 AND receiverEmail = :email2) OR (senderEmail = :email2 AND receiverEmail = :email1) ORDER BY timestamp ASC")
+    List<Message> getMessagesBetweenUsers(String email1, String email2);
 
     @Insert
     void insertMessage(Message message);
 
-    @Query("SELECT * FROM messages WHERE senderId = :senderId AND receiverId = :receiverId AND timestamp = :timestamp LIMIT 1")
-    Message findDuplicate(int senderId, int receiverId, long timestamp);
+    @Query("SELECT * FROM messages WHERE senderEmail = :senderEmail AND receiverEmail = :receiverEmail AND timestamp = :timestamp LIMIT 1")
+    Message findDuplicate(String senderEmail, String receiverEmail, long timestamp);
 }
