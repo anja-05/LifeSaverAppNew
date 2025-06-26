@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,12 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 
+import at.fhj.lifesaver.map.BuddyFunction;
+import at.fhj.lifesaver.lesson.LernenFragment;
+import at.fhj.lifesaver.R;
+import at.fhj.lifesaver.training.UebungFragment;
+import at.fhj.lifesaver.data.User;
+import at.fhj.lifesaver.data.UserDatabase;
 import at.fhj.lifesaver.databinding.ActivityMainBinding;
 
 /**

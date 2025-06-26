@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.data;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

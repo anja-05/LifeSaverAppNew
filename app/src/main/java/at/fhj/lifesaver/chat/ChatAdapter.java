@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.chat;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import at.fhj.lifesaver.data.Message;
+import at.fhj.lifesaver.R;
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_SENT = 1;

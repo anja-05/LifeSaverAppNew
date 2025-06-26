@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.utils;
 
 import android.util.Log;
 
@@ -8,6 +8,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import at.fhj.lifesaver.data.User;
 
 public class FirebaseSyncHelper {
     private static final DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");

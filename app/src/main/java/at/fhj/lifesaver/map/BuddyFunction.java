@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.map;
 
 import android.Manifest;
 import android.content.Intent;
@@ -38,6 +38,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import at.fhj.lifesaver.chat.ChatActivity;
+import at.fhj.lifesaver.R;
+import at.fhj.lifesaver.data.User;
+import at.fhj.lifesaver.data.UserDAO;
+import at.fhj.lifesaver.data.UserDatabase;
+import at.fhj.lifesaver.ui.LoginActivity;
+import at.fhj.lifesaver.ui.MainActivity;
+import at.fhj.lifesaver.utils.FirebaseSyncHelper;
 
 public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener{
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;

@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.quiz;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,6 +25,9 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import com.google.android.material.card.MaterialCardView;
 import com.google.gson.Gson;
+
+import at.fhj.lifesaver.R;
+import at.fhj.lifesaver.lesson.LektionDetailActivity;
 
 
 /**

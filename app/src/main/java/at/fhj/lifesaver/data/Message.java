@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.data;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

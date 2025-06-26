@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.chat;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,9 +10,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import java.util.List;
+
+import at.fhj.lifesaver.data.Message;
+import at.fhj.lifesaver.data.MessageDAO;
+import at.fhj.lifesaver.R;
+import at.fhj.lifesaver.data.User;
+import at.fhj.lifesaver.data.UserDAO;
+import at.fhj.lifesaver.data.UserDatabase;
 
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;

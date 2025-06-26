@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.ui;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -18,6 +18,12 @@ import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+
+import at.fhj.lifesaver.R;
+import at.fhj.lifesaver.data.User;
+import at.fhj.lifesaver.data.UserDAO;
+import at.fhj.lifesaver.data.UserDatabase;
+import at.fhj.lifesaver.utils.FirebaseSyncHelper;
 
 /**
  * Die Klasse SignupActivity ermöglicht neuen Benutzern die Registrierung in der Lifesaver-App.

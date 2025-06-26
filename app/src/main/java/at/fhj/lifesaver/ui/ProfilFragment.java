@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.ui;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -20,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import at.fhj.lifesaver.R;
+import at.fhj.lifesaver.data.UserDatabase;
 
 /**
  * Die Klasse ProfilFragment zeigt das Benutzerprofil mit Avatar, Fortschritt und Logout-Funktion.

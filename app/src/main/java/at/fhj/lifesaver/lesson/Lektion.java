@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.lesson;
 
 /**
  * Die Klasse ist die Lerneinheit der App Lifesaver.

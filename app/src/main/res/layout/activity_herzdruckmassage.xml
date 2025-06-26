@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F8F8F8"
-    tools:context=".Herzdruckmassage">
+    tools:context=".training.Herzdruckmassage">
 
     <!-- Header -->
     <TextView

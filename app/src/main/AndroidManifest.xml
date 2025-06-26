@@ -21,10 +21,10 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".QuizActivity"
+            android:name=".quiz.QuizActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,29 +33,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".ui.SignupActivity"
             android:exported="true" />
         <activity
-            android:name=".LektionDetailActivity"
+            android:name=".lesson.LektionDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".Herzdruckmassage"
+            android:name=".training.Herzdruckmassage"
             android:exported="true"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".BuddyFunction"
+        <activity android:name=".map.BuddyFunction"
             android:exported="true"/>
-        <activity android:name=".ChatActivity"
+        <activity android:name=".chat.ChatActivity"
             android:exported="true"/>
         <activity
-            android:name=".StabileSeitenlageActivity"
+            android:name=".training.StabileSeitenlageActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".RautekgriffActivity"
+            android:name=".training.RautekgriffActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
     </application>

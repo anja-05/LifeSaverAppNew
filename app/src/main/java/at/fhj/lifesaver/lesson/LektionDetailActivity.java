@@ -1,14 +1,16 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.lesson;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import at.fhj.lifesaver.quiz.QuizActivity;
+import at.fhj.lifesaver.R;
 
 /**
  * Die LektionDetailActivity zeigt den Theorieteil einer Lektion an.

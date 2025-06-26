@@ -1,6 +1,4 @@
-package at.fhj.lifesaver;
-
-import java.util.List;
+package at.fhj.lifesaver.quiz;
 
 /**
  * Die Klasse QuizFrage repräsentiert eine einzelne Frage im Multiple-Choice-Quiz.

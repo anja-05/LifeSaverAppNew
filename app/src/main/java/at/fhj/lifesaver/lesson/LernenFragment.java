@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.lesson;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import at.fhj.lifesaver.R;
 
 /**
  * Die Klasse LernenFragment zeigt eine Liste von Erste-Hilfe-Lektionen in einer RecyclerView an.

@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.training;
 
 public class Uebung {
     private int bildResId;

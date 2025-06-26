@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.data;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

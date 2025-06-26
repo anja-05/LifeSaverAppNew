@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.lesson;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import at.fhj.lifesaver.R;
 
 /**
  * Die Klasse "LektionAdapter" ist für die Darstellung einer Liste von den Lektionen in einer RecyclerView zuständig.

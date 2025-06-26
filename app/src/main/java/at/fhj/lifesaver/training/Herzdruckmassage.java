@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.training;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -22,8 +22,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
+import at.fhj.lifesaver.R;
 
 public class Herzdruckmassage extends AppCompatActivity implements SensorEventListener {
     private static final String TAG = "Herzdruckmassage";

@@ -1,4 +1,4 @@
-package at.fhj.lifesaver;
+package at.fhj.lifesaver.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import at.fhj.lifesaver.R;
+import at.fhj.lifesaver.data.User;
+import at.fhj.lifesaver.data.UserDatabase;
 
 /**
  * Die Klasse LoginActivity bietet die Benutzeroberfläche für die Anmeldung in der Lifesaver-App.
