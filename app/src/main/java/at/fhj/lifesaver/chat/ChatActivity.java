@@ -7,11 +7,20 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import at.fhj.lifesaver.data.Message;
 import at.fhj.lifesaver.data.MessageDAO;
@@ -77,6 +86,8 @@ public class ChatActivity extends AppCompatActivity {
         // Lade Nachrichten
         loadMessages();
 
+        listenForMessages();
+
         // Sende-Button-Listener
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +123,61 @@ public class ChatActivity extends AppCompatActivity {
 
             // Aktualisiere die Nachrichtenliste
             loadMessages();
+
+            DatabaseReference messageRef = FirebaseDatabase.getInstance().getReference("messages");
+            String conversationId = getConversationId(currentUser.getId(), chatPartner.getId());
+            String key = messageRef.child(conversationId).push().getKey();
+
+            if (key != null) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("text", messageText);
+                data.put("timestamp", message.getTimestamp());
+                data.put("senderId", currentUser.getId());
+                data.put("receiverId", chatPartner.getId());
+                messageRef.child(conversationId).child(key).setValue(data);
+            }
         }
+    }
+
+    private void listenForMessages() {
+        String conversationId = getConversationId(currentUser.getId(), chatPartner.getId());
+        DatabaseReference messageRef = FirebaseDatabase.getInstance()
+                .getReference("messages").child(conversationId);
+
+        messageRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    try {
+                        String text = child.child("text").getValue(String.class);
+                        Long timestamp = child.child("timestamp").getValue(Long.class);
+                        Integer senderId = child.child("senderId").getValue(Integer.class);
+                        Integer receiverId = child.child("receiverId").getValue(Integer.class);
+
+                        if (text != null && senderId != null && receiverId != null && timestamp != null) {
+                            // ✅ Doppelten Eintrag vermeiden
+                            Message existing = messageDao.findDuplicate(senderId, receiverId, timestamp);
+                            if (existing == null) {
+                                Message msg = new Message(senderId, receiverId, text);
+                                msg.setTimestamp(timestamp);
+                                messageDao.insertMessage(msg);
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                loadMessages();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                error.toException().printStackTrace();
+            }
+        });
+    }
+
+    private String getConversationId(int id1, int id2) {
+        return (id1 < id2 ? id1 + "_" + id2 : id2 + "_" + id1);
     }
 }
