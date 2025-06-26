@@ -2,13 +2,14 @@ package at.fhj.lifesaver.data;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
  * Die Klasse User ist eine Entität in der lokalen Room-Datenbank.
  * Jeder Benutzer besteht aus einem eindeutigen ID-Wert (autogeneriert), einem Namen, einer E-Mail-Adresse und einem Passwort.
  */
-@Entity(tableName = "users")
+@Entity(tableName = "users", indices = {@Index(value = {"email"}, unique = true)})
 public class User {
     @PrimaryKey(autoGenerate = true)
     public int id;

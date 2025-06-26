@@ -65,7 +65,6 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buddyfunction);
 
-        // Initialisiere die Datenbank
         database = UserDatabase.getInstance(this);
         userDao = database.userDao();
 
@@ -75,10 +74,9 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
 
         if (currentUser == null) {
             Toast.makeText(this, "Kein eingeloggter Benutzer gefunden", Toast.LENGTH_LONG).show();
-            // App z. B. zur LoginActivity umleiten
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-            finish(); // beende BuddyFunction
+            finish();
             return;
         }
 
@@ -97,7 +95,6 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Wenn lastClickedUser gesetzt ist, gehe zum Chat
                 if (lastClickedUser != null) {
                     Intent intent = new Intent(BuddyFunction.this, ChatActivity.class);
                     intent.putExtra("USER_ID", lastClickedUser.getId());
@@ -116,7 +113,6 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        // Überprüfe Standortberechtigungen
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             enableMyLocation();
@@ -142,7 +138,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
             // Standortanzeige in der Karte aktivieren
             mMap.setMyLocationEnabled(true);
 
-            // 1. Einmaliger Standortabruf (z. B. initial)
+            // 1. Einmaliger Standortabruf
             fusedLocationClient.getLastLocation()
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
@@ -151,17 +147,16 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                                 // Den Standort des aktuellen Benutzers aktualisieren
                                 currentUser.setLatitude(location.getLatitude());
                                 currentUser.setLongitude(location.getLongitude());
-                                userDao.updateUser(currentUser);  // Stelle sicher, dass der Benutzer in der lokalen Room-Datenbank gespeichert wird
-                                FirebaseSyncHelper.updateUserInFirebase(currentUser);  // Firebase wird auch aktualisiert
+                                userDao.updateUser(currentUser);
+                                FirebaseSyncHelper.updateUserInFirebase(currentUser);
 
                                 // Kamera auf den aktuellen Standort zentrieren
                                 if (firstLocationUpdate) {
                                     LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));  // 15 ist der Zoom-Level
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
                                     firstLocationUpdate = false;
                                 }
 
-                                // Marker setzen
                                 displayAllUsers();
                             }
                         }
@@ -170,7 +165,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
             // 2. Standort regelmäßig updaten
             LocationRequest locationRequest = LocationRequest.create();
             locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
-            locationRequest.setInterval(5000); // alle 5 Sekunden
+            locationRequest.setInterval(5000);
 
             LocationCallback locationCallback = new LocationCallback() {
                 @Override
@@ -187,12 +182,11 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                         userDao.updateUser(currentUser);
                         FirebaseSyncHelper.updateUserInFirebase(currentUser);
 
-                        // Marker aktualisieren
                         displayAllUsers();
                     }
                 }
             };
-            // Starte das Live-Tracking
+            // Live-Tracking
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
         }
     }
@@ -207,12 +201,11 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
         for (User user : localUsers) {
             LatLng pos = new LatLng(user.getLatitude(), user.getLongitude());
 
-            // Zeigt nur den grünen Marker für den aktuellen Benutzer an
             if (user.isCurrentUser()) {
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(pos)
                         .title(user.getName())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))); // Grüner Marker für den aktuellen Benutzer
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                 if (marker != null) {
                     marker.setTag(user);
                 }
@@ -220,7 +213,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(pos)
                         .title(user.getName())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))); // Blauer Marker für andere Benutzer
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                 if (marker != null) {
                     marker.setTag(user);
                 }
@@ -237,12 +230,13 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                         Double lat = userSnap.child("latitude").getValue(Double.class);
                         Double lon = userSnap.child("longitude").getValue(Double.class);
 
-                        // 🔁 E-Mail aus Firebase-Key wiederherstellen
-                        String emailKey = userSnap.getKey(); // z. B. anja_at_gmx_at
+                        String emailKey = userSnap.getKey();
                         String email = emailKey.replace("_at_", "@").replace("_", ".");
 
                         if (name != null && lat != null && lon != null && email != null) {
-                            // ✅ Erstelle temporären User (für Marker)
+                            if (email.equalsIgnoreCase(currentUser.getEmail())) {
+                                continue;
+                            }
                             User user = new User();
                             user.setName(name);
                             user.setEmail(email);
@@ -258,7 +252,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
                             if (marker != null) {
-                                marker.setTag(user); // ✔ Tag: vollständiges User-Objekt
+                                marker.setTag(user);
                             }
                         }
                     } catch (Exception e) {
@@ -282,13 +276,11 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
             User clickedUser = (User) tag;
 
             if (!clickedUser.isCurrentUser()) {
-                // 🔍 Versuche, den User lokal zu finden (anhand E-Mail)
                 User localUser = userDao.findByEmail(clickedUser.getEmail());
 
                 if (localUser == null) {
-                    // ⬇️ User existiert noch nicht in Room → speichern
                     userDao.insert(clickedUser);
-                    localUser = userDao.findByEmail(clickedUser.getEmail()); // ID holen
+                    localUser = userDao.findByEmail(clickedUser.getEmail());
                 }
 
                 lastClickedUser = localUser;
@@ -314,7 +306,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
 
     @Override
     public void onBackPressed() {
-        // Starte LektionenActivity statt einfach zurückzugehen
+        // Starte LektionenActivity
         super.onBackPressed();
         Intent intent = new Intent(BuddyFunction.this, MainActivity.class);
         startActivity(intent);
