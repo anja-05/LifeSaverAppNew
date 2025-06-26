@@ -13,4 +13,7 @@ public interface MessageDAO {
 
     @Insert
     void insertMessage(Message message);
+
+    @Query("SELECT * FROM messages WHERE senderId = :senderId AND receiverId = :receiverId AND timestamp = :timestamp LIMIT 1")
+    Message findDuplicate(int senderId, int receiverId, long timestamp);
 }
