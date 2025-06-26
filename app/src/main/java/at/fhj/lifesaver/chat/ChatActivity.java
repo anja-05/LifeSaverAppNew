@@ -62,12 +62,27 @@ public class ChatActivity extends AppCompatActivity {
         currentUser = userDao.getCurrentUser();
 
         // Hole den Chat-Partner anhand der übergebenen ID
-        int chatPartnerId = getIntent().getIntExtra("USER_ID", -1);
+        /*int chatPartnerId = getIntent().getIntExtra("USER_ID", -1);
         if (chatPartnerId != -1) {
             chatPartner = userDao.getUserById(chatPartnerId);
             userNameText.setText(chatPartner.getName());
         } else {
             finish(); // Beende die Aktivität, wenn kein gültiger Benutzer gefunden wurde
+            return;
+        }*/
+        String chatPartnerEmail = getIntent().getStringExtra("USER_EMAIL");
+        if (chatPartnerEmail != null) {
+            chatPartner = userDao.findByEmail(chatPartnerEmail);
+            if (chatPartner != null) {
+                userNameText.setText(chatPartner.getName());
+            } else {
+                Toast.makeText(this, "Chat-Partner nicht gefunden.", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+        } else {
+            Toast.makeText(this, "Keine Chat-Partner-E-Mail übergeben.", Toast.LENGTH_SHORT).show();
+            finish();
             return;
         }
 
@@ -125,7 +140,7 @@ public class ChatActivity extends AppCompatActivity {
             loadMessages();
 
             DatabaseReference messageRef = FirebaseDatabase.getInstance().getReference("messages");
-            String conversationId = getConversationId(currentUser.getId(), chatPartner.getId());
+            String conversationId = getConversationId(currentUser.getEmail(), chatPartner.getEmail());
             String key = messageRef.child(conversationId).push().getKey();
 
             if (key != null) {
@@ -140,7 +155,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void listenForMessages() {
-        String conversationId = getConversationId(currentUser.getId(), chatPartner.getId());
+        String conversationId = getConversationId(currentUser.getEmail(), chatPartner.getEmail());
         DatabaseReference messageRef = FirebaseDatabase.getInstance()
                 .getReference("messages").child(conversationId);
 
@@ -177,7 +192,9 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private String getConversationId(int id1, int id2) {
-        return (id1 < id2 ? id1 + "_" + id2 : id2 + "_" + id1);
+    private String getConversationId(String email1, String email2) {
+        return (email1.compareToIgnoreCase(email2) < 0 ? email1 + "_" + email2 : email2 + "_" + email1)
+                .replace(".", "_")
+                .replace("@", "_at_");
     }
 }

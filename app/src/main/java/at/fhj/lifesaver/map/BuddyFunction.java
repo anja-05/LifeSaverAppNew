@@ -97,7 +97,8 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
             public void onClick(View v) {
                 if (lastClickedUser != null) {
                     Intent intent = new Intent(BuddyFunction.this, ChatActivity.class);
-                    intent.putExtra("USER_ID", lastClickedUser.getId());
+                    //intent.putExtra("USER_ID", lastClickedUser.getId());
+                    intent.putExtra("USER_EMAIL", lastClickedUser.getEmail());
                     startActivity(intent);
                 } else {
                     Toast.makeText(BuddyFunction.this, "Bitte wähle zuerst eine Person auf der Karte aus", Toast.LENGTH_SHORT).show();
