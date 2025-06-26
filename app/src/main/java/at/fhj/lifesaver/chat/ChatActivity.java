@@ -28,6 +28,7 @@ import at.fhj.lifesaver.R;
 import at.fhj.lifesaver.data.User;
 import at.fhj.lifesaver.data.UserDAO;
 import at.fhj.lifesaver.data.UserDatabase;
+import at.fhj.lifesaver.utils.EncryptionHelper;
 
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -129,18 +130,25 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage() {
         String messageText = messageInput.getText().toString().trim();
         if (!messageText.isEmpty()) {
+            // 🔒 verschlüsseln für Firebase
+            String encryptedText = EncryptionHelper.encrypt(messageText);
+
+            // 💾 lokal unverschlüsselt speichern
             Message message = new Message(currentUser.getEmail(), chatPartner.getEmail(), messageText);
             messageDao.insertMessage(message);
+
+            // UI aktualisieren
             messageInput.setText("");
             loadMessages();
 
+            // In Firebase verschlüsselt speichern
             DatabaseReference messageRef = FirebaseDatabase.getInstance().getReference("messages");
             String conversationId = getConversationId(currentUser.getEmail(), chatPartner.getEmail());
             String key = messageRef.child(conversationId).push().getKey();
 
             if (key != null) {
                 Map<String, Object> data = new HashMap<>();
-                data.put("text", messageText);
+                data.put("text", encryptedText);
                 data.put("timestamp", message.getTimestamp());
                 data.put("senderEmail", currentUser.getEmail());
                 data.put("receiverEmail", chatPartner.getEmail());
@@ -158,21 +166,21 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot child : snapshot.getChildren()) {
                     try {
-                        String text = child.child("text").getValue(String.class);
+                        String encryptedText = child.child("text").getValue(String.class);
+                        String decryptedText = EncryptionHelper.decrypt(encryptedText);
                         Long timestamp = child.child("timestamp").getValue(Long.class);
                         String sender = child.child("senderEmail").getValue(String.class);
                         String receiver = child.child("receiverEmail").getValue(String.class);
 
-                        if (text != null && sender != null && receiver != null && timestamp != null) {
-                            // Nur diese Konversation
+                        if (decryptedText != null && sender != null && receiver != null && timestamp != null) {
                             if ((sender.equals(currentUser.getEmail()) && receiver.equals(chatPartner.getEmail())) ||
                                     (sender.equals(chatPartner.getEmail()) && receiver.equals(currentUser.getEmail()))) {
 
                                 Message existing = messageDao.findDuplicate(sender, receiver, timestamp);
                                 if (existing == null) {
-                                    Message msg = new Message(sender, receiver, text);
+                                    Message msg = new Message(sender, receiver, decryptedText);
                                     msg.setTimestamp(timestamp);
-                                    messageDao.insertMessage(msg);
+                                    messageDao.insertMessage(msg);  // 💡 in Room NUR entschlüsselten Text speichern
                                 }
                             }
                         }
