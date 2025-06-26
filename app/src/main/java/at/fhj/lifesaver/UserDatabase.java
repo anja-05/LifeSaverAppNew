@@ -11,7 +11,7 @@ import androidx.room.RoomDatabase;
  * Sie verwendet das Room-Persistenz-Framework zur einfachen Datenbankintegration mit einer
  * definierten User Entity und dem zugehörigen UserDAO.
  */
-@Database(entities = {User.class, Message.class}, version = 3, exportSchema = false)
+@Database(entities = {User.class, Message.class}, version = 4, exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
     private static UserDatabase instance;
 
