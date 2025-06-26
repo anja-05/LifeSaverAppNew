@@ -14,4 +14,13 @@
     <string name="enter_name">Name eingeben</string>
     <string name="signup">Registrierung</string>
     <string name="logout">Abmelden</string>
+    <string name="cpr_instruction_title">CPR Training - Anleitung</string>
+    <string name="cpr_instruction_text">
+        Lege dein Smartphone mit dem Display nach oben auf deinen Handrücken oder schnalle es an dein Handgelenk.\n\n
+        Stelle dir vor, du führst die Herzdruckmassage an einer bewusstlosen Person durch:\n
+        • Platziere den Ballen deiner einen Hand auf die Mitte des Brustkorbs – genau auf das untere Drittel des Brustbeins (Sternum).\n
+        • Setze die andere Hand oben drauf und verschränke die Finger.\n
+        • Halte die Arme gestreckt und bringe dein Körpergewicht senkrecht über die Brust der Person.\n\n
+        Drücke kräftig und schnell: 5–6 cm tief mit einer Frequenz von 100–120 pro Minute.
+    </string>
 </resources>
