@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
             } catch (Exception e) {
-                Toast.makeText(this, "Standort konnte nicht aktualisiert werden. Funktionen sind ggf. eingeschränkt.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.location_error), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.replace(R.id.frame_layout, fragment);
             fragmentTransaction.commit();
         } catch (Exception e) {
-            Toast.makeText(this, "Fehler beim Laden der Ansicht. Bitte erneut versuchen.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.view_error), Toast.LENGTH_SHORT).show();
         }
     }
 }

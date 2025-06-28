@@ -103,11 +103,11 @@ public class SignupActivity extends AppCompatActivity {
             String repassword = repasswordInput.getText().toString().trim();
 
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || repassword.isEmpty()) {
-                Toast.makeText(this, "Bitte alle Felder ausfüllen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.signup_fill_all_fields), Toast.LENGTH_SHORT).show();
                 return;
             }
             if (!password.equals(repassword)) {
-                Toast.makeText(this, "Passwörter stimmen nicht überein", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.signup_passwords_not_matching), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -133,7 +133,7 @@ public class SignupActivity extends AppCompatActivity {
                     UserDAO dao = db.userDao();
 
                     if (dao.findByEmail(email) != null) {
-                        runOnUiThread(() -> Toast.makeText(this, "E-Mail ist bereits registriert", Toast.LENGTH_SHORT).show());
+                        runOnUiThread(() -> Toast.makeText(this, getString(R.string.signup_email_exists), Toast.LENGTH_SHORT).show());
                         return;
                     }
 
@@ -159,7 +159,7 @@ public class SignupActivity extends AppCompatActivity {
                     }
 
                     runOnUiThread(() -> {
-                        Toast.makeText(this, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getString(R.string.signup_success), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(this, LoginActivity.class));
                         finish();
                     });
@@ -193,9 +193,9 @@ public class SignupActivity extends AppCompatActivity {
 
         if (requestCode == 1001) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Standortberechtigung erteilt. Bitte nochmal auf Registrieren klicken.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.location_permission_granted), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Standortberechtigung wird benötigt", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.location_permission_required), Toast.LENGTH_SHORT).show();
             }
         }
     }

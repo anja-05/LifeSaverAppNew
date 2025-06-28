@@ -72,7 +72,7 @@ public class ChatActivity extends AppCompatActivity {
 
         String chatPartnerEmail = getIntent().getStringExtra("USER_EMAIL");
         if (chatPartnerEmail == null) {
-            Toast.makeText(this, "Keine Chat-Partner-E-Mail übergeben.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.chat_no_email), Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -83,7 +83,7 @@ public class ChatActivity extends AppCompatActivity {
 
             runOnUiThread(() -> {
                 if (chatPartner == null || currentUser == null) {
-                    Toast.makeText(this, "Benutzer nicht gefunden.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.chat_user_not_found), Toast.LENGTH_SHORT).show();
                     finish();
                     return;
                 }
@@ -187,7 +187,7 @@ public class ChatActivity extends AppCompatActivity {
                                     messageDao.insertMessage(msg);
                                 }
                             }
-                        } catch (Exception ignored) {}
+                        } catch (Exception e) {e.printStackTrace();}
                     }
                     runOnUiThread(ChatActivity.this::loadMessages);
                 });
@@ -195,7 +195,7 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                runOnUiThread(() -> Toast.makeText(ChatActivity.this, "Fehler beim Laden von Nachrichten", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(ChatActivity.this, getString(R.string.chat_loading_error), Toast.LENGTH_SHORT).show());
             }
         });
     }

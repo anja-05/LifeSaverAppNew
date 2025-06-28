@@ -127,7 +127,7 @@ public class QuizActivity extends AppCompatActivity {
 
             questionsSummaryContainer = findViewById(R.id.questions_summary_container);
 
-            tvTopicTitle.setText("Quiz: " + topicTitle);
+            tvTopicTitle.setText(getString(R.string.quiz_prefix) + topicTitle);
         }
 
     /**
@@ -148,13 +148,13 @@ public class QuizActivity extends AppCompatActivity {
                 quizQuestions = Arrays.asList(frageArray);
 
             } catch (IOException e) {
-                Toast.makeText(this, "Fehler beim Laden des Quiz für: " + topicTitle, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.quiz_loading_error, topicTitle), Toast.LENGTH_LONG).show();
                 finish();
                 return;
             }
 
             if (quizQuestions.isEmpty()) {
-                Toast.makeText(this, "Keine Fragen vorhanden für: " + topicTitle, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.quiz_no_questions, topicTitle), Toast.LENGTH_LONG).show();
                 finish();
                 return;
             }
@@ -205,7 +205,8 @@ public class QuizActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (!answeredQuestions[currentQuestionIndex]) {
-                        Toast.makeText(QuizActivity.this, "Bitte wähle eine Antwort aus!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(QuizActivity.this, getString(R.string.select_answer_warning), Toast.LENGTH_SHORT).show();
+
                         return;
                     }
 
@@ -337,14 +338,11 @@ public class QuizActivity extends AppCompatActivity {
      * Passt den Text und Status der Buttons (Weiter/Ergebnis anzeigen) abhängig vom aktuellen Fortschritt an.
      */
     private void updateButtonStates() {
-            btnPrev.setEnabled(true);
+        btnPrev.setEnabled(true);
 
-
-            if (currentQuestionIndex == quizQuestions.size() - 1) {
-                btnNext.setText("Ergebnis anzeigen");
-            } else {
-                btnNext.setText("Weiter");
-            }
+        btnNext.setText(currentQuestionIndex == quizQuestions.size() - 1
+                ? getString(R.string.show_result_button)
+                : getString(R.string.next_button));
         }
 
     /**
@@ -369,15 +367,15 @@ public class QuizActivity extends AppCompatActivity {
 
             float percentage = (float) score / quizQuestions.size() * 100;
             if (percentage == 100) {
-                tvFeedback.setText("Perfekt! Du hast alle Fragen richtig beantwortet und diese Lektion damit abgeschlossen.");
+                tvFeedback.setText(getString(R.string.result_perfect));
             } else if (percentage >= 80) {
-                tvFeedback.setText("Sehr gut! Du hast die meisten Fragen richtig beantwortet! Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.");
+                tvFeedback.setText(getString(R.string.result_very_good));
             } else if (percentage >= 60) {
-                tvFeedback.setText("Gut gemacht! Du hast mehr als die Hälfte der Fragen richtig beantwortet. Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.");
+                tvFeedback.setText(getString(R.string.result_good));
             } else if (percentage >= 40) {
-                tvFeedback.setText("Du hast einige Fragen richtig beantwortet. Mit etwas Übung wirst du besser! Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.");
+                tvFeedback.setText(getString(R.string.result_practice_needed));
             } else {
-                tvFeedback.setText("Du hast noch Verbesserungspotential. Versuche es noch einmal! Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.");
+                tvFeedback.setText(getString(R.string.result_try_again));
             }
 
             questionsSummaryContainer.removeAllViews();
@@ -392,20 +390,21 @@ public class QuizActivity extends AppCompatActivity {
                 TextView tvQuestionContent = summaryItemView.findViewById(R.id.tv_question_content);
                 TextView tvAnswerContent = summaryItemView.findViewById(R.id.tv_answer_content);
 
-                tvQuestionTitle.setText("Frage " + (i + 1) + ": " + (isCorrect ? "✓" : "✗"));
+                tvQuestionTitle.setText(getString(R.string.summary_question_title, i + 1, isCorrect ? "✓" : "✗"));
                 tvQuestionContent.setText(question.getQuestion());
 
                 if (isCorrect) {
                     summaryItemView.setBackgroundColor(getResources().getColor(R.color.green_50));
                     tvQuestionTitle.setTextColor(getResources().getColor(R.color.green_800));
                     tvAnswerContent.setTextColor(getResources().getColor(R.color.green_700));
-                    tvAnswerContent.setText("Richtige Antwort: " + question.getOptions()[question.getCorrectIndex()]);
+                    tvAnswerContent.setText(getString(R.string.correct_answer, question.getOptions()[question.getCorrectIndex()]));
                 } else {
                     summaryItemView.setBackgroundColor(getResources().getColor(R.color.red_50));
                     tvQuestionTitle.setTextColor(getResources().getColor(R.color.red_800));
                     tvAnswerContent.setTextColor(getResources().getColor(R.color.red_700));
-                    tvAnswerContent.setText("Deine Antwort: " + question.getOptions()[userAnswer] +
-                            " | Richtige Antwort: " + question.getOptions()[question.getCorrectIndex()]);
+                    tvAnswerContent.setText(getString(R.string.your_answer,
+                            question.getOptions()[userAnswer],
+                            question.getOptions()[question.getCorrectIndex()]));
                 }
                 questionsSummaryContainer.addView(summaryItemView);
             }

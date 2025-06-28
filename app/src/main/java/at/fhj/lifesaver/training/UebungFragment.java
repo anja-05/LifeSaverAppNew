@@ -49,25 +49,25 @@ public class UebungFragment extends Fragment {
             List<Uebung> uebungList = new ArrayList<>();
             uebungList.add(new Uebung(
                     R.drawable.uebung_herzdruckmassage,
-                    "Herzdruckmassage",
-                    "Lerne, wie du bei einem Herzstillstand richtig reagierst"
+                    getString(R.string.uebung_herzdruckmassage_titel),
+                    getString(R.string.uebung_herzdruckmassage_beschreibung)
             ));
             uebungList.add(new Uebung(
                     R.drawable.uebung_stabileseitenlage,
-                    "Stabile Seitenlage",
-                    "Lerne, wie du bewusstlose Personen sicher lagerst"
+                    getString(R.string.uebung_stabile_seitenlage_titel),
+                    getString(R.string.uebung_stabile_seitenlage_beschreibung)
             ));
             uebungList.add(new Uebung(
                     R.drawable.uebung_rautekgriff,
-                    "Rautekgriff",
-                    "Lerne, wie du Verletzte schnell aus der Gefahrenzone bringst"
+                    getString(R.string.uebung_rautekgriff_titel),
+                    getString(R.string.uebung_rautekgriff_beschreibung)
             ));
 
             UebungAdapter adapter = new UebungAdapter(uebungList);
             viewPager.setAdapter(adapter);
 
         } catch (Exception e) {
-            Toast.makeText(requireContext(), "Fehler beim Laden der Übungen. Bitte App neu starten.", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(), getString(R.string.uebung_ladefehler), Toast.LENGTH_LONG).show();
             view = new View(requireContext());
         }
         return view;

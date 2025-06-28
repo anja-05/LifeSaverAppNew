@@ -50,10 +50,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    @Override
     /**
      * Gibt den Typ der Ansicht zurück, abhängig davon, ob die Nachricht gesendet oder empfangen wurde.
      */
+    @Override
     public int getItemViewType(int position) {
         Message message = messages.get(position);
         if (message.getSenderEmail().equals(currentUserEmail)) {
@@ -146,7 +146,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             try {
                 messageText.setText(message.getText());
             } catch (Exception e) {
-                messageText.setText("Nachricht konnte nicht geladen werden.");
+                messageText.setText(itemView.getContext().getString(R.string.error_message_not_loaded));
             }
         }
     }

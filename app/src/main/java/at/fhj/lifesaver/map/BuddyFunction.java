@@ -82,7 +82,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
 
                 runOnUiThread(() -> {
                     if (currentUser == null) {
-                        Toast.makeText(this, "Kein eingeloggter Benutzer gefunden", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, getString(R.string.error_no_user), Toast.LENGTH_LONG).show();
                         startActivity(new Intent(this, LoginActivity.class));
                         finish();
                         return;
@@ -103,13 +103,13 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                             intent.putExtra("USER_EMAIL", lastClickedUser.getEmail());
                             startActivity(intent);
                         } else {
-                            Toast.makeText(BuddyFunction.this, "Bitte wähle zuerst eine Person auf der Karte aus", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BuddyFunction.this, getString(R.string.error_select_user_first), Toast.LENGTH_SHORT).show();
                         }
                     });
                 });
             } catch (Exception e) {
                 runOnUiThread(() ->
-                        Toast.makeText(this, "Fehler bei der Initialisierung: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                        Toast.makeText(this, getString(R.string.error_initialization) + ": " + e.getMessage(), Toast.LENGTH_LONG).show());
             }
         });
     }
@@ -193,7 +193,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                 };
                 fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
             } catch (SecurityException e) {
-                Toast.makeText(this, "Standortfehler: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.error_location) + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -234,7 +234,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                 });
             }catch (Exception e) {
                 runOnUiThread(() ->
-                        Toast.makeText(this, "Fehler beim Laden der Nutzer: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        Toast.makeText(this, getString(R.string.error_loading_users) + ": " + e.getMessage(), Toast.LENGTH_SHORT).show());
             }
         });
     }
@@ -281,7 +281,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(BuddyFunction.this, "Firebase-Fehler: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BuddyFunction.this, getString(R.string.error_firebase) + ": " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -309,11 +309,11 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
                         User finalUser = localUser;
                         runOnUiThread(() -> {
                             lastClickedUser = finalUser;
-                            Toast.makeText(this, "Ausgewählt: " + finalUser.getName(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, getString(R.string.toast_selected_user, finalUser.getName()), Toast.LENGTH_SHORT).show();
                         });
                     } catch (Exception e) {
                         runOnUiThread(() ->
-                                Toast.makeText(this, "Fehler bei Auswahl: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                                Toast.makeText(this, getString(R.string.error_selection) + ": " + e.getMessage(), Toast.LENGTH_SHORT).show());
                     }
                 });
             }
@@ -338,7 +338,7 @@ public class BuddyFunction extends AppCompatActivity implements OnMapReadyCallba
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 enableMyLocation();
             } else {
-                Toast.makeText(this, "Standortberechtigung erforderlich", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_location_permission_needed), Toast.LENGTH_SHORT).show();
             }
         }
     }

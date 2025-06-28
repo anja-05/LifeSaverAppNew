@@ -23,4 +23,128 @@
         • Halte die Arme gestreckt und bringe dein Körpergewicht senkrecht über die Brust der Person.\n\n
         Drücke kräftig und schnell: 5–6 cm tief mit einer Frequenz von 100–120 pro Minute.
     </string>
+
+    <string name="chat_no_email">Keine Chat-Partner-E-Mail übergeben.</string>
+    <string name="chat_user_not_found">Benutzer nicht gefunden.</string>
+    <string name="chat_loading_error">Fehler beim Laden von Nachrichten</string>
+    <string name="error_message_not_loaded">Nachricht konnte nicht geladen werden.</string>
+    <string name="lesson_load_error_title">Fehler</string>
+    <string name="lesson_load_error_message">Die Lektion konnte nicht geladen werden.</string>
+    <string name="error_context_unavailable">Fehler: Kontext nicht verfügbar</string>
+    <string name="error_no_user">Kein eingeloggter Benutzer gefunden</string>
+    <string name="error_select_user_first">Bitte wähle zuerst eine Person auf der Karte aus</string>
+    <string name="error_initialization">Fehler bei der Initialisierung</string>
+    <string name="error_location">Standortfehler</string>
+    <string name="error_loading_users">Fehler beim Laden der Nutzer</string>
+    <string name="error_firebase">Firebase-Fehler</string>
+    <string name="error_selection">Fehler bei Auswahl</string>
+    <string name="toast_selected_user">Ausgewählt: %1$s</string>
+    <string name="toast_location_permission_needed">Standortberechtigung erforderlich</string>
+
+    <string name="quiz_prefix">Quiz: </string>
+    <string name="points">Punkte: %1$d/%2$d</string>
+    <string name="select_answer_warning">Bitte wähle eine Antwort aus!</string>
+    <string name="show_result_button">Ergebnis anzeigen</string>
+    <string name="next_button">Weiter</string>
+
+    <string name="quiz_loading_error">Fehler beim Laden des Quiz für: %1$s</string>
+    <string name="quiz_no_questions">Keine Fragen vorhanden für: %1$s</string>
+
+    <string name="result_perfect">Perfekt! Du hast alle Fragen richtig beantwortet und diese Lektion damit abgeschlossen.</string>
+    <string name="result_very_good">Sehr gut! Du hast die meisten Fragen richtig beantwortet! Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.</string>
+    <string name="result_good">Gut gemacht! Du hast mehr als die Hälfte der Fragen richtig beantwortet. Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.</string>
+    <string name="result_practice_needed">Du hast einige Fragen richtig beantwortet. Mit etwas Übung wirst du besser! Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.</string>
+    <string name="result_try_again">Du hast noch Verbesserungspotential. Versuche es noch einmal! Beantworte alle 5 Fragen korrekt, um die Lektion abzuschließen.</string>
+
+    <string name="summary_question_title">Frage %1$d: %2$s</string>
+    <string name="correct_answer">Richtige Antwort: %1$s</string>
+    <string name="your_answer">Deine Antwort: %1$s | Richtige Antwort: %2$s</string>
+
+    <string name="bpm_label">%1$d BPM</string>
+    <string name="quality_label">Qualität: %1$d%%</string>
+    <string name="training_time_label">Trainingszeit: %1$s Minuten</string>
+    <string name="compressions_label">Kompressionen: %1$d</string>
+    <string name="bpm_avg_label">Durchschnittliches Tempo: %1$d BPM</string>
+    <string name="quality_indicator_label">Qualitätsindikator: %1$d%%</string>
+
+    <string name="speak_faster">Drücke schneller.</string>
+    <string name="speak_slower">Drücke langsamer.</string>
+    <string name="speak_good">Gut so. Halte das Tempo.</string>
+
+    <string name="tip_too_slow">Versuche, das Tempo zu erhöhen. Ziel sind 100-120 Kompressionen pro Minute.</string>
+    <string name="tip_too_fast">Versuche, das Tempo etwas zu verlangsamen. Ziel sind 100-120 Kompressionen pro Minute.</string>
+    <string name="tip_perfect">Sehr gut! Achte weiterhin auf gleichmäßige Kompressionen und vollständige Entlastung.</string>
+
+    <!-- Rautegriff Klasse -->
+    <string name="rautek_step1_title">1. Aufrichten</string>
+    <string name="rautek_step1_desc">Stelle dich an das Kopfende der Person und greife mit beiden Händen weit unter ihren Kopf, Hals und die Schultern. Richte den Oberkörper dann mit ausreichend Schwung auf.</string>
+    <string name="rautek_step2_title">2. Abstützen</string>
+    <string name="rautek_step2_desc">Stütze den Körper in dieser Position mit deinem Bein ab, um ihn stabil und sicher zu halten.</string>
+    <string name="rautek_step3_title">3. Arm fassen</string>
+    <string name="rautek_step3_desc">Führe deine Arme unter den Achseln der Person hindurch und greife mit beiden Händen einen möglichst unverletzten Arm. Achte darauf, dass alle Finger – auch die Daumen – von oben zufassen. Halte die Hände dabei möglichst weit auseinander, um die Kraft gleichmäßig auf den Arm zu verteilen.</string>
+    <string name="rautek_step4_title">4. Ziehen</string>
+    <string name="rautek_step4_desc">Geh leicht in die Knie und zieh die Person mit Schwung auf dein Bein, um sie zu stabilisieren. Sobald die Person sicher auf deinem Bein liegt, zieh sie aus dem Gefahrenbereich.</string>
+    <string name="rautek_step_error">Fehler beim Anzeigen der Schritte. Bitte starte die Übung erneut.</string>
+
+    <!-- Stabile Seitenlage -->
+    <string name="stabile_step1_title">1. Ausgangsposition einnehmen</string>
+    <string name="stabile_step1_desc">Knie dich seitlich neben die bewusstlose Person. Achte darauf, dass sie flach auf dem Rücken liegt und ihre Beine ausgestreckt sind.
+Jetzt nimm den Arm, der dir am nächsten ist, und lege ihn angewinkelt neben den Kopf der Person. Die Handfläche soll nach oben zeigen.</string>
+    <string name="stabile_step2_title">2. Arm und Bein positionieren</string>
+    <string name="stabile_step2_desc">Nimm nun den anderen Arm der Person am Handgelenk und lege ihn schräg über ihre Brust, sodass die Handoberfläche die gegenüberliegende Wange berührt. Halte die Hand dabei gut fest – sie darf nicht wegrutschen.
+Dann greifst du das Bein, das weiter von dir entfernt ist, ziehst es am Knie nach oben und stellst den Fuß auf den Boden. Das Bein ist jetzt angewinkelt.</string>
+    <string name="stabile_step3_title">3. Person auf die Seite drehen</string>
+    <string name="stabile_step3_desc">Fasse jetzt mit deiner rechten Hand das angewinkelte Bein und ziehe es vorsichtig zu dir herüber. Dadurch dreht sich die Person automatisch auf die Seite.
+Achte darauf, dass das obenliegende Bein im rechten Winkel zur Hüfte liegt – es sollte wie ein „L“ geformt sein und stabil liegen.</string>
+    <string name="stabile_step4_title">4. Mund öffnen</string>
+    <string name="stabile_step4_desc">Der Kopf der Person liegt jetzt auf ihrer eigenen Hand. Öffne den Mund leicht, damit Erbrochenes oder Flüssigkeiten abfließen können, und richte den Mund dabei leicht zum Boden aus.</string>
+    <string name="stabile_step5_title">5. Kopf überstrecken</string>
+    <string name="stabile_step5_desc">Richte den Kopf der betroffenen Person so aus, dass er etwas überstreckt auf ihrer Hand liegt und permanent überstreckt bleibt.</string>
+    <string name="stabile_steps_error">Fehler beim Laden der Anleitung. Bitte App neu starten.</string>
+
+    <!-- Uebung Adapter -->
+    <string name="uebung_herzdruckmassage">Herzdruckmassage</string>
+    <string name="uebung_stabile_seitenlage">Stabile Seitenlage</string>
+    <string name="uebung_rautekgriff">Rautekgriff</string>
+    <string name="uebung_unbekannt">Unbekannte Übung: %1$s</string>
+    <string name="uebung_startfehler">Fehler beim Starten der Übung.</string>
+
+    <!-- Uebung Fragment -->
+    <string name="uebung_herzdruckmassage_titel">Herzdruckmassage</string>
+    <string name="uebung_herzdruckmassage_beschreibung">Lerne, wie du bei einem Herzstillstand richtig reagierst</string>
+    <string name="uebung_stabile_seitenlage_titel">Stabile Seitenlage</string>
+    <string name="uebung_stabile_seitenlage_beschreibung">Lerne, wie du bewusstlose Personen sicher lagerst</string>
+    <string name="uebung_rautekgriff_titel">Rautekgriff</string>
+    <string name="uebung_rautekgriff_beschreibung">Lerne, wie du Verletzte schnell aus der Gefahrenzone bringst</string>
+    <string name="uebung_ladefehler">Fehler beim Laden der Übungen. Bitte App neu starten.</string>
+
+    <!-- Login -->
+    <string name="login_email_password_required">Bitte E-Mail und Passwort eingeben</string>
+    <string name="login_failed">Login fehlgeschlagen – falsche Daten</string>
+    <string name="login_welcome">Willkommen %1$s</string>
+
+    <!-- Main -->
+    <string name="location_error">Standort konnte nicht aktualisiert werden. Funktionen sind ggf. eingeschränkt.</string>
+    <string name="view_error">Fehler beim Laden der Ansicht. Bitte erneut versuchen.</string>
+
+    <!-- Profil -->
+    <string name="progress_completed">%1$d %% abgeschlossen</string>
+    <string name="avatar_save_failed">Avatar konnte nicht gespeichert werden.</string>
+    <string name="reset_progress_title">Fortschritt zurücksetzen?</string>
+    <string name="reset_progress_message">Willst du wirklich deinen Fortschritt für alle Lektionen löschen?</string>
+    <string name="reset_progress_confirm">Ja</string>
+    <string name="reset_progress_cancel">Abbrechen</string>
+    <string name="reset_successful">Fortschritt wurde zurückgesetzt</string>
+    <string name="logout_failed">Abmeldung fehlgeschlagen.</string>
+    <string name="choose_avatar">Wähle einen Avatar</string>
+
+    <!-- SignUp -->
+    <string name="signup_fill_all_fields">Bitte alle Felder ausfüllen</string>
+    <string name="signup_passwords_not_matching">Passwörter stimmen nicht überein</string>
+    <string name="signup_email_exists">E-Mail ist bereits registriert</string>
+    <string name="signup_success">Registrierung erfolgreich</string>
+    <string name="location_permission_granted">Standortberechtigung erteilt. Bitte nochmal auf Registrieren klicken.</string>
+    <string name="location_permission_required">Standortberechtigung wird benötigt</string>
+
+
 </resources>

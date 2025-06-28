@@ -54,14 +54,10 @@ public class RautekgriffActivity extends AppCompatActivity {
         LinearLayout container = findViewById(R.id.stepsContainer);
 
         Step[] steps = new Step[]{
-                new Step("1. Aufrichten", R.drawable.rautek_schritt1,
-                        "Stelle dich an das Kopfende der Person und greife mit beiden Händen weit unter ihren Kopf, Hals und die Schultern. Richte den Oberkörper dann mit ausreichend Schwung auf."),
-                new Step("2. Abstützen", R.drawable.rautek_schritt2,
-                        "Stütze den Körper in dieser Position mit deinem Bein ab, um ihn stabil und sicher zu halten."),
-                new Step("3. Arm fassen", R.drawable.rautek_schritt3,
-                        "Führe deine Arme unter den Achseln der Person hindurch und greife mit beiden Händen einen möglichst unverletzten Arm. Achte darauf, dass alle Finger – auch die Daumen – von oben zufassen. Halte die Hände dabei möglichst weit auseinander, um die Kraft gleichmäßig auf den Arm zu verteilen."),
-                new Step("4. Ziehen", R.drawable.rautek_schritt4,
-                        "Geh leicht in die Knie und zieh die Person mit Schwung auf dein Bein, um sie zu stabilisieren. Sobald die Person sicher auf deinem Bein liegt, zieh sie aus dem Gefahrenbereich."),
+                new Step(getString(R.string.rautek_step1_title), R.drawable.rautek_schritt1, getString(R.string.rautek_step1_desc)),
+                new Step(getString(R.string.rautek_step2_title), R.drawable.rautek_schritt2, getString(R.string.rautek_step2_desc)),
+                new Step(getString(R.string.rautek_step3_title), R.drawable.rautek_schritt3, getString(R.string.rautek_step3_desc)),
+                new Step(getString(R.string.rautek_step4_title), R.drawable.rautek_schritt4, getString(R.string.rautek_step4_desc)),
         };
 
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -75,7 +71,7 @@ public class RautekgriffActivity extends AppCompatActivity {
                 container.addView(card, container.getChildCount() - 1);
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Fehler beim Anzeigen der Schritte. Bitte starte die Übung erneut.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.rautek_step_error), Toast.LENGTH_LONG).show();
         }
     }
 }

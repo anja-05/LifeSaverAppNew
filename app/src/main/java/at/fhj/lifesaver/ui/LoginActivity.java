@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             String password = passwordInput.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Bitte E-Mail und Passwort eingeben", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.login_email_password_required), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -117,13 +117,13 @@ public class LoginActivity extends AppCompatActivity {
                                 .putBoolean(KEY_IS_LOGGED_IN, true)
                                 .apply();
 
-                        Toast.makeText(this, "Willkommen " + user.name, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getString(R.string.login_welcome, user.name), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(this, MainActivity.class));
                         finish();
                 });
                     } else {
                         runOnUiThread(() ->
-                        Toast.makeText(this, "Login fehlgeschlagen – falsche Daten", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show()
                          );
                     }
             }).start();

@@ -83,23 +83,30 @@ public class UebungAdapter extends RecyclerView.Adapter<UebungAdapter.UebungView
         holder.itemView.setOnClickListener(v -> {
             try {
                 String titel = uebung.getTitel();
+                String herzdruck = v.getContext().getString(R.string.uebung_herzdruckmassage);
+                String seitenlage = v.getContext().getString(R.string.uebung_stabile_seitenlage);
+                String rautek = v.getContext().getString(R.string.uebung_rautekgriff);
+
                 Intent intent;
 
-                if (titel.equalsIgnoreCase("Herzdruckmassage")) {
+                if (titel.equalsIgnoreCase(herzdruck)) {
                     intent = new Intent(v.getContext(), Herzdruckmassage.class);
-                } else if (titel.equalsIgnoreCase("Stabile Seitenlage")) {
+                } else if (titel.equalsIgnoreCase(seitenlage)) {
                     intent = new Intent(v.getContext(), StabileSeitenlageActivity.class);
-                } else if (titel.equalsIgnoreCase("Rautekgriff")) {
+                } else if (titel.equalsIgnoreCase(rautek)) {
                     intent = new Intent(v.getContext(), RautekgriffActivity.class);
                 } else {
-                    Toast.makeText(v.getContext(), "Unbekannte Übung: " + titel, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(),
+                            v.getContext().getString(R.string.uebung_unbekannt, titel),
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 v.getContext().startActivity(intent);
 
             } catch (Exception e) {
-                Toast.makeText(v.getContext(), "Fehler beim Starten der Übung.", Toast.LENGTH_LONG).show();
+                Toast.makeText(v.getContext(),
+                        v.getContext().getString(R.string.uebung_startfehler),
+                        Toast.LENGTH_LONG).show();
             }
         });
         }

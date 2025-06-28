@@ -117,17 +117,17 @@ public class ProfilFragment extends Fragment {
         Button btnReset = view.findViewById(R.id.btnResetProgress);
         btnReset.setOnClickListener(v -> {
             new AlertDialog.Builder(requireContext())
-                    .setTitle("Fortschritt zurücksetzen?")
-                    .setMessage("Willst du wirklich deinen Fortschritt für alle Lektionen löschen?")
-                    .setPositiveButton("Ja", (dialog, which) -> {
+                    .setTitle(getString(R.string.reset_progress_title))
+                    .setMessage(getString(R.string.reset_progress_message))
+                    .setPositiveButton(getString(R.string.reset_progress_confirm), (dialog, which) -> {
                         SharedPreferences.Editor editor = prefsProgress.edit();
                         editor.clear();
                         editor.apply();
 
                         updateProgress(0);
-                        Toast.makeText(requireContext(), "Fortschritt wurde zurückgesetzt", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), getString(R.string.reset_successful), Toast.LENGTH_SHORT).show();
                     })
-                    .setNegativeButton("Abbrechen", null)
+                    .setNegativeButton(getString(R.string.reset_progress_cancel), null)
                     .show();
         });
 
@@ -149,8 +149,9 @@ public class ProfilFragment extends Fragment {
                     startActivity(intent);
                 });
                 } catch (Exception e) {
-                    requireActivity().runOnUiThread(() ->
-                            Toast.makeText(requireContext(), "Abmeldung fehlgeschlagen.", Toast.LENGTH_LONG).show());
+                    requireActivity().runOnUiThread(() -> {
+                            Toast.makeText(requireContext(), getString(R.string.logout_failed), Toast.LENGTH_LONG).show();
+                });
                 }
             }).start();
         });
@@ -163,7 +164,7 @@ public class ProfilFragment extends Fragment {
     private void updateProgress(int completedLessons) {
         int progress = (int) ((completedLessons / (float) TOTAL_LESSONS) * 100);
         progressBar.setProgress(progress);
-        progressText.setText(progress + " % abgeschlossen");
+        progressText.setText(getString(R.string.progress_completed, progress));
     }
 
     /**
@@ -201,7 +202,7 @@ public class ProfilFragment extends Fragment {
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Wähle einen Avatar");
+        builder.setTitle(getString(R.string.choose_avatar));
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -214,7 +215,7 @@ public class ProfilFragment extends Fragment {
                 prefs.edit().putString("avatar_" + email, avatarNames[position]).apply();
                 dialog.dismiss();
             } catch (Exception e) {
-                Toast.makeText(requireContext(), "Avatar konnte nicht gespeichert werden.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), getString(R.string.avatar_save_failed), Toast.LENGTH_SHORT).show();
             }
         });
     }

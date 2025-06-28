@@ -55,16 +55,11 @@ public class StabileSeitenlageActivity extends AppCompatActivity {
         LinearLayout container = findViewById(R.id.stepsContainer);
 
         Step[] steps = new Step[] {
-                new Step("1. Ausgangsposition einnehmen", "Knie dich seitlich neben die bewusstlose Person. Achte darauf, dass sie flach auf dem Rücken liegt und ihre Beine ausgestreckt sind.\n" +
-                        "Jetzt nimm den Arm, der dir am nächsten ist, und lege ihn angewinkelt neben den Kopf der Person. Die Handfläche soll nach oben zeigen.", R.drawable.stabile_seitenlage_schritt1),
-                new Step("2. Arm und Bein positionieren", "Nimm nun den anderen Arm der Person am Handgelenk und lege ihn schräg über ihre Brust, sodass die Handoberfläche die gegenüberliegende Wange berührt. Halte die Hand dabei gut fest – sie darf nicht wegrutschen.\n" +
-                        "Dann greifst du das Bein, das weiter von dir entfernt ist, ziehst es am Knie nach oben und stellst den Fuß auf den Boden. Das Bein ist jetzt angewinkelt.", R.drawable.stabile_seitenlage_schritt2),
-                new Step("3. Person auf die Seite drehen", "Fasse jetzt mit deiner rechten Hand das angewinkelte Bein und ziehe es vorsichtig zu dir herüber. Dadurch dreht sich die Person automatisch auf die Seite.\n" +
-                        "Achte darauf, dass das obenliegende Bein im rechten Winkel zur Hüfte liegt – es sollte wie ein „L“ geformt sein und stabil liegen.", R.drawable.stabile_seitenlage_schritt3),
-                new Step("4. Mund öffnen", "Der Kopf der Person liegt jetzt auf ihrer eigenen Hand. Öffne den Mund leicht, damit Erbrochenes oder Flüssigkeiten abfließen können, und richte den Mund dabei leicht zum Boden aus.\n" +
-                        "\n", R.drawable.stabile_seitenlage_schritt4),
-                new Step("5. Kopf überstrecken", "Richte den Kopf der betroffenen Person so aus, dass er etwas überstreckt auf ihrer Hand liegt und permanent überstreckt bleibt.", R.drawable.stabile_seitenlage_schritt5)
-
+                new Step(getString(R.string.stabile_step1_title), getString(R.string.stabile_step1_desc), R.drawable.stabile_seitenlage_schritt1),
+                new Step(getString(R.string.stabile_step2_title), getString(R.string.stabile_step2_desc), R.drawable.stabile_seitenlage_schritt2),
+                new Step(getString(R.string.stabile_step3_title), getString(R.string.stabile_step3_desc), R.drawable.stabile_seitenlage_schritt3),
+                new Step(getString(R.string.stabile_step4_title), getString(R.string.stabile_step4_desc), R.drawable.stabile_seitenlage_schritt4),
+                new Step(getString(R.string.stabile_step5_title), getString(R.string.stabile_step5_desc), R.drawable.stabile_seitenlage_schritt5)
         };
 
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -79,7 +74,8 @@ public class StabileSeitenlageActivity extends AppCompatActivity {
                 container.addView(card, container.getChildCount() - 1);
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Fehler beim Laden der Anleitung. Bitte App neu starten.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.stabile_steps_error), Toast.LENGTH_LONG).show();
+
         }
     }
 }

@@ -179,9 +179,9 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
      * Aktualisiert die Anzeige im Trainingsbildschirm.
      */
     private void updateTrainingDisplay() {
-        textViewBPM.setText(currentBPM + " BPM");
+        textViewBPM.setText(getString(R.string.bpm_label, currentBPM));
         textViewCompressionCount.setText(String.valueOf(compressionCount));
-        textViewQuality.setText("Qualität: " + currentQuality + "%");
+        textViewQuality.setText(getString(R.string.quality_label, currentQuality));
         progressBarQuality.setProgress(currentQuality);
     }
 
@@ -194,17 +194,17 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
                 TimeUnit.MILLISECONDS.toMinutes(elapsed),
                 TimeUnit.MILLISECONDS.toSeconds(elapsed) % 60);
 
-        textViewSummaryTime.setText("Trainingszeit: " + formatted + " Minuten");
-        textViewSummaryCompressions.setText("Kompressionen: " + compressionCount);
-        textViewSummaryBPM.setText("Durchschnittliches Tempo: " + currentBPM + " BPM");
-        textViewSummaryQuality.setText("Qualitätsindikator: " + currentQuality + "%");
+        textViewSummaryTime.setText(getString(R.string.training_time_label, formatted));
+        textViewSummaryCompressions.setText(getString(R.string.compressions_label, compressionCount));
+        textViewSummaryBPM.setText(getString(R.string.bpm_avg_label, currentBPM));
+        textViewSummaryQuality.setText(getString(R.string.quality_indicator_label, currentQuality));
 
         if (currentBPM < 100) {
-            textViewSummaryTip.setText("Versuche, das Tempo zu erhöhen. Ziel sind 100-120 Kompressionen pro Minute.");
+            textViewSummaryTip.setText(getString(R.string.tip_too_slow));
         } else if (currentBPM > 120) {
-            textViewSummaryTip.setText("Versuche, das Tempo etwas zu verlangsamen. Ziel sind 100-120 Kompressionen pro Minute.");
+            textViewSummaryTip.setText(getString(R.string.tip_too_fast));
         } else {
-            textViewSummaryTip.setText("Sehr gut! Achte weiterhin auf gleichmäßige Kompressionen und vollständige Entlastung.");
+            textViewSummaryTip.setText(getString(R.string.tip_perfect));
         }
     }
 
@@ -275,7 +275,11 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
      * Gibt akustisches Feedback zur Kompressionsfrequenz.
      */
     private void provideFeedback() {
-        String tempo = currentBPM < 100 ? "Drücke schneller." : currentBPM > 120 ? "Drücke langsamer." : "Gut so. Halte das Tempo";
+        String tempo = currentBPM < 100
+                ? getString(R.string.speak_faster)
+                : currentBPM > 120 ? getString(R.string.speak_slower)
+                : getString(R.string.speak_good);
+        speak(tempo);
         speak(tempo);
     }
 

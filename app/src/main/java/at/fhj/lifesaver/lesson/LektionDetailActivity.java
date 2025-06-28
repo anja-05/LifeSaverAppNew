@@ -50,7 +50,7 @@ public class LektionDetailActivity extends AppCompatActivity {
         if (dateiname != null && !dateiname.isEmpty()) {
             webViewTheorie.loadUrl("file:///android_asset/" + dateiname);
         } else {
-            String fallbackHTML = "<html><body><h2>Fehler</h2><p>Die Lektion konnte nicht geladen werden.</p></body></html>";
+            String fallbackHTML = "<html><body><h2>" + getString(R.string.lesson_load_error_title) + "</h2><p>+\n" + getString(R.string.lesson_load_error_message) + "</p></body></html>";
             webViewTheorie.loadData(fallbackHTML, "text/html", "UTF-8");
         }
 

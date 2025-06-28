@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,11 +53,8 @@ public class LernenFragment extends Fragment {
             adapter = new LektionAdapter(lektionenListe, context);
             recyclerView.setAdapter(adapter);
         } else {
-            Log.e("LernenFragment", "Context ist null - Adapter konnte nicht gesetzt werden.");
+            Toast.makeText(requireContext(), getString(R.string.error_context_unavailable), Toast.LENGTH_SHORT).show();
         }
-
-        adapter = new LektionAdapter(lektionenListe, getContext());
-        recyclerView.setAdapter(adapter);
 
         return view;
     }
