@@ -23,6 +23,11 @@ import java.util.concurrent.TimeUnit;
 
 import at.fhj.lifesaver.R;
 
+/**
+ * Die Klasse Herzdruckmassage simuliert ein CPR-Training mit Hilfe des Beschleunigungssensors.
+ * Sie gibt akustisches Feedback über ein Metronom sowie Sprachausgabe.
+ * Die Trainingsdaten (Kompressionen, BPM, Qualität) werden gemessen und am Ende zusammengefasst.
+ */
 public class Herzdruckmassage extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor accelerometer;
@@ -53,6 +58,13 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
     private ProgressBar progressBarQuality;
     private Button buttonStartTraining, buttonEndTraining, buttonTryAgain, buttonBackToMenu;
 
+    /**
+     * Initialisiert Sensoren, Text-to-Speech und zeigt die Einleitung.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +74,12 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
 
         initializeTextToSpeech();
         initializeMetronome();
-
         showInstructionsScreen();
     }
 
+    /**
+     * Zeigt die Instruktionsansicht an.
+     */
     private void showInstructionsScreen() {
         setContentView(R.layout.activity_herzdruckmassage_intro);
 
@@ -79,6 +93,9 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         buttonStartTraining.setOnClickListener(v -> startTraining());
     }
 
+    /**
+     * Zeigt die Trainingsansicht an.
+     */
     private void showTrainingScreen() {
         setContentView(R.layout.activity_herzdruckmassage_training);
 
@@ -94,6 +111,9 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         updateTrainingDisplay();
     }
 
+    /**
+     * Zeigt die Zusammenfassung an.
+     */
     private void showSummaryScreen() {
         setContentView(R.layout.activity_herzdruckmassage_summary);
 
@@ -115,6 +135,9 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         updateSummaryDisplay();
     }
 
+    /**
+     * Initialisiert und startet das Training.
+     */
     private void startTraining() {
         compressionCount = 0;
         startTime = System.currentTimeMillis();
@@ -129,6 +152,9 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         showTrainingScreen();
     }
 
+    /**
+     * Beendet das Training und zeigt die Zusammenfassung an.
+     */
     private void endTraining() {
         isTrainingActive = false;
         sensorManager.unregisterListener(this);
@@ -137,6 +163,9 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         showSummaryScreen();
     }
 
+    /**
+     * Setzt das Training zurück.
+     */
     private void resetTraining() {
         isTrainingActive = false;
         sensorManager.unregisterListener(this);
@@ -146,6 +175,9 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         lastCompressionTime = 0;
     }
 
+    /**
+     * Aktualisiert die Anzeige im Trainingsbildschirm.
+     */
     private void updateTrainingDisplay() {
         textViewBPM.setText(currentBPM + " BPM");
         textViewCompressionCount.setText(String.valueOf(compressionCount));
@@ -153,6 +185,9 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         progressBarQuality.setProgress(currentQuality);
     }
 
+    /**
+     * Aktualisiert die Anzeige im Zusammenfassungsbildschirm.
+     */
     private void updateSummaryDisplay() {
         long elapsed = System.currentTimeMillis() - startTime;
         String formatted = String.format("%02d:%02d",
@@ -173,6 +208,9 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         }
     }
 
+    /**
+     * Initialisiert Text-to-Speech mit Fallback auf Englisch.
+     */
     private void initializeTextToSpeech() {
         textToSpeech = new TextToSpeech(this, status -> {
             if (status == TextToSpeech.SUCCESS) {
@@ -185,6 +223,9 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         textToSpeech.setSpeechRate(0.9f);
     }
 
+    /**
+     * Initialisiert den Metronom-Taktgeber.
+     */
     private void initializeMetronome() {
         metronomeHandler = new Handler(Looper.getMainLooper());
         toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
@@ -194,14 +235,23 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         };
     }
 
+    /**
+     * Startet den Metronom-Takt.
+     */
     private void startMetronome() {
         metronomeHandler.post(metronomeRunnable);
     }
 
+    /**
+     * Stoppt das Metronom.
+     */
     private void stopMetronome() {
         metronomeHandler.removeCallbacks(metronomeRunnable);
     }
 
+    /**
+     * Startet den Timer zur Anzeige der Trainingsdauer und Feedback-Taktung.
+     */
     private void startTimer() {
         timer = new CountDownTimer(Long.MAX_VALUE, 1000) {
             public void onTick(long millisUntilFinished) {
@@ -216,23 +266,33 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
                     lastFeedbackTime = System.currentTimeMillis();
                 }
             }
-
             public void onFinish() {
             }
         }.start();
     }
 
+    /**
+     * Gibt akustisches Feedback zur Kompressionsfrequenz.
+     */
     private void provideFeedback() {
         String tempo = currentBPM < 100 ? "Drücke schneller." : currentBPM > 120 ? "Drücke langsamer." : "Gut so. Halte das Tempo";
         speak(tempo);
     }
 
+    /**
+     * Spricht den übergebenen Text mittels TextToSpeech aus.
+     * @param text der auszugebende Text
+     */
     private void speak(String text) {
         if (textToSpeech != null && isTrainingActive) {
             textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
         }
     }
 
+    /**
+     * Wird bei Sensoränderung aufgerufen. Misst Kompressionen und BPM.
+     * @param event the {@link android.hardware.SensorEvent SensorEvent}.
+     */
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (!isTrainingActive || event.sensor.getType() != Sensor.TYPE_ACCELEROMETER) return;
@@ -255,20 +315,27 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
             }
 
             lastCompressionTime = now;
-
             int bpmQ = 100 - Math.abs(currentBPM - 110) * 2;
             currentQuality = bpmQ;
-
             updateTrainingDisplay();
         } else if (isCompressing && acceleration < COMPRESSION_THRESHOLD - 2) {
             isCompressing = false;
         }
     }
 
+    /**
+     * Wird aufgerufen, wenn sich die Sensorgenauigkeit ändert (nicht genutzt).
+     * @param sensor
+     * @param accuracy The new accuracy of this sensor, one of
+     *         {@code SensorManager.SENSOR_STATUS_*}
+     */
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
+    /**
+     * Beendet das Training bei Pause.
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -276,6 +343,9 @@ public class Herzdruckmassage extends AppCompatActivity implements SensorEventLi
         if (isTrainingActive) endTraining();
     }
 
+    /**
+     * Bereinigt Ressourcen bei Aktivitätszerstörung.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

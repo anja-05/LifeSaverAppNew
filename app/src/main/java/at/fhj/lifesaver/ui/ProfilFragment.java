@@ -52,6 +52,18 @@ public class ProfilFragment extends Fragment {
             "lockige frau", "braunhaariger mann", "dunkelhaarige frau", "lockiger mann", "blonde frau", "schwarzhaariger mann"
     };
 
+    /**
+     * Inflates das Layout für dieses Fragment.
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return Layout
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profil, container, false);
@@ -121,11 +133,10 @@ public class ProfilFragment extends Fragment {
 
         logoutButton.setOnClickListener(v -> {
             new Thread(() -> {
-                // Aktuellen User aus der DB abmelden
+                try {
                 UserDatabase db = UserDatabase.getInstance(requireContext());
                 db.userDao().clearCurrentUserFlag();
 
-                // SharedPreferences leeren (im UI-Thread)
                 requireActivity().runOnUiThread(() -> {
                     prefs.edit()
                             .remove("user_name")
@@ -137,6 +148,10 @@ public class ProfilFragment extends Fragment {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 });
+                } catch (Exception e) {
+                    requireActivity().runOnUiThread(() ->
+                            Toast.makeText(requireContext(), "Abmeldung fehlgeschlagen.", Toast.LENGTH_LONG).show());
+                }
             }).start();
         });
     }
@@ -192,11 +207,15 @@ public class ProfilFragment extends Fragment {
         dialog.show();
 
         gridView.setOnItemClickListener((parent, view, position, id) -> {
-            avatarImage.setImageResource(avatarResIds[position]);
-            SharedPreferences prefs = requireContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
-            String email = prefs.getString("user_email", "default");
-            prefs.edit().putString("avatar_" + email, avatarNames[position]).apply();
-            dialog.dismiss();
+            try {
+                avatarImage.setImageResource(avatarResIds[position]);
+                SharedPreferences prefs = requireContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+                String email = prefs.getString("user_email", "default");
+                prefs.edit().putString("avatar_" + email, avatarNames[position]).apply();
+                dialog.dismiss();
+            } catch (Exception e) {
+                Toast.makeText(requireContext(), "Avatar konnte nicht gespeichert werden.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

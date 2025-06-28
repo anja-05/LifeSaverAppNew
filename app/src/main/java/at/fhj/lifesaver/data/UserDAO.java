@@ -20,6 +20,11 @@ public interface UserDAO {
     @Insert
     void insert(User user);
 
+    /**
+     * Aktualisiert einen bestehenden Benutzer in der Datenbank.
+     * Der Benutzer muss durch seine ID eindeutig identifizierbar sein.
+     * @param user Benutzer mit aktualisierten Feldern
+     */
     @Update
     void updateUser(User user);
 
@@ -40,15 +45,25 @@ public interface UserDAO {
     @Query("SELECT * FROM users WHERE email = :email LIMIT 1")
     User findByEmail(String email);
 
+    /**
+     * Gibt den aktuell als "eingeloggt" markierten Benutzer zurück.
+     * Nur ein Benutzer sollte diesen Flag gleichzeitig besitzen.
+     * @return Aktuell eingeloggter Benutzer, oder {@code null} wenn keiner markiert ist
+     */
     @Query("SELECT * FROM users WHERE isCurrentUser = 1 LIMIT 1")
     User getCurrentUser();
 
+    /**
+     * Gibt eine Liste aller Benutzer in der Datenbank zurück.
+     * @return Liste aller Benutzer
+     */
     @Query("SELECT * FROM users")
     List<User> getAllUsers();
 
-    @Query("SELECT * FROM users WHERE id = :id LIMIT 1")
-    User getUserById(int id);
-
+    /**
+     * Setzt das Feld {@code isCurrentUser} für alle Benutzer auf {@code false}.
+     * Sollte vor dem Login/Wechsel des aktuellen Benutzers ausgeführt werden.
+     */
     @Query("UPDATE users SET isCurrentUser = 0")
     void clearCurrentUserFlag();
 }

@@ -6,17 +6,33 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import at.fhj.lifesaver.R;
 
+/**
+ * Die Aktivität {@code StabileSeitenlageActivity} zeigt eine Schritt-für-Schritt-Anleitung
+ * zur Durchführung der stabilen Seitenlage. Jeder Schritt enthält einen Titel, ein Bild
+ * und eine textliche Beschreibung.
+ * Die Schritte werden dynamisch zur Benutzeroberfläche hinzugefügt.
+ */
 public class StabileSeitenlageActivity extends AppCompatActivity {
 
+    /**
+     * Repräsentiert einen einzelnen Schritt mit Titel, Beschreibung und Bild.
+     */
     private static class Step {
         String title, description;
         int imageRes;
 
+        /**
+         * Erstellt ein neues Schritt-Objekt.
+         * @param title Titel des Schrittes
+         * @param description Beschreibung des Schrittes
+         * @param imageRes Bildressource für diesen Schritt
+         */
         Step(String title, String description, int imageRes) {
             this.title = title;
             this.description = description;
@@ -24,6 +40,13 @@ public class StabileSeitenlageActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Wird beim Starten der Aktivität aufgerufen. Baut das Layout auf und fügt die Schritte ein.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +68,18 @@ public class StabileSeitenlageActivity extends AppCompatActivity {
         };
 
         LayoutInflater inflater = LayoutInflater.from(this);
-        for (Step step : steps) {
-            View card = inflater.inflate(R.layout.uebungen_steps, container, false);
+        try {
+            for (Step step : steps) {
+                View card = inflater.inflate(R.layout.uebungen_steps, container, false);
 
-            ((TextView) card.findViewById(R.id.stepTitle)).setText(step.title);
-            ((TextView) card.findViewById(R.id.stepDescription)).setText(step.description);
-            ((ImageView) card.findViewById(R.id.stepImage)).setImageResource(step.imageRes);
+                ((TextView) card.findViewById(R.id.stepTitle)).setText(step.title);
+                ((TextView) card.findViewById(R.id.stepDescription)).setText(step.description);
+                ((ImageView) card.findViewById(R.id.stepImage)).setImageResource(step.imageRes);
 
-            container.addView(card, container.getChildCount() - 1);
+                container.addView(card, container.getChildCount() - 1);
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Fehler beim Laden der Anleitung. Bitte App neu starten.", Toast.LENGTH_LONG).show();
         }
     }
 }

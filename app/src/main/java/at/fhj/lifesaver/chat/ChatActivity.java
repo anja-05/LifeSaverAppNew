@@ -1,5 +1,6 @@
 package at.fhj.lifesaver.chat;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -30,6 +31,10 @@ import at.fhj.lifesaver.data.UserDAO;
 import at.fhj.lifesaver.data.UserDatabase;
 import at.fhj.lifesaver.utils.EncryptionHelper;
 
+/**
+ * Die ChatActivity Klasse ermöglicht den Austausch von Nachrichten zwischen zwei Benutzern.
+ * Nachrichten werden lokal entschlüsselt gespcihert und verschöüsselt über Firebase gesendet.
+ */
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ChatAdapter chatAdapter;
@@ -42,69 +47,58 @@ public class ChatActivity extends AppCompatActivity {
     private MessageDAO messageDao;
     private User currentUser;
     private User chatPartner;
+    private String encryptionPassword;
 
+    /**
+     * Initialisiert die Oberfläche des Chats und lädt alle notwendigen Benutzer- und Nachrihcteninformationen
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        // Initialisiere Views
         recyclerView = findViewById(R.id.messages_recycler_view);
         messageInput = findViewById(R.id.message_input);
         sendButton = findViewById(R.id.send_button);
         userNameText = findViewById(R.id.user_name);
 
-        // Initialisiere die Datenbank
         database = UserDatabase.getInstance(this);
         userDao = database.userDao();
         messageDao = database.messageDao();
 
-        // Hole den aktuellen Benutzer
-        currentUser = userDao.getCurrentUser();
-
-        // Hole den Chat-Partner anhand der übergebenen ID
-        /*int chatPartnerId = getIntent().getIntExtra("USER_ID", -1);
-        if (chatPartnerId != -1) {
-            chatPartner = userDao.getUserById(chatPartnerId);
-            userNameText.setText(chatPartner.getName());
-        } else {
-            finish(); // Beende die Aktivität, wenn kein gültiger Benutzer gefunden wurde
-            return;
-        }*/
         String chatPartnerEmail = getIntent().getStringExtra("USER_EMAIL");
-        if (chatPartnerEmail != null) {
-            chatPartner = userDao.findByEmail(chatPartnerEmail);
-            if (chatPartner != null) {
-                userNameText.setText(chatPartner.getName());
-            } else {
-                Toast.makeText(this, "Chat-Partner nicht gefunden.", Toast.LENGTH_SHORT).show();
-                finish();
-                return;
-            }
-        } else {
+        if (chatPartnerEmail == null) {
             Toast.makeText(this, "Keine Chat-Partner-E-Mail übergeben.", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
-        currentUser = userDao.getCurrentUser();
+        AsyncTask.execute(() -> {
+            chatPartner = userDao.findByEmail(chatPartnerEmail);
+            currentUser = userDao.getCurrentUser();
 
-        if (currentUser == null) {
-            Toast.makeText(this, "Aktueller Benutzer nicht gefunden.", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
-        // Initialisiere den RecyclerView
-        chatAdapter = new ChatAdapter(this, currentUser.getEmail());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(chatAdapter);
+            runOnUiThread(() -> {
+                if (chatPartner == null || currentUser == null) {
+                    Toast.makeText(this, "Benutzer nicht gefunden.", Toast.LENGTH_SHORT).show();
+                    finish();
+                    return;
+                }
+                encryptionPassword = currentUser.getPassword();
 
-        // Lade Nachrichten
-        loadMessages();
+                userNameText.setText(chatPartner.getName());
+                chatAdapter = new ChatAdapter(this, currentUser.getEmail());
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(chatAdapter);
 
-        listenForMessages();
+                loadMessages();
+                listenForMessages();
+            });
+        });
 
-        // Sende-Button-Listener
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +106,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        // Zurück-Button
         findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,27 +114,35 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Lädt Nachrichten aus der lokalen Datenbank zwischen den beiden Nutzern und aktualisiert die Anzeige.
+     */
     private void loadMessages() {
-        List<Message> messages = messageDao.getMessagesBetweenUsers(currentUser.getEmail(), chatPartner.getEmail());
-        chatAdapter.setMessages(messages);
-        recyclerView.scrollToPosition(chatAdapter.getItemCount() - 1);
+        AsyncTask.execute(() -> {
+            List<Message> messages = messageDao.getMessagesBetweenUsers(currentUser.getEmail(), chatPartner.getEmail());
+            runOnUiThread(() -> {
+                chatAdapter.setMessages(messages);
+                recyclerView.scrollToPosition(chatAdapter.getItemCount() - 1);
+            });
+        });
     }
 
+    /**
+     * Sendet eine neue Nachricht: lokal unverschlüsselt speichern, Firebase verschlüsselt.
+     */
     private void sendMessage() {
         String messageText = messageInput.getText().toString().trim();
         if (!messageText.isEmpty()) {
-            // 🔒 verschlüsseln für Firebase
-            String encryptedText = EncryptionHelper.encrypt(messageText);
 
-            // 💾 lokal unverschlüsselt speichern
+            String encryptedText = EncryptionHelper.encrypt(this, encryptionPassword, messageText);
             Message message = new Message(currentUser.getEmail(), chatPartner.getEmail(), messageText);
-            messageDao.insertMessage(message);
 
-            // UI aktualisieren
             messageInput.setText("");
-            loadMessages();
+            AsyncTask.execute(() -> {
+                messageDao.insertMessage(message);
+                runOnUiThread(this::loadMessages);
+            });
 
-            // In Firebase verschlüsselt speichern
             DatabaseReference messageRef = FirebaseDatabase.getInstance().getReference("messages");
             String conversationId = getConversationId(currentUser.getEmail(), chatPartner.getEmail());
             String key = messageRef.child(conversationId).push().getKey();
@@ -157,6 +158,9 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Hört auf neue Nachrichten in Firebase und speichert diese lokal entschlüsselt.
+     */
     private void listenForMessages() {
         String conversationId = getConversationId(currentUser.getEmail(), chatPartner.getEmail());
         DatabaseReference messageRef = FirebaseDatabase.getInstance().getReference("messages").child(conversationId);
@@ -164,40 +168,44 @@ public class ChatActivity extends AppCompatActivity {
         messageRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    try {
-                        String encryptedText = child.child("text").getValue(String.class);
-                        String decryptedText = EncryptionHelper.decrypt(encryptedText);
-                        Long timestamp = child.child("timestamp").getValue(Long.class);
-                        String sender = child.child("senderEmail").getValue(String.class);
-                        String receiver = child.child("receiverEmail").getValue(String.class);
+                AsyncTask.execute(() -> {
+                    for (DataSnapshot child : snapshot.getChildren()) {
+                        try {
+                            String encryptedText = child.child("text").getValue(String.class);
+                            Long timestamp = child.child("timestamp").getValue(Long.class);
+                            String sender = child.child("senderEmail").getValue(String.class);
+                            String receiver = child.child("receiverEmail").getValue(String.class);
 
-                        if (decryptedText != null && sender != null && receiver != null && timestamp != null) {
-                            if ((sender.equals(currentUser.getEmail()) && receiver.equals(chatPartner.getEmail())) ||
-                                    (sender.equals(chatPartner.getEmail()) && receiver.equals(currentUser.getEmail()))) {
+                            String decryptedText = EncryptionHelper.decrypt(ChatActivity.this, encryptionPassword, encryptedText);
 
-                                Message existing = messageDao.findDuplicate(sender, receiver, timestamp);
-                                if (existing == null) {
+                            if (decryptedText != null && sender != null && receiver != null && timestamp != null) {
+                                boolean isCurrentChat = (sender.equals(currentUser.getEmail()) && receiver.equals(chatPartner.getEmail())) ||
+                                        (sender.equals(chatPartner.getEmail()) && receiver.equals(currentUser.getEmail()));
+                                if (isCurrentChat && messageDao.findDuplicate(sender, receiver, timestamp) == null) {
                                     Message msg = new Message(sender, receiver, decryptedText);
                                     msg.setTimestamp(timestamp);
-                                    messageDao.insertMessage(msg);  // 💡 in Room NUR entschlüsselten Text speichern
+                                    messageDao.insertMessage(msg);
                                 }
                             }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        } catch (Exception ignored) {}
                     }
-                }
-                loadMessages();
+                    runOnUiThread(ChatActivity.this::loadMessages);
+                });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                error.toException().printStackTrace();
+                runOnUiThread(() -> Toast.makeText(ChatActivity.this, "Fehler beim Laden von Nachrichten", Toast.LENGTH_SHORT).show());
             }
         });
     }
 
+    /**
+     * Gibt eine eindeutige Unterhaltungs-ID für zwei E-Mail-Adressen zurück.
+     * @param email1 erste Email Adresse
+     * @param email2 zweite Email Adresse
+     * @return eindeutige ID für firebase
+     */
     private String getConversationId(String email1, String email2) {
         return (email1.compareToIgnoreCase(email2) < 0 ? email1 + "_" + email2 : email2 + "_" + email1)
                 .replace(".", "_")

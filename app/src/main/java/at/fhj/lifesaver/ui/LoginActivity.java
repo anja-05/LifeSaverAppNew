@@ -106,8 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                 User user = db.userDao().login(email, password);
 
                 if (user != null) {
-                    // neuer aktiver Benutzer
-                    db.userDao().clearCurrentUserFlag(); // andere abmelden
+                    db.userDao().clearCurrentUserFlag();
                     user.setCurrentUser(true);
                     db.userDao().updateUser(user);
 

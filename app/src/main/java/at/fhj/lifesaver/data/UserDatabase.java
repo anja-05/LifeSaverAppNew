@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 /**
  * Die Klasse UserDatabase ist die zentrale SQLite-Datenbankklasse für die Benutzerverwaltung in der Lifesaver-App.
- * Sie verwendet das Room-Persistenz-Framework zur einfachen Datenbankintegration mit einer
+ * Sie verwendet das Room-Framework zur einfachen Datenbankintegration mit einer
  * definierten User Entity und dem zugehörigen UserDAO.
  */
 @Database(entities = {User.class, Message.class}, version = 6, exportSchema = false)
@@ -16,8 +16,8 @@ public abstract class UserDatabase extends RoomDatabase {
     private static UserDatabase instance;
 
     /**
-     * Gibt den zugehörigen Data Access Object (DAO) für die User-Tabelle zurück.
-     * @return UserDAO-Instanz zur Datenmanipulation
+     * Gibt den zugehörigen Data Access Object für die User-Tabelle zurück.
+     * @return UserDAO-Instanz
      */
     public abstract UserDAO userDao();
     public abstract MessageDAO messageDao();
@@ -32,7 +32,6 @@ public abstract class UserDatabase extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             UserDatabase.class, "user_database")
                     .fallbackToDestructiveMigration()
-                    .allowMainThreadQueries()
                     .build();
         }
         return instance;

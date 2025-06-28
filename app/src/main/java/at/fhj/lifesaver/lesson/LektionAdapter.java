@@ -120,7 +120,6 @@ public class LektionAdapter extends RecyclerView.Adapter<LektionAdapter.LektionV
             textViewTitel = itemView.findViewById(R.id.textViewTitel);
             imageViewLektion = itemView.findViewById(R.id.imageViewLektion);
             imageViewCheckmark = itemView.findViewById(R.id.imageViewCheckmark);
-
         }
     }
 }

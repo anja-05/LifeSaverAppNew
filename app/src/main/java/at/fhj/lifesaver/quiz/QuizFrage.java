@@ -4,7 +4,6 @@ package at.fhj.lifesaver.quiz;
  * Die Klasse QuizFrage repräsentiert eine einzelne Frage im Multiple-Choice-Quiz.
  * Sie enthält den Fragetext, eine Liste von Antwortmöglichkeiten, den Index der richtigen Antwort
  * sowie eine Erklärung zur richtigen Lösung.
- *
  */
 public class QuizFrage {
     private String question;
@@ -40,7 +39,7 @@ public class QuizFrage {
     /**
      * Gibt den Fragetext zurück.
      *
-     * @return
+     * @return Fragetext
      */
     public String getQuestion() {
         return question;
@@ -48,7 +47,7 @@ public class QuizFrage {
 
     /**
      * Gibt die vier Antwortoptionen zurück.
-     * @return
+     * @return vier Antwortoptionen
      */
     public String[] getOptions() {
         return options;
@@ -56,7 +55,7 @@ public class QuizFrage {
 
     /**
      * Gibt den Index der richtigen Antwort zurück.
-     * @return
+     * @return Index der richtigen Antwort
      */
     public int getCorrectIndex() {
         return correctIndex;
@@ -64,7 +63,7 @@ public class QuizFrage {
 
     /**
      * Gibt die Erklärung zur richtigen Antwort zurück.
-     * @return
+     * @return Erklärung zur richtigen Antwort
      */
     public String getExplanation() {
         return explanation;

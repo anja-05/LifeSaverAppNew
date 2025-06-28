@@ -13,6 +13,10 @@ import com.google.android.gms.location.LocationServices;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.widget.Toast;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import at.fhj.lifesaver.map.BuddyFunction;
 import at.fhj.lifesaver.lesson.LernenFragment;
@@ -25,7 +29,7 @@ import at.fhj.lifesaver.databinding.ActivityMainBinding;
 /**
  * Die Klasse MainActivity ist die zentrale Steuerungsaktivität der Lifesaver-App.
  * Sie enthält eine BottomNavigationView, über die zwischen den Fragmenten
- * LernenFragment, UebungFragment und ProfilFragment gewechselt werden kann.
+ * LernenFragment, UebungFragment, Location (BuddyFunction) und ProfilFragment gewechselt werden kann.
  * Beim Start wird das LernenFragment standardmäßig angezeigt.
  * ActivityMainBinding ist für das View Binding und der FragmentManager für das Wechseln von Fragmenten.
  */
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     /**
-     * Initialisiert die Hauptaktivität und zeigt das Startfragment.
+     * Wird beim Starten der App aufgerufen. Initialisiert UI, Navigation und Standortaktualisierung.
      * @param savedInstanceState If the activity is being re-initialized after
      *     previously being shut down then this Bundle contains the data it most
      *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
@@ -46,22 +50,29 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        UserDatabase db = UserDatabase.getInstance(this);
-        User currentUser = db.userDao().getCurrentUser();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try {
+                UserDatabase db = UserDatabase.getInstance(this);
+                User currentUser = db.userDao().getCurrentUser();
 
-        // Standort holen und speichern
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED && currentUser != null) {
 
-            FusedLocationProviderClient locationClient = LocationServices.getFusedLocationProviderClient(this);
-            locationClient.getLastLocation().addOnSuccessListener(location -> {
-                if (location != null && currentUser != null) {
-                    currentUser.setLatitude(location.getLatitude());
-                    currentUser.setLongitude(location.getLongitude());
-                    db.userDao().updateUser(currentUser);
+                    FusedLocationProviderClient locationClient = LocationServices.getFusedLocationProviderClient(this);
+                    locationClient.getLastLocation().addOnSuccessListener(location -> {
+                        if (location != null) {
+                            currentUser.setLatitude(location.getLatitude());
+                            currentUser.setLongitude(location.getLongitude());
+
+                            executor.execute(() -> db.userDao().updateUser(currentUser));
+                        }
+                    });
                 }
-            });
-        }
+            } catch (Exception e) {
+                Toast.makeText(this, "Standort konnte nicht aktualisiert werden. Funktionen sind ggf. eingeschränkt.", Toast.LENGTH_LONG).show();
+            }
+        });
 
         replaceFragment(new LernenFragment());
 
@@ -91,9 +102,13 @@ public class MainActivity extends AppCompatActivity {
      * @param fragment das Fragment, das angezeigt werden soll
      */
     private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
+        try {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_layout, fragment);
+            fragmentTransaction.commit();
+        } catch (Exception e) {
+            Toast.makeText(this, "Fehler beim Laden der Ansicht. Bitte erneut versuchen.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

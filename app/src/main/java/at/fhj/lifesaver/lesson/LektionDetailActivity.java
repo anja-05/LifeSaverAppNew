@@ -45,7 +45,6 @@ public class LektionDetailActivity extends AppCompatActivity {
         String dateiname = getIntent().getStringExtra("DATEINAME");
 
         textViewTitel.setText(titel);
-
         webViewTheorie.setWebViewClient(new WebViewClient());
 
         if (dateiname != null && !dateiname.isEmpty()) {

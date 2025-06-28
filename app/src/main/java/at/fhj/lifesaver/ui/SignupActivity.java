@@ -29,9 +29,10 @@ import at.fhj.lifesaver.utils.FirebaseSyncHelper;
  * Die Klasse SignupActivity ermöglicht neuen Benutzern die Registrierung in der Lifesaver-App.
  * Die Aktivität bietet Eingabefelder für Name, E-Mail, Passwort und Passwort-Wiederholung.
  * Sie prüft auf leere Felder, Passwortübereinstimmung und doppelte E-Mail-Adressen.
- * Erfolgreiche Registrierung speichert den Benutzer über Room in der lokalen Datenbank.
- * Die Registrierung erfolgt mit Eingabefeldern, die Passwortanzeige kann ein-udn ausgeblendet werden und
+ * Erfolgreiche Registrierung speichert den Benutzer über Room in der lokalen Datenbank und an Firebase übermittelt..
+ * Die Registrierung erfolgt mit Eingabefeldern, die Passwortanzeige kann, die ein-und ausgeblendet werden und
  * nach erfolgreicher Registrierung Übergang zur LoginActivity.
+ * Standortdaten werden zur Benutzerinitialisierung mitgespeichert, wenn Berechtigung vorliegt.
  */
 public class SignupActivity extends AppCompatActivity {
     EditText nameInput, emailInput, passwordInput, repasswordInput;
@@ -40,6 +41,13 @@ public class SignupActivity extends AppCompatActivity {
     ImageView passwordToggle;
     boolean isPasswordVisible = false;
 
+    /**
+     * Wird beim Starten der Aktivität aufgerufen. Initialisiert UI und Interaktionen.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +60,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     /**
-     * Initialisiert die UI-Elemente.
+     * Initialisiert die UI-Elemente und Eingabefelder.
      */
     private void initViews() {
         nameInput = findViewById(R.id.editTextTextPersonName3);
@@ -84,7 +92,8 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     /**
-     * Behandelt das Registrieren und die Validierung.
+     * Validiert die Eingaben und registriert den Benutzer bei erfolgreicher Prüfung.
+     * Die Daten werden in einem Hintergrund-Thread gespeichert und an Firebase gesendet.
      */
     private void setupSignupButton() {
         signupButton.setOnClickListener(v -> {
@@ -107,6 +116,14 @@ public class SignupActivity extends AppCompatActivity {
                 return;
             }
 
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1001);
+                return;
+            }
+
+
             FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
             fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
@@ -125,7 +142,6 @@ public class SignupActivity extends AppCompatActivity {
                     user.email = email;
                     user.password = password;
 
-                    // 📍 Standort setzen (entweder vom Gerät oder Dummy)
                     if (location != null) {
                         user.latitude = location.getLatitude();
                         user.longitude = location.getLongitude();
@@ -136,7 +152,6 @@ public class SignupActivity extends AppCompatActivity {
 
                     dao.insert(user);
 
-                    // Nutzer mit generierter ID holen
                     User savedUser = dao.findByEmail(email);
                     if (savedUser != null) {
                         Log.d("FIREBASE", "→ Sende User an Firebase: " + savedUser.getName() + " ID: " + savedUser.getId());
@@ -154,7 +169,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     /**
-     * Öffnet die LoginActivity bei Klick auf den Link.
+     * Leitet zur LoginActivity weiter, wenn der Benutzer bereits ein Konto hat.
      */
     private void setupBackToLoginLink() {
         backToLogin.setOnClickListener(v -> {
@@ -163,6 +178,15 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Reaktion auf das Ergebnis der Standortberechtigungsanfrage.
+     * @param requestCode The request code
+     * @param permissions The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions
+     *     which is either {@link android.content.pm.PackageManager#PERMISSION_GRANTED}
+     *     or {@link android.content.pm.PackageManager#PERMISSION_DENIED}. Never null.
+     *
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

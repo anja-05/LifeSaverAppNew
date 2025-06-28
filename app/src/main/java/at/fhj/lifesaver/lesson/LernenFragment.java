@@ -80,7 +80,6 @@ public class LernenFragment extends Fragment {
         lektionenListe.add(new Lektion("Schlaganfall", "html/schlaganfall.html", R.drawable.ic_schlaganfall));
         lektionenListe.add(new Lektion("Herzinfarkt", "html/herzinfarkt.html", R.drawable.ic_herzinfarkt));
         lektionenListe.add(new Lektion("Verkehrsunfall", "html/verkehrsunfall.html", R.drawable.ic_verkehrsunfall));
-
     }
 
     /**
