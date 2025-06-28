@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#8B0000"
         android:padding="16dp"
-        android:text="CPR Training - Anleitung"
+        android:text="@string/cpr_title"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20sp"
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:text="Platziere dein Smartphone auf deinem Handrücken oder am Handgelenk – mit dem Display nach oben. So kann das Gerät deine Bewegungen beim Drücken optimal erfassen."
+            android:text="@string/cpr_instructions"
             android:textAlignment="center"
             android:textColor="#333333"
             android:textSize="16sp" />
@@ -47,7 +47,7 @@
             android:id="@+id/buttonStartTraining"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Übung starten"
+            android:text="@string/start_exercise"
             android:backgroundTint="#8B0000"
             android:textColor="@android:color/white"
             android:padding="12dp" />

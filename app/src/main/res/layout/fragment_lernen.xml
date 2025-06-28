@@ -9,7 +9,7 @@
         android:id="@+id/textViewUebungUeberschrift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lektionen"
+        android:text="@string/lessons_heading"
         android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="@color/dark_red"
@@ -22,9 +22,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:text="Hier findest du verständliche Erklärungen zu den wichtigsten Erste-Hilfe-Themen. Du kannst dein Wissen direkt im Anschluss mit kurzen Quizfragen testen und festigen."
+        android:text="@string/lessons_intro"
         android:textColor="#444444"
-        android:textSize="15.5dp" />
+        android:textSize="15.5sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewLektion"

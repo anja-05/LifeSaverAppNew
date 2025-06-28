@@ -20,7 +20,7 @@
             android:id="@+id/stepTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Titel"
+            android:text="@string/step_title"
             android:textColor="@color/dark_red"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -37,7 +37,7 @@
             android:id="@+id/stepDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Beschreibung"
+            android:text="@string/step_image_decription"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:layout_marginTop="12dp" />

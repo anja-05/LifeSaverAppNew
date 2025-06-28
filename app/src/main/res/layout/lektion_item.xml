@@ -17,7 +17,7 @@
             android:id="@+id/textViewNummer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1."
+            android:text="@string/lesson_number"
             android:textColor="@color/dark_red"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -27,7 +27,7 @@
             android:id="@+id/textViewTitel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bewusstlosigkeit"
+            android:text="@string/lesson_title_item"
             android:textColor="#000000"
             android:textSize="17sp" />
     </LinearLayout>
@@ -40,7 +40,7 @@
         android:layout_marginTop="12dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_bewusstlos"
-        android:contentDescription="Lektionsbild" />
+        android:contentDescription="@string/lesson_image_description" />
 
     <ImageView
         android:id="@+id/imageViewCheckmark"
@@ -49,6 +49,6 @@
         android:layout_gravity="end"
         android:layout_marginTop="8dp"
         android:src="@drawable/check_circle"
-        android:contentDescription="Abgeschlossen"
+        android:contentDescription="@string/lesson_completed"
         android:visibility="gone" />
 </LinearLayout>

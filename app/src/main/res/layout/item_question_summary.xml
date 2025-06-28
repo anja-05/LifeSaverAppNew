@@ -11,7 +11,7 @@
         android:id="@+id/tv_question_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Frage 1: ✓"
+        android:text="@string/question_title"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/green_800" />
@@ -20,7 +20,7 @@
         android:id="@+id/tv_question_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fragetext?"
+        android:text="@string/question_text_placeholder"
         android:textColor="@color/text_primary"
         android:layout_marginTop="8dp" />
 
@@ -28,7 +28,7 @@
         android:id="@+id/tv_answer_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Richtige Antwort: Antworttext"
+        android:text="@string/correct_answer_text"
         android:textColor="@color/green_700"
         android:layout_marginTop="8dp" />
 </LinearLayout>

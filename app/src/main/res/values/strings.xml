@@ -146,5 +146,109 @@ Achte darauf, dass das obenliegende Bein im rechten Winkel zur Hüfte liegt – 
     <string name="location_permission_granted">Standortberechtigung erteilt. Bitte nochmal auf Registrieren klicken.</string>
     <string name="location_permission_required">Standortberechtigung wird benötigt</string>
 
+    <!-- BuddyFunction -->
+    <string name="open_profile">Profil öffnen</string>
+
+    <!-- Chat -->
+    <string name="write_message_hint">Nachricht schreiben...</string>
+
+    <!-- HerzdruckmassageIntro -->
+    <string name="cpr_title">CPR Training - Anleitung</string>
+    <string name="cpr_instructions">Platziere dein Smartphone auf deinem Handrücken oder am Handgelenk – mit dem Display nach oben. So kann das Gerät deine Bewegungen beim Drücken optimal erfassen.</string>
+    <string name="start_exercise">Übung starten</string>
+
+    <!-- HerzdruckmassageSummary -->
+    <string name="cpr_summary_title">Zusammenfassung</string>
+    <string name="cpr_summary_time">Trainingszeit: 00:27 Minuten</string>
+    <string name="cpr_summary_compressions">Kompressionen: 47</string>
+    <string name="cpr_summary_bpm">Durchschnittliches Tempo: 103 BPM</string>
+    <string name="cpr_summary_quality">Qualitätsindikator: 85%</string>
+    <string name="cpr_summary_tip_label">Verbesserungs-Tipp:</string>
+    <string name="cpr_summary_tip_text">Sehr gut! Achte weiterhin auf gleichmäßige Kompressionen und vollständige Entlastung.</string>
+    <string name="cpr_try_again">Erneut üben</string>
+    <string name="cpr_back_to_menu">Zurück zum Menü</string>
+
+    <!-- HerzdruckmassageTraining -->
+    <string name="cpr_running_title">CPR Training läuft</string>
+    <string name="cpr_time_label">Zeit:</string>
+    <string name="cpr_timer">00:00</string>
+    <string name="cpr_compression_count_default">0</string>
+    <string name="cpr_quality_label">Qualität</string>
+    <string name="cpr_quality_value">Qualität: 85%</string>
+    <string name="cpr_end_training">Beenden</string>
+
+    <!-- LektionDetail -->
+    <string name="lesson_title">Lektionstitel</string>
+    <string name="start_quiz">Quiz starten</string>
+    <string name="toggle_password_visibility">Toggle password visibility</string>
+
+    <!-- Quiz -->
+    <string name="quiz_title">Quiz: allergische Raktion</string>
+    <string name="question_counter">Frage 1 von 5</string>
+    <string name="score_text">Punkte: 0/5</string>
+    <string name="question_text">Was ist eine allergische Reaktion?</string>
+    <string name="quiz_option_1">Eine bakterielle Infektion</string>
+    <string name="quiz_option_2">Eine Reaktion auf Medikamente</string>
+    <string name="quiz_option_3">Eine Überreaktion des Immunsystems auf bestimmte Substanzen</string>
+    <string name="quiz_option_4">Eine Folge von schlechter Hygiene</string>
+    <string name="explanation_title">Erklärung:</string>
+    <string name="explanation_text">Eine allergische Reaktion ist eine Überempfindlichkeitsreaktion des Immunsystems auf bestimmte Substanzen (Allergene).</string>
+    <string name="button_back">Zurück</string>
+    <string name="button_next">Weiter</string>
+    <string name="quiz_finishes_title">Quiz abgeschlossen!</string>
+    <string name="final_score_text">3/5</string>
+    <string name="feedback_text">Gut gemacht! Du hast mehr als die Hälfte der Fragen richtig beantwortet.</string>
+    <string name="restart_quiz">Quiz neu starten</string>
+    <string name="return_to_lesson">Zurück zur Lektion</string>
+
+    <!-- Rautekgriff -->
+    <string name="rautek_title">Rautekgriff – Schritt für Schritt</string>
+    <string name="rautek_intro">In einer Notsituation kann es lebenswichtig sein, eine bewusstlose Person schnell aus einer Gefahrenzone zu bringen – etwa aus einem verrauchten Raum oder von einer befahrenen Straße. Der Rautekgriff ist eine effektive Rettungstechnik, mit der du eine Person sicher und mit möglichst geringem Kraftaufwand in Sicherheit bringen kannst. Der Rautekgriff darf nur angewendet werden, wenn akute Gefahr besteht und immer mit Vorsicht, um zusätzliche Verletzungen zu vermeiden. In den folgenden Schritten lernst du, wie du den Rautekgriff korrekt und sicher anwendest.</string>
+    <string name="rautek_outro">Sobald du die Person aus der Gefahrenzone gebracht hast, prüfe erneut die Atmung und sichere sie ggf. in der stabilen Seitenlage. Bei Atemstillstand Reanimation beginnen.</string>
+    <string name="toggle_password_visibility2">Toggle password visibility</string>
+    <string name="back">Back</string>
+
+    <!-- StabileSeitenlage -->
+    <string name="recovery_title">Stabile Seitenlage - Schritt für Schritt</string>
+    <string name="recovery_intro">Wenn jemand plötzlich bewusstlos wird, ist schnelles und überlegtes Handeln gefragt. Bevor du mit der stabilen Seitenlage beginnst, musst du unbedingt prüfen, ob die Person noch selbstständig atmet. Nur wenn eine normale Atmung vorhanden ist, darf die stabile Seitenlage durchgeführt werden – sie dient dann dazu, die Atemwege freizuhalten und Erstickungsgefahr zu vermeiden. Folge diesen 5 Schritten, um sicher Erste Hilfe zu leisten.</string>
+    <string name="recovery_final_note">Auch nach dem Lagern in der stabilen Seitenlage musst du die Person weiter beobachten: Kontrolliere regelmäßig Atmung, Bewusstsein und Lebenszeichen. Achte darauf, dass der Kopf überstreckt und der Mund leicht geöffnet bleibt – so bleiben die Atemwege frei. Halte die Person warm und sprich beruhigend mit ihr, bis der Notarzt eintrifft.\n\nWichtig: Atmet die Person plötzlich nicht mehr, beginne sofort mit der Herzdruckmassage!</string>
+
+    <!-- Lernen -->
+    <string name="lessons_heading">Lektionen</string>
+    <string name="lessons_intro">Hier findest du verständliche Erklärungen zu den wichtigsten Erste-Hilfe-Themen. Du kannst dein Wissen direkt im Anschluss mit kurzen Quizfragen testen und festigen.</string>
+
+    <!-- Profil -->
+    <string name="select_profile_picture">Profilbild auswählen</string>
+    <string name="profile_title">Mein Profil</string>
+    <string name="profile_name">Lina Sommer</string>
+    <string name="profile_email">lina.sommer@gmail.com</string>
+    <string name="progress_text">0 % abgeschlossen</string>
+    <string name="reset_button">Zurücksetzen</string>
+
+    <!-- Uebung -->
+    <string name="exercise_heading">Übungen</string>
+    <string name="exercise_intro">Hier kannst du dein Erste-Hilfe-Wissen durch Schritt-für-Schritt Anleitungen und interaktive Übungen festigen.</string>
+    <string name="swipe_hint">◀ Wische zwischen den Übungen ▶</string>
+
+    <!-- QuestionSummary -->
+    <string name="question_title">Frage 1: ✓</string>
+    <string name="question_text_placeholder">Fragetext?</string>
+    <string name="correct_answer_text">Richtige Antwort: Antworttext</string>
+
+    <!-- LektionItem -->
+    <string name="lesson_number">1.</string>
+    <string name="lesson_title_item">Bewusstlosigkeit</string>
+    <string name="lesson_image_description">Lektionsbild</string>
+    <string name="lesson_completed">Abgeschlossen</string>
+
+    <!-- UebungItem -->
+    <string name="exercise_title">Übungstitel</string>
+    <string name="exercise_image_description">Übungsbild</string>
+    <string name="exercise_description">Beschreibung zur Übung</string>
+
+    <!-- UebungSteps -->
+    <string name="step_title">Titel</string>
+    <string name="step_image_decription">Beschreibung</string>
+
 
 </resources>

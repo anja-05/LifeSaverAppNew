@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="@string/email"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <EditText
@@ -71,7 +71,7 @@
             android:layout_marginTop="23dp"
             android:text="@string/password"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -101,7 +101,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="12dp"
                 android:src="@drawable/baseline_remove_red_eye_24"
-                android:contentDescription="Toggle password visibility" />
+                android:contentDescription="@string/toggle_password_visibility" />
         </RelativeLayout>
 
         <androidx.appcompat.widget.AppCompatButton

@@ -13,7 +13,7 @@
         android:background="#8B0000"
         android:padding="16dp"
         android:layout_marginBottom="15dp"
-        android:text="Stabile Seitenlage - Schritt für Schritt"
+        android:text="@string/recovery_title"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20sp"
@@ -33,19 +33,17 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wenn jemand plötzlich bewusstlos wird, ist schnelles und überlegtes Handeln gefragt. Bevor du mit der stabilen Seitenlage beginnst, musst du unbedingt prüfen, ob die Person noch selbstständig atmet. Nur wenn eine normale Atmung vorhanden ist, darf die stabile Seitenlage durchgeführt werden – sie dient dann dazu, die Atemwege freizuhalten und Erstickungsgefahr zu vermeiden. Folge diesen 5 Schritten, um sicher Erste Hilfe zu leisten."
+                android:text="@string/recovery_intro"
                 android:textAlignment="viewStart"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:layout_marginBottom="24dp" />
 
-            <!-- HIER WERDEN DIE SCHRITT-CARDS DYNAMISCH EINGEFÜGT -->
-
             <TextView
                 android:id="@+id/finalNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Auch nach dem Lagern in der stabilen Seitenlage musst du die Person weiter beobachten: Kontrolliere regelmäßig Atmung, Bewusstsein und Lebenszeichen. Achte darauf, dass der Kopf überstreckt und der Mund leicht geöffnet bleibt – so bleiben die Atemwege frei. Halte die Person warm und sprich beruhigend mit ihr, bis der Notarzt eintrifft.\n\nWichtig: Atmet die Person plötzlich nicht mehr, beginne sofort mit der Herzdruckmassage!"
+                android:text="@string/recovery_final_note"
                 android:textAlignment="viewStart"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"

@@ -17,7 +17,7 @@
             android:id="@+id/tv_topic_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quiz: allergische Raktion"
+            android:text="@string/quiz_title"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/primary"
@@ -46,7 +46,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Frage 1 von 5"
+                    android:text="@string/question_counter"
                     android:textSize="14sp"
                     android:textColor="@color/text_secondary" />
 
@@ -54,7 +54,7 @@
                     android:id="@+id/tv_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Punkte: 0/5"
+                    android:text="@string/score_text"
                     android:textSize="14sp"
                     android:textColor="@color/text_secondary" />
             </LinearLayout>
@@ -85,7 +85,7 @@
                     android:id="@+id/tv_question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Was ist eine allergische Reaktion?"
+                    android:text="@string/question_text"
                     android:textSize="18sp"
                     android:textColor="@color/text_primary"
                     android:textStyle="bold"
@@ -106,7 +106,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:text="Eine bakterielle Infektion"
+                        android:text="@string/quiz_option_1"
                         android:textColor="@color/text_primary" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -125,7 +125,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:text="Eine Reaktion auf Medikamente"
+                        android:text="@string/quiz_option_2"
                         android:textColor="@color/text_primary" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -144,7 +144,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:text="Eine Überreaktion des Immunsystems auf bestimmte Substanzen"
+                        android:text="@string/quiz_option_3"
                         android:textColor="@color/text_primary" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -163,7 +163,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:text="Eine Folge von schlechter Hygiene"
+                        android:text="@string/quiz_option_4"
                         android:textColor="@color/text_primary" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -179,7 +179,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Erklärung:"
+                        android:text="@string/explanation_title"
                         android:textStyle="bold"
                         android:textColor="@color/text_primary"
                         android:layout_marginBottom="8dp" />
@@ -188,7 +188,7 @@
                         android:id="@+id/tv_explanation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Eine allergische Reaktion ist eine Überempfindlichkeitsreaktion des Immunsystems auf bestimmte Substanzen (Allergene)."
+                        android:text="@string/explanation_text"
                         android:textColor="@color/text_secondary"/>
                 </LinearLayout>
             </LinearLayout>
@@ -209,7 +209,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Zurück"
+                android:text="@string/button_back"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/gray_300"
                 android:textColor="@color/text_primary"
@@ -220,7 +220,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Weiter"
+                android:text="@string/button_next"
                 android:layout_marginStart="8dp"
                 android:backgroundTint="@color/primary"
                 android:textColor="@color/white" />
@@ -238,7 +238,7 @@
             android:id="@+id/tv_results_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quiz abgeschlossen!"
+            android:text="@string/quiz_finishes_title"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/primary"
@@ -259,7 +259,7 @@
                 android:id="@+id/tv_final_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3/5"
+                android:text="@string/final_score_text"
                 android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@color/primary" />
@@ -268,7 +268,7 @@
                 android:id="@+id/tv_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gut gemacht! Du hast mehr als die Hälfte der Fragen richtig beantwortet."
+                android:text="@string/feedback_text"
                 android:textSize="16sp"
                 android:textColor="@color/text_primary"
                 android:gravity="center"
@@ -302,7 +302,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Quiz neu starten"
+                android:text="@string/restart_quiz"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/primary"
                 android:textColor="@color/white" />
@@ -312,7 +312,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Zurück zur Lektion"
+                android:text="@string/return_to_lesson"
                 android:layout_marginStart="8dp"
                 android:backgroundTint="@color/gray_300"
                 android:textColor="@color/text_primary" />

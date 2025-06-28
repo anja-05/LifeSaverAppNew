@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="#8B0000"
         android:padding="16dp"
-        android:text="CPR Training läuft"
+        android:text="@string/cpr_running_title"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20sp"
@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zeit: "
+            android:text="@string/cpr_time_label"
             android:textColor="#333333"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -38,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="00:00"
+            android:text="@string/cpr_timer"
             android:textColor="#333333"
             android:textSize="18sp" />
 
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="0"
+            android:text="@string/cpr_compression_count_default"
             android:textColor="#FFFFFF"
             android:textSize="36sp"
             android:textStyle="bold" />
@@ -80,7 +80,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Qualität"
+        android:text="@string/cpr_quality_label"
         android:textColor="#333333"
         android:textSize="16sp" />
 
@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:text="Qualität: 85%"
+        android:text="@string/cpr_quality_value"
         android:textColor="#333333"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -110,7 +110,7 @@
         android:id="@+id/buttonEndTraining"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Beenden"
+        android:text="@string/cpr_end_training"
         android:backgroundTint="#8B0000"
         android:textColor="@android:color/white"
         android:padding="12dp" />

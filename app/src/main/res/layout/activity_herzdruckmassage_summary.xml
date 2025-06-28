@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="#8B0000"
             android:padding="16dp"
-            android:text="Zusammenfassung"
+            android:text="@string/cpr_summary_title"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="20sp"
@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Trainingszeit: 00:27 Minuten"
+                    android:text="@string/cpr_summary_time"
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Kompressionen: 47"
+                    android:text="@string/cpr_summary_compressions"
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Durchschnittliches Tempo: 103 BPM"
+                    android:text="@string/cpr_summary_bpm"
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
@@ -69,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="Qualitätsindikator: 85%"
+                    android:text="@string/cpr_summary_quality"
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:text="Verbesserungs-Tipp:"
+                    android:text="@string/cpr_summary_tip_label"
                     android:textColor="#333333"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:background="#FFF3F3"
                     android:padding="12dp"
-                    android:text="Sehr gut! Achte weiterhin auf gleichmäßige Kompressionen und vollständige Entlastung."
+                    android:text="@string/cpr_summary_tip_text"
                     android:textColor="#8B0000"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Erneut üben"
+            android:text="@string/cpr_try_again"
             android:backgroundTint="#8B0000"
             android:textColor="@android:color/white"
             android:padding="12dp" />
@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Zurück zum Menü"
+            android:text="@string/cpr_back_to_menu"
             android:backgroundTint="#B51212"
             android:textColor="@android:color/white"
             android:padding="12dp" />

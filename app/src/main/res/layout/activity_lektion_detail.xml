@@ -8,7 +8,7 @@
         android:id="@+id/textViewTitel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lektionstitel"
+        android:text="@string/lesson_title"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="#8B0000"
@@ -25,7 +25,7 @@
         android:id="@+id/buttonQuiz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quiz starten"
+        android:text="@string/start_quiz"
         android:backgroundTint="#8B0000"
         android:textColor="@android:color/white" />
 </LinearLayout>
