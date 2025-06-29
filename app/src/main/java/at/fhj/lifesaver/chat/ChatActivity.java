@@ -2,6 +2,7 @@ package at.fhj.lifesaver.chat;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -113,6 +114,20 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * Diese Methode erstellt einen gemeinsamen Schlüssel basierend auf den E-Mail-Adressen der beiden Benutzer.
+     */
+    private String generateSharedKey() {
+        String user1 = currentUser.getEmail();
+        String user2 = chatPartner.getEmail();
+
+        // Sortiere die E-Mails, damit beide Benutzer den gleichen Schlüssel erhalten
+        if (user1.compareTo(user2) > 0) {
+            return user1 + user2;
+        } else {
+            return user2 + user1;
+        }
+    }
 
     /**
      * Lädt Nachrichten aus der lokalen Datenbank zwischen den beiden Nutzern und aktualisiert die Anzeige.
@@ -134,8 +149,9 @@ public class ChatActivity extends AppCompatActivity {
         String messageText = messageInput.getText().toString().trim();
         if (!messageText.isEmpty()) {
 
-            // Verschlüsselte Nachricht für den Empfänger
-            String encryptedText = EncryptionHelper.encrypt(this, encryptionPassword, messageText);
+            // Verschlüsselung der Nachricht mit dem gemeinsamen Schlüssel
+            String sharedKey = generateSharedKey();  // Gemeinsamen Schlüssel generieren
+            String encryptedText = EncryptionHelper.encrypt(this, sharedKey, messageText);
 
             // Unverschlüsselte Nachricht für den Absender (lokal speichern)
             Message message = new Message(currentUser.getEmail(), chatPartner.getEmail(), messageText);
@@ -185,8 +201,18 @@ public class ChatActivity extends AppCompatActivity {
                             String sender = child.child("senderEmail").getValue(String.class);
                             String receiver = child.child("receiverEmail").getValue(String.class);
 
-                            String decryptedText = EncryptionHelper.decrypt(ChatActivity.this, encryptionPassword, encryptedText);
+                            // Gemeinsamen Schlüssel basierend auf den E-Mails generieren
+                            String sharedKey = generateSharedKey();
 
+                            // Entschlüsseln der verschlüsselten Nachricht
+                            String decryptedText = EncryptionHelper.decrypt(ChatActivity.this, sharedKey, encryptedText);
+
+                            // Überprüfen, ob die Entschlüsselung funktioniert hat
+                            if (decryptedText == null || decryptedText.isEmpty()) {
+                                decryptedText = "<Entschlüsselung fehlgeschlagen>";
+                            }
+
+                            // Wenn alle Werte gültig sind
                             if (decryptedText != null && sender != null && receiver != null && timestamp != null) {
                                 boolean isCurrentChat = (sender.equals(currentUser.getEmail()) && receiver.equals(chatPartner.getEmail())) ||
                                         (sender.equals(chatPartner.getEmail()) && receiver.equals(currentUser.getEmail()));
@@ -202,6 +228,7 @@ public class ChatActivity extends AppCompatActivity {
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Log.e("ChatActivity", "Fehler beim Entschlüsseln der Nachricht: " + e.getMessage());
                         }
                     }
 

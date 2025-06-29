@@ -22,15 +22,15 @@ public class EncryptionHelper {
     private static final String SALT_KEY = "encryption_salt";
 
     /**
-     * Verschlüsselt einen Text mit dem übergebenen Passwort.
+     * Verschlüsselt einen Text mit dem übergebenen Schlüssel.
      * @param context Anwendungskontext zum Zugriff auf SharedPreferences
-     * @param password Benutzerpasswort
+     * @param sharedKey Gemeinsamer Schlüssel für die Verschlüsselung
      * @param plainText zu verschlüsselnder Text
      * @return AES-verschlüsselter, Base64-kodierter String oder Originaltext bei Fehler
      */
-    public static String encrypt(Context context, String password, String plainText) {
+    public static String encrypt(Context context, String sharedKey, String plainText) {
         try {
-            SecretKeySpec key = getKeyFromPassword(context, password);
+            SecretKeySpec key = getKeyFromSharedKey(context, sharedKey);
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, key);
             byte[] encrypted = cipher.doFinal(plainText.getBytes(StandardCharsets.UTF_8));
@@ -41,15 +41,15 @@ public class EncryptionHelper {
     }
 
     /**
-     * Entschlüsselt einen Base64-kodierten AES-Text mit dem übergebenen Passwort.
+     * Entschlüsselt einen Base64-kodierten AES-Text mit dem übergebenen Schlüssel.
      * @param context Anwendungskontext zum Zugriff auf SharedPreferences
-     * @param password Benutzerpasswort
+     * @param sharedKey Gemeinsamer Schlüssel für die Entschlüsselung
      * @param encryptedText Base64-kodierter verschlüsselter Text
      * @return Entschlüsselter Klartext oder Eingabetext im Fehlerfall
      */
-    public static String decrypt(Context context, String password, String encryptedText) {
+    public static String decrypt(Context context, String sharedKey, String encryptedText) {
         try {
-            SecretKeySpec key = getKeyFromPassword(context, password);
+            SecretKeySpec key = getKeyFromSharedKey(context, sharedKey);
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.DECRYPT_MODE, key);
             byte[] decoded = Base64.decode(encryptedText, Base64.NO_WRAP);
@@ -60,17 +60,22 @@ public class EncryptionHelper {
     }
 
     /**
-     * Erzeugt einen AES-Schlüssel aus Passwort + Salt
+     * Erzeugt einen AES-Schlüssel aus dem gemeinsamen Schlüssel + Salt
      * @param context Anwendungskontext
-     * @param password Passwort zur Ableitung des Schlüssels
+     * @param sharedKey Gemeinsamer Schlüssel zur Ableitung des Schlüssels
      * @return {@link SecretKeySpec} zur Verwendung mit AES
      * @throws Exception bei Fehlern bei der Schlüsselerzeugung
      */
-    private static SecretKeySpec getKeyFromPassword(Context context, String password) throws Exception {
+    private static SecretKeySpec getKeyFromSharedKey(Context context, String sharedKey) throws Exception {
         byte[] salt = loadOrGenerateSalt(context);
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
+
+        // Verwende PBEKeySpec, nicht KeySpec
+        KeySpec spec = new PBEKeySpec(sharedKey.toCharArray(), salt, 65536, 256);
+
+        // Erzeuge den AES-Schlüssel
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         byte[] keyBytes = factory.generateSecret(spec).getEncoded();
+
         return new SecretKeySpec(keyBytes, "AES");
     }
 
