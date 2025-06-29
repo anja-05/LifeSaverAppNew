@@ -121,7 +121,6 @@ public class ChatActivity extends AppCompatActivity {
         String user1 = currentUser.getEmail();
         String user2 = chatPartner.getEmail();
 
-        // Sortiere die E-Mails, damit beide Benutzer den gleichen Schlüssel erhalten
         if (user1.compareTo(user2) > 0) {
             return user1 + user2;
         } else {
