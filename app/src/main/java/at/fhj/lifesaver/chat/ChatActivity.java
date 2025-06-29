@@ -148,10 +148,17 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage() {
         String messageText = messageInput.getText().toString().trim();
         if (!messageText.isEmpty()) {
-
-            // Verschlüsselung der Nachricht mit dem gemeinsamen Schlüssel
+            // Gemeinsamen Schlüssel generieren
             String sharedKey = generateSharedKey();  // Gemeinsamen Schlüssel generieren
-            String encryptedText = EncryptionHelper.encrypt(this, sharedKey, messageText);
+
+            // Verschlüsselte Nachricht erzeugen
+            String encryptedText = EncryptionHelper.encryptForChat(
+                    this,
+                    currentUser.getEmail(),
+                    chatPartner.getEmail(),
+                    encryptionPassword,
+                    messageText
+            );
 
             // Unverschlüsselte Nachricht für den Absender (lokal speichern)
             Message message = new Message(currentUser.getEmail(), chatPartner.getEmail(), messageText);
@@ -161,7 +168,7 @@ public class ChatActivity extends AppCompatActivity {
 
             // Asynchrone Aufgabe für die lokale Speicherung der Nachricht
             AsyncTask.execute(() -> {
-                messageDao.insertMessage(message); // Speichern der unverschlüsselten Nachricht
+                messageDao.insertMessage(message); // Unverschlüsselte Nachricht speichern
                 runOnUiThread(this::loadMessages); // Nachrichten aktualisieren
             });
 
@@ -173,7 +180,7 @@ public class ChatActivity extends AppCompatActivity {
             if (key != null) {
                 Map<String, Object> data = new HashMap<>();
                 data.put("text", encryptedText); // Verschlüsselte Nachricht speichern
-                data.put("timestamp", message.getTimestamp());
+                data.put("timestamp", System.currentTimeMillis()); // Aktuellen Zeitstempel verwenden
                 data.put("senderEmail", currentUser.getEmail());
                 data.put("receiverEmail", chatPartner.getEmail());
 
@@ -205,7 +212,13 @@ public class ChatActivity extends AppCompatActivity {
                             String sharedKey = generateSharedKey();
 
                             // Entschlüsseln der verschlüsselten Nachricht
-                            String decryptedText = EncryptionHelper.decrypt(ChatActivity.this, sharedKey, encryptedText);
+                            String decryptedText = EncryptionHelper.decryptForChat(
+                                    ChatActivity.this,
+                                    currentUser.getEmail(),
+                                    chatPartner.getEmail(),
+                                    encryptionPassword,
+                                    encryptedText
+                            );
 
                             // Überprüfen, ob die Entschlüsselung funktioniert hat
                             if (decryptedText == null || decryptedText.isEmpty()) {
@@ -244,12 +257,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Gibt eine eindeutige Unterhaltungs-ID für zwei E-Mail-Adressen zurück.
-     * @param email1 erste Email Adresse
-     * @param email2 zweite Email Adresse
-     * @return eindeutige ID für firebase
-     */
+    // Gibt eine eindeutige Unterhaltungs-ID für zwei E-Mail-Adressen zurück.
     private String getConversationId(String email1, String email2) {
         return (email1.compareToIgnoreCase(email2) < 0 ? email1 + "_" + email2 : email2 + "_" + email1)
                 .replace(".", "_")
