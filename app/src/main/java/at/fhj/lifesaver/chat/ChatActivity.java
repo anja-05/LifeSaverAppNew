@@ -148,10 +148,7 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage() {
         String messageText = messageInput.getText().toString().trim();
         if (!messageText.isEmpty()) {
-            // Gemeinsamen Schlüssel generieren
-            String sharedKey = generateSharedKey();  // Gemeinsamen Schlüssel generieren
-
-            // Verschlüsselte Nachricht erzeugen
+            String sharedKey = generateSharedKey();
             String encryptedText = EncryptionHelper.encryptForChat(
                     this,
                     currentUser.getEmail(),
@@ -160,31 +157,26 @@ public class ChatActivity extends AppCompatActivity {
                     messageText
             );
 
-            // Unverschlüsselte Nachricht für den Absender (lokal speichern)
             Message message = new Message(currentUser.getEmail(), chatPartner.getEmail(), messageText);
 
-            // Nachrichteneingabe zurücksetzen
             messageInput.setText("");
 
-            // Asynchrone Aufgabe für die lokale Speicherung der Nachricht
             AsyncTask.execute(() -> {
-                messageDao.insertMessage(message); // Unverschlüsselte Nachricht speichern
-                runOnUiThread(this::loadMessages); // Nachrichten aktualisieren
+                messageDao.insertMessage(message);
+                runOnUiThread(this::loadMessages);
             });
 
-            // Firebase: Verschlüsselte Nachricht speichern
             DatabaseReference messageRef = FirebaseDatabase.getInstance().getReference("messages");
             String conversationId = getConversationId(currentUser.getEmail(), chatPartner.getEmail());
             String key = messageRef.child(conversationId).push().getKey();
 
             if (key != null) {
                 Map<String, Object> data = new HashMap<>();
-                data.put("text", encryptedText); // Verschlüsselte Nachricht speichern
-                data.put("timestamp", System.currentTimeMillis()); // Aktuellen Zeitstempel verwenden
+                data.put("text", encryptedText);
+                data.put("timestamp", System.currentTimeMillis());
                 data.put("senderEmail", currentUser.getEmail());
                 data.put("receiverEmail", chatPartner.getEmail());
 
-                // Nachricht in Firebase speichern
                 messageRef.child(conversationId).child(key).setValue(data);
             }
         }
@@ -208,10 +200,8 @@ public class ChatActivity extends AppCompatActivity {
                             String sender = child.child("senderEmail").getValue(String.class);
                             String receiver = child.child("receiverEmail").getValue(String.class);
 
-                            // Gemeinsamen Schlüssel basierend auf den E-Mails generieren
                             String sharedKey = generateSharedKey();
 
-                            // Entschlüsseln der verschlüsselten Nachricht
                             String decryptedText = EncryptionHelper.decryptForChat(
                                     ChatActivity.this,
                                     currentUser.getEmail(),
@@ -220,23 +210,21 @@ public class ChatActivity extends AppCompatActivity {
                                     encryptedText
                             );
 
-                            // Überprüfen, ob die Entschlüsselung funktioniert hat
                             if (decryptedText == null || decryptedText.isEmpty()) {
                                 decryptedText = "<Entschlüsselung fehlgeschlagen>";
                             }
 
-                            // Wenn alle Werte gültig sind
                             if (decryptedText != null && sender != null && receiver != null && timestamp != null) {
                                 boolean isCurrentChat = (sender.equals(currentUser.getEmail()) && receiver.equals(chatPartner.getEmail())) ||
                                         (sender.equals(chatPartner.getEmail()) && receiver.equals(currentUser.getEmail()));
 
-                                if (isCurrentChat && messageDao.findDuplicate(sender, receiver, timestamp) == null) {
-                                    // Nachricht entschlüsseln und lokal speichern
-                                    Message msg = new Message(sender, receiver, decryptedText);
-                                    msg.setTimestamp(timestamp);
+                                if (isCurrentChat) {
+                                    if (messageDao.findDuplicate(sender, receiver, timestamp) == null) {
+                                        Message msg = new Message(sender, receiver, decryptedText);
+                                        msg.setTimestamp(timestamp);
 
-                                    // Lokale Speicherung der entschlüsselten Nachricht
-                                    messageDao.insertMessage(msg);
+                                        messageDao.insertMessage(msg);
+                                    }
                                 }
                             }
                         } catch (Exception e) {
@@ -245,8 +233,7 @@ public class ChatActivity extends AppCompatActivity {
                         }
                     }
 
-                    // UI mit neuen Nachrichten aktualisieren
-                    runOnUiThread(ChatActivity.this::loadMessages);
+                    runOnUiThread(() -> loadMessages());
                 });
             }
 
@@ -257,7 +244,15 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    // Gibt eine eindeutige Unterhaltungs-ID für zwei E-Mail-Adressen zurück.
+    /**
+     * Generiert eine eindeutige Konversations-ID basierend auf den E-Mail-Adressen der beiden Benutzer.
+     * Die E-Mails werden so formatiert, dass Punkte ('.') durch Unterstriche ('_') und das "@"-Zeichen
+     * durch "_at_" ersetzt werden, um eine gültige Firebase-ID zu erzeugen.
+     *
+     * @param email1 Die E-Mail-Adresse des ersten Benutzers.
+     * @param email2 Die E-Mail-Adresse des zweiten Benutzers.
+     * @return Eine eindeutige ID für die Unterhaltung zwischen den beiden Benutzern.
+     */
     private String getConversationId(String email1, String email2) {
         return (email1.compareToIgnoreCase(email2) < 0 ? email1 + "_" + email2 : email2 + "_" + email1)
                 .replace(".", "_")
