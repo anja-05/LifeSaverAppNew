@@ -95,7 +95,7 @@ Jetzt nimm den Arm, der dir am nächsten ist, und lege ihn angewinkelt neben den
 Dann greifst du das Bein, das weiter von dir entfernt ist, ziehst es am Knie nach oben und stellst den Fuß auf den Boden. Das Bein ist jetzt angewinkelt.</string>
     <string name="stabile_step3_title">3. Person auf die Seite drehen</string>
     <string name="stabile_step3_desc">Fasse jetzt mit deiner rechten Hand das angewinkelte Bein und ziehe es vorsichtig zu dir herüber. Dadurch dreht sich die Person automatisch auf die Seite.
-Achte darauf, dass das obenliegende Bein im rechten Winkel zur Hüfte liegt – es sollte wie ein „L“ geformt sein und stabil liegen.</string>
+Achte darauf, dass das obenliegende Bein im rechten Winkel zur Hüfte liegt – es sollte wie ein "L" geformt sein und stabil liegen.</string>
     <string name="stabile_step4_title">4. Mund öffnen</string>
     <string name="stabile_step4_desc">Der Kopf der Person liegt jetzt auf ihrer eigenen Hand. Öffne den Mund leicht, damit Erbrochenes oder Flüssigkeiten abfließen können, und richte den Mund dabei leicht zum Boden aus.</string>
     <string name="stabile_step5_title">5. Kopf überstrecken</string>
@@ -128,7 +128,7 @@ Achte darauf, dass das obenliegende Bein im rechten Winkel zur Hüfte liegt – 
     <string name="view_error">Fehler beim Laden der Ansicht. Bitte erneut versuchen.</string>
 
     <!-- Profil -->
-    <string name="progress_completed">%1$d %% abgeschlossen</string>
+    <string name="progress_completed">%1$d %% abgeschlossen</string>
     <string name="avatar_save_failed">Avatar konnte nicht gespeichert werden.</string>
     <string name="reset_progress_title">Fortschritt zurücksetzen?</string>
     <string name="reset_progress_message">Willst du wirklich deinen Fortschritt für alle Lektionen löschen?</string>
@@ -222,7 +222,7 @@ Achte darauf, dass das obenliegende Bein im rechten Winkel zur Hüfte liegt – 
     <string name="profile_title">Mein Profil</string>
     <string name="profile_name">Lina Sommer</string>
     <string name="profile_email">lina.sommer@gmail.com</string>
-    <string name="progress_text">0 % abgeschlossen</string>
+    <string name="progress_text">0 % abgeschlossen</string>
     <string name="reset_button">Zurücksetzen</string>
 
     <!-- Uebung -->
@@ -250,5 +250,10 @@ Achte darauf, dass das obenliegende Bein im rechten Winkel zur Hüfte liegt – 
     <string name="step_title">Titel</string>
     <string name="step_image_decription">Beschreibung</string>
 
+    <!-- Dynamic BPM Strings -->
+    <string name="speak_start_compressions">Beginnen Sie mit den Kompressionen</string>
+    <string name="bpm_no_compressions">Keine Kompressionen erkannt</string>
+    <string name="quality_no_compressions">Keine Qualitätsbewertung</string>
+    <string name="tip_no_compressions">Beginnen Sie mit den Kompressionen</string>
 
 </resources>
