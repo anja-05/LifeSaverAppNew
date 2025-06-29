@@ -134,25 +134,34 @@ public class ChatActivity extends AppCompatActivity {
         String messageText = messageInput.getText().toString().trim();
         if (!messageText.isEmpty()) {
 
+            // Verschlüsselte Nachricht für den Empfänger
             String encryptedText = EncryptionHelper.encrypt(this, encryptionPassword, messageText);
+
+            // Unverschlüsselte Nachricht für den Absender (lokal speichern)
             Message message = new Message(currentUser.getEmail(), chatPartner.getEmail(), messageText);
 
+            // Nachrichteneingabe zurücksetzen
             messageInput.setText("");
+
+            // Asynchrone Aufgabe für die lokale Speicherung der Nachricht
             AsyncTask.execute(() -> {
-                messageDao.insertMessage(message);
-                runOnUiThread(this::loadMessages);
+                messageDao.insertMessage(message); // Speichern der unverschlüsselten Nachricht
+                runOnUiThread(this::loadMessages); // Nachrichten aktualisieren
             });
 
+            // Firebase: Verschlüsselte Nachricht speichern
             DatabaseReference messageRef = FirebaseDatabase.getInstance().getReference("messages");
             String conversationId = getConversationId(currentUser.getEmail(), chatPartner.getEmail());
             String key = messageRef.child(conversationId).push().getKey();
 
             if (key != null) {
                 Map<String, Object> data = new HashMap<>();
-                data.put("text", encryptedText);
+                data.put("text", encryptedText); // Verschlüsselte Nachricht speichern
                 data.put("timestamp", message.getTimestamp());
                 data.put("senderEmail", currentUser.getEmail());
                 data.put("receiverEmail", chatPartner.getEmail());
+
+                // Nachricht in Firebase speichern
                 messageRef.child(conversationId).child(key).setValue(data);
             }
         }
@@ -181,14 +190,22 @@ public class ChatActivity extends AppCompatActivity {
                             if (decryptedText != null && sender != null && receiver != null && timestamp != null) {
                                 boolean isCurrentChat = (sender.equals(currentUser.getEmail()) && receiver.equals(chatPartner.getEmail())) ||
                                         (sender.equals(chatPartner.getEmail()) && receiver.equals(currentUser.getEmail()));
+
                                 if (isCurrentChat && messageDao.findDuplicate(sender, receiver, timestamp) == null) {
+                                    // Nachricht entschlüsseln und lokal speichern
                                     Message msg = new Message(sender, receiver, decryptedText);
                                     msg.setTimestamp(timestamp);
+
+                                    // Lokale Speicherung der entschlüsselten Nachricht
                                     messageDao.insertMessage(msg);
                                 }
                             }
-                        } catch (Exception e) {e.printStackTrace();}
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
+
+                    // UI mit neuen Nachrichten aktualisieren
                     runOnUiThread(ChatActivity.this::loadMessages);
                 });
             }
